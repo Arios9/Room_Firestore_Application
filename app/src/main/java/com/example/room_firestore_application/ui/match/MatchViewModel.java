@@ -1,16 +1,16 @@
-package com.example.room_firestore_application.ui.home;
+package com.example.room_firestore_application.ui.match;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class MatchViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public MatchViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is match fragment");
     }
 
     public LiveData<String> getText() {

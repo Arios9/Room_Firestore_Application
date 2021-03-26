@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_sport">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.room_firestore_application.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_sport"
+        android:name="com.example.room_firestore_application.ui.sport.SportFragment"
+        android:label="@string/menu_sport"
+        tools:layout="@layout/fragment_sport" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.room_firestore_application.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_athlete"
+        android:name="com.example.room_firestore_application.ui.athlete.AthleteFragment"
+        android:label="@string/menu_athlete"
+        tools:layout="@layout/fragment_athlete" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.room_firestore_application.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_team"
+        android:name="com.example.room_firestore_application.ui.team.TeamFragment"
+        android:label="@string/menu_team"
+        tools:layout="@layout/fragment_team" />
+
+    <fragment
+        android:id="@+id/nav_match"
+        android:name="com.example.room_firestore_application.ui.match.MatchFragment"
+        android:label="@string/menu_match"
+        tools:layout="@layout/fragment_match" />
 </navigation>

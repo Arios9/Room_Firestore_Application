@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui.slideshow;
+package com.example.room_firestore_application.ui.match;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.room_firestore_application.R;
 
-public class SlideshowFragment extends Fragment {
+public class MatchFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private MatchViewModel matchViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        matchViewModel =
+                new ViewModelProvider(this).get(MatchViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_match, container, false);
+        final TextView textView = root.findViewById(R.id.text_match);
+        matchViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
