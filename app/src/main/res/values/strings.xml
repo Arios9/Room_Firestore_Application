@@ -10,5 +10,5 @@
     <string name="menu_sport">Sport</string>
     <string name="menu_athlete">Athlete</string>
     <string name="menu_team">Team</string>
-    <string name="menu_match">Matches</string>
+    <string name="menu_match">Match</string>
 </resources>
