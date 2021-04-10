@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
 
 public class MatchFragment extends Fragment {
@@ -20,6 +21,7 @@ public class MatchFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.CurrentFragment = this;
         matchViewModel =
                 new ViewModelProvider(this).get(MatchViewModel.class);
         View root = inflater.inflate(R.layout.fragment_match, container, false);
