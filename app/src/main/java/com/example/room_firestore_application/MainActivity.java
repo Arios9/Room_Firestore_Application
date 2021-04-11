@@ -4,8 +4,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.example.room_firestore_application.Adapter.CustomExpandableListAdapter;
 import com.example.room_firestore_application.ui.athlete.AthleteFragment;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -28,6 +31,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +41,10 @@ import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static LocalDatabase localDatabase;
+    // public static FragmentManager outerFragmentManager; //to use outside MainActivity
 
+    private Button button;
     private Toolbar toolbar;
     private AppBarConfiguration mAppBarConfiguration;
     private String[] items;
@@ -47,24 +54,20 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListView expandableListView;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle mDrawerToggle;
-    private FragmentManager fragmentManager;
+    public static FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        localDatabase = Room.databaseBuilder(getApplicationContext(), LocalDatabase.class, "localDB").allowMainThreadQueries().build();
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         drawer = findViewById(R.id.drawer_layout);
         expandableListView = findViewById(R.id.navList); //initializing the expandable List view
 
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         List<String> title = Arrays.asList("1.Sport", "2.Athlete", "3.Team");
         List<String> childSport = Arrays.asList("Football","Basketball","Handball","Volleyball");
         List<String> childAthlete = Arrays.asList("Male","Female","Other"); //Edw xtypaei an exei mono 2 items...
-        List<String> childTeam = Arrays.asList("Wolverhampton Wanderers","Liverpool FC", "Manchester City");
+        List<String> childTeam = Arrays.asList("Football Teams","Basketball Teams", "Handball Teams");
         lstChild = new TreeMap<>();
         lstChild.put(title.get(0),childSport);
         lstChild.put(title.get(1),childAthlete);
@@ -148,28 +152,52 @@ public class MainActivity extends AppCompatActivity {
                         .get(childPosition).toString();
                 getSupportActionBar().setTitle(selectedItem);
 
-                if (items[0].equals(lstTitle.get(groupPosition))) {
-
-                    fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, new SportFragment());
-                    fragmentTransaction.addToBackStack(null);
+                switch(selectedItem){
+                    case "Football":
+                    case "Basketball":
+                    case "Handball":
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new SportFragment()).addToBackStack(null).commit();
+                        SportFragment.textSettingTest(selectedItem +" Database Fragment");
+                        break;
+                    case "Male":
+                    case "Female":
+                    case "Other":
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new AthleteFragment()).addToBackStack(null).commit();
+                        break;
+                    case "Football Teams":
+                    case "Basketball Teams":
+                    case "Handball Teams":
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, new TeamFragment()).addToBackStack(null).commit();
+                        break;
+                    default: throw new IllegalArgumentException("Not supported fragment");
                 }
-                else if (items[1].equals((lstTitle.get(groupPosition)))){
 
-                    fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.container, new AthleteFragment());
-                    fragmentTransaction.addToBackStack(null);
-                }
-                else if (items[2].equals((lstTitle.get(groupPosition)))){
+//                if (selectedItem.equals(getSupportActionBar().getTitle().toString())
+//                        /*items[0].equals(lstTitle.get(childPosition))*/) {
+//
+//
+//                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new SportFragment()).addToBackStack(null).commit();
+//                    SportFragment.textSettingTest(selectedItem);
+//                }
+//                else if (selectedItem.equals(getSupportActionBar().getTitle().toString())
+//                    /*items[0].equals(lstTitle.get(childPosition))*/){
+//
+//                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new AthleteFragment()).addToBackStack(null).commit();
+//
+//                }
+//                else if (selectedItem.equals(getSupportActionBar().getTitle().toString())
+//                    /*items[0].equals(lstTitle.get(childPosition))*/){
+//
+//                    fragmentManager.beginTransaction().replace(R.id.fragment_container, new TeamFragment()).addToBackStack(null).commit();
+//
+//                }
+//                else
+//                    throw new IllegalArgumentException("Not supported fragment");
 
-                    fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.fragment_container, new TeamFragment());
-                    fragmentTransaction.addToBackStack(null);
-                }
-                else
-                    throw new IllegalArgumentException("Not supported fragment");
+               drawer.closeDrawer(GravityCompat.START);
+               return false;
 
-                drawer.closeDrawer(GravityCompat.START);
-                return false;
-
-            }
+          }
         });
     }
 
@@ -208,4 +236,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }

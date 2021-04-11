@@ -38,7 +38,7 @@ public interface BasicDao {
     void delete(Athlete athlete);
 
     @Query("SELECT * FROM athlete")
-    LiveData<List<Athlete>> getAthlete();
+    List<Athlete> getAthlete();
 
     @Insert
     void insert(Team team);

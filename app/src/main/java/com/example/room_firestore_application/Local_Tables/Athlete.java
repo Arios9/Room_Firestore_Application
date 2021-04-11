@@ -45,6 +45,10 @@ public class Athlete {
         this.birth_year = birth_year;
     }
 
+    public Athlete() {
+
+    }
+
     public int getId() {
         return id;
     }

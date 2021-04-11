@@ -21,6 +21,10 @@ public class Sport {
         this.gender = gender;
     }
 
+    public Sport() {
+
+    }
+
     public int getId() {
         return id;
     }

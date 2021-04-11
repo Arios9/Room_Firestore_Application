@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.room_firestore_application.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class TeamFragment extends Fragment {
 
@@ -31,5 +33,35 @@ public class TeamFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Team Fragment Insert Button", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        FloatingActionButton fabEdit, fabDelete;
+        fabEdit = (FloatingActionButton) view.findViewById(R.id.fabEdit);
+        fabEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "Team Fragment Edit Button", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        fabDelete = (FloatingActionButton) view.findViewById(R.id.fabDelete);
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "Team Fragment Delete Button", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        super.onViewCreated(view, savedInstanceState);
     }
 }

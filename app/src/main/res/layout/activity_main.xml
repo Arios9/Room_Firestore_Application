@@ -12,11 +12,20 @@
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="" />
+    </FrameLayout>
 
 
     <ExpandableListView
@@ -29,3 +38,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ExpandableListView>
 </androidx.drawerlayout.widget.DrawerLayout>
+
