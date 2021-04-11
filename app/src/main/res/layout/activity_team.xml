@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:hint="Sport ID"
         android:inputType="number"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
     <EditText
         android:id="@+id/name"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:hint="Name"
         android:inputType="text"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
     <EditText
         android:id="@+id/stadium"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:hint="Stadium"
         android:inputType="text"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
     <EditText
         android:id="@+id/country"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:hint="Country"
         android:inputType="text"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
     <EditText
         android:id="@+id/city"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:hint="City"
         android:inputType="text"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
     <EditText
         android:id="@+id/birth_year"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:hint="Year"
         android:inputType="number"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
     <Button
         android:id="@+id/button"
