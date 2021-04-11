@@ -1,10 +1,18 @@
 package com.example.room_firestore_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example.room_firestore_application.MyActivities.AthleteActivity;
+import com.example.room_firestore_application.MyActivities.SportActivity;
+import com.example.room_firestore_application.MyActivities.TeamActivity;
+import com.example.room_firestore_application.ui.athlete.AthleteFragment;
+import com.example.room_firestore_application.ui.match.MatchFragment;
+import com.example.room_firestore_application.ui.sport.SportFragment;
+import com.example.room_firestore_application.ui.team.TeamFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -51,7 +59,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openRightActivity() {
-        Toast.makeText(getApplicationContext(),CurrentFragment.toString(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),CurrentFragment.toString(),Toast.LENGTH_SHORT).show();
+        Class activityClass = null;
+        if(CurrentFragment instanceof SportFragment)
+            activityClass=SportActivity.class;
+        else if(CurrentFragment instanceof AthleteFragment)
+            activityClass=AthleteActivity.class;
+        else if(CurrentFragment instanceof TeamFragment)
+            activityClass=TeamActivity.class;
+        else if(CurrentFragment instanceof MatchFragment)
+            activityClass=MainActivity.class;
+
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
     }
 
     @Override
