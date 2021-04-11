@@ -1,10 +1,19 @@
 package com.example.room_firestore_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example.room_firestore_application.MyActivities.AthleteActivity;
+import com.example.room_firestore_application.MyActivities.MatchActivity;
+import com.example.room_firestore_application.MyActivities.SportActivity;
+import com.example.room_firestore_application.MyActivities.TeamActivity;
+import com.example.room_firestore_application.ui.athlete.AthleteFragment;
+import com.example.room_firestore_application.ui.match.MatchFragment;
+import com.example.room_firestore_application.ui.sport.SportFragment;
+import com.example.room_firestore_application.ui.team.TeamFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -32,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 openRightActivity();
             }
         });
@@ -51,7 +58,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openRightActivity() {
-        Toast.makeText(getApplicationContext(),CurrentFragment.toString(),Toast.LENGTH_SHORT).show();
+        Class currentClass = null;
+
+        if (CurrentFragment instanceof SportFragment)
+            currentClass= SportActivity.class;
+        else if (CurrentFragment instanceof AthleteFragment)
+            currentClass= AthleteActivity.class;
+        else if (CurrentFragment instanceof TeamFragment)
+            currentClass= TeamActivity.class;
+        else if(CurrentFragment instanceof MatchFragment)
+            currentClass= MatchActivity.class;
+
+        Intent intent = new Intent(this, currentClass);
+        startActivity(intent);
     }
 
     @Override
