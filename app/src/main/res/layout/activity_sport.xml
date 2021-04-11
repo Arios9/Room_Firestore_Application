@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".MyActivities.SportActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:layout_margin="20dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
+
+        <RadioButton
+            android:id="@+id/radioIndividual"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Individual" />
+
+        <RadioButton
+            android:id="@+id/radioTeam"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Team" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gender"
+        android:inputType="text"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:text="Submit" />
+
+
+</LinearLayout>
