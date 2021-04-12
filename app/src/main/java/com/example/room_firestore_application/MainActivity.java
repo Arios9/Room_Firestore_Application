@@ -26,11 +26,14 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static Fragment CurrentFragment;
+    public static LocalDatabase localDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        createDatabase();
+    }
+
+    private void createDatabase() {
+        localDatabase= Room.databaseBuilder(
+                getApplicationContext(),
+                LocalDatabase.class,
+                "sports"
+        ).allowMainThreadQueries().build();
     }
 
     private void openRightActivity() {
