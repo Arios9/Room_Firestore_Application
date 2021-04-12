@@ -11,11 +11,11 @@ public class Sport {
 
     private String name;
 
-    private boolean individual;
+    private String individual;
 
     private String gender;
 
-    public Sport(String name, boolean individual, String gender) {
+    public Sport(String name, String individual, String gender) {
         this.name = name;
         this.individual = individual;
         this.gender = gender;
@@ -37,11 +37,11 @@ public class Sport {
         this.name = name;
     }
 
-    public boolean isIndividual() {
+    public String getIndividual() {
         return individual;
     }
 
-    public void setIndividual(boolean individual) {
+    public void setIndividual(String individual) {
         this.individual = individual;
     }
 
