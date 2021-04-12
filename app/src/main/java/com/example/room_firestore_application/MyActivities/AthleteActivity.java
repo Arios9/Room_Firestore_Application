@@ -41,12 +41,12 @@ public class AthleteActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int sid =  Integer.parseInt(sportID.getText().toString());
+                int sid = Integer.parseInt(sportID.getText().toString());
                 String athlete_name = name.getText().toString();
                 String athlete_surname = surname.getText().toString();
                 String athlete_country = country.getText().toString();
                 String athlete_city = city.getText().toString();
-                int athlete_birth_year =  Integer.parseInt(birth_year.getText().toString());
+                int athlete_birth_year = Integer.parseInt(birth_year.getText().toString());
 
                 Athlete athlete = new Athlete(
                     sid,
