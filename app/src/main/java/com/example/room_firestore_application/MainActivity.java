@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         localDatabase= Room.databaseBuilder(
                 getApplicationContext(),
                 LocalDatabase.class,
-                "sports"
+                "Sports"
         ).allowMainThreadQueries().build();
     }
 
