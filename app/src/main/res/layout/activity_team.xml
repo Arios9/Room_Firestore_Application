@@ -10,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/sport_id"
+        android:id="@+id/team_sport_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Sport ID"
@@ -18,7 +18,7 @@
         android:layout_margin="8dp"/>
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/team_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
@@ -26,7 +26,7 @@
         android:layout_margin="8dp"/>
 
     <EditText
-        android:id="@+id/stadium"
+        android:id="@+id/team_stadium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Stadium"
@@ -34,7 +34,7 @@
         android:layout_margin="8dp"/>
 
     <EditText
-        android:id="@+id/country"
+        android:id="@+id/team_country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Country"
@@ -42,7 +42,7 @@
         android:layout_margin="8dp"/>
 
     <EditText
-        android:id="@+id/city"
+        android:id="@+id/team_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="City"
@@ -50,7 +50,7 @@
         android:layout_margin="8dp"/>
 
     <EditText
-        android:id="@+id/birth_year"
+        android:id="@+id/team_birth_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Year"
@@ -58,7 +58,7 @@
         android:layout_margin="8dp"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/team_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
