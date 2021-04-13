@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,6 +32,7 @@ import androidx.room.RoomDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static FragmentManager fragmentManager;
     private AppBarConfiguration mAppBarConfiguration;
     public static Fragment CurrentFragment;
     public static LocalDatabase localDatabase;

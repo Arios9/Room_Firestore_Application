@@ -28,6 +28,8 @@ public interface BasicDao {
     @Query("SELECT * FROM sport")
     List<Sport> getSport();
 
+    @Query("SELECT * FROM sport WHERE gender='male'")
+    List<Sport> getMaleSport();
     @Insert
     void insert(Athlete athlete);
 

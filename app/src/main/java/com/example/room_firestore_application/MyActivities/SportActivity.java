@@ -1,6 +1,8 @@
 package com.example.room_firestore_application.MyActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +51,8 @@ public class SportActivity extends AppCompatActivity {
                 MainActivity.localDatabase.basicDao().insert(sport);
                 Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
                 resetForm();
+
+
             }
 
             private Object getRadioText() {

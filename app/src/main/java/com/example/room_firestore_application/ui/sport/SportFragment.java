@@ -1,5 +1,6 @@
 package com.example.room_firestore_application.ui.sport;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
@@ -47,7 +49,9 @@ public class SportFragment extends Fragment {
                 MainActivity.localDatabase.basicDao().delete(sport);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
                 return true;
+
             }
         });
     }
+
 }
