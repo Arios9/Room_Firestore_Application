@@ -6,14 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
-
 import java.util.ArrayList;
 import java.util.List;
 

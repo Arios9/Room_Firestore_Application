@@ -4,34 +4,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeamFragment extends Fragment {
-
-    private TeamViewModel teamViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
-        teamViewModel =
-                new ViewModelProvider(this).get(TeamViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_team, container, false);
-        final TextView textView = root.findViewById(R.id.text_team);
-        teamViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        ListView lv = root.findViewById(R.id.team_list);
+        List<Team> list = MainActivity.localDatabase.basicDao().getTeam();
+        List<String> strings = new ArrayList<>();
+        for(Team team: list) {
+            strings.add(team.toString());
+        }
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, strings);
+        lv.setAdapter(arrayAdapter);
+
         return root;
     }
 }
