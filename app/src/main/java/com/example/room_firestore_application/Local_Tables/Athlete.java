@@ -100,4 +100,17 @@ public class Athlete {
     public void setBirth_year(int birth_year) {
         this.birth_year = birth_year;
     }
+
+    @Override
+    public String toString() {
+        return "Athlete{" +
+                "id=" + id +
+                ", sport_id=" + sport_id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", birth_year=" + birth_year +
+                '}';
+    }
 }
