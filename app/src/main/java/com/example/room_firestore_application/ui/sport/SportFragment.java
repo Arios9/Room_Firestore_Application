@@ -19,8 +19,6 @@ import java.util.List;
 
 public class SportFragment extends Fragment {
 
-    private SportViewModel sportViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
