@@ -28,8 +28,15 @@ public interface BasicDao {
     @Query("SELECT * FROM sport")
     List<Sport> getSport();
 
-    @Query("SELECT * FROM sport WHERE gender='male'")
+    @Query("SELECT * FROM sport WHERE gender='Male'")
     List<Sport> getMaleSport();
+
+    @Query("SELECT * FROM sport WHERE gender='Female'")
+    List<Sport> getFemaleSport();
+
+    @Query("SELECT * FROM sport WHERE name='Football'")
+    List<Sport> getFootball();
+
     @Insert
     void insert(Athlete athlete);
 
@@ -42,6 +49,15 @@ public interface BasicDao {
     @Query("SELECT * FROM athlete")
     List<Athlete> getAthlete();
 
+    @Query("SELECT * FROM athlete WHERE sid LIKE :sportId")
+    List<Athlete> getAthleteSport(int sportId);
+
+    @Query("SELECT * FROM athlete WHERE country LIKE :countryName")
+    List<Athlete> getAthleteCountry(String countryName);
+
+    @Query("SELECT * FROM athlete WHERE birth_year < :maxAge AND birth_year > :minAge")
+    List<Athlete> getAthleteBetweenAges(int minAge, int maxAge);
+
     @Insert
     void insert(Team team);
 
@@ -53,5 +69,13 @@ public interface BasicDao {
 
     @Query("SELECT * FROM team")
     List<Team> getTeam();
+
+    @Query("SELECT * FROM team where sid LIKE :sportId")
+    List<Team> getTeamSportId(int sportId);
+
+    @Query("SELECT * FROM team where name LIKE :teamName")
+    List<Team> getTeamSportId(String teamName);
+
+
 
 }

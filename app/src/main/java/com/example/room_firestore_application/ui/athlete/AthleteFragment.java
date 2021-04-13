@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -20,6 +22,12 @@ public class AthleteFragment extends Fragment {
     private ListView listView;
     private List<Athlete> list;
 
+    //-----------tests---------
+    private Button button;
+    private ListView listViewTest;
+    private EditText editText;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
@@ -29,6 +37,24 @@ public class AthleteFragment extends Fragment {
 
         createList();
         add_delete_listener(listView);
+
+        //-----------tests-----------
+        listViewTest = root.findViewById(R.id.athleteFootballList);
+        button = root.findViewById(R.id.buttonSportAthlete);
+        editText = root.findViewById(R.id.editTextSportAthlete);
+
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                int sportId = Integer.parseInt(editText.getText().toString());
+
+                list = MainActivity.localDatabase.basicDao().getAthleteSport(sportId);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+                listViewTest.setAdapter(arrayAdapter);
+            }
+
+        });
+        //-----------------------------
 
         return root;
     }

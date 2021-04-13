@@ -5,9 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.sport.SportFragment">
-    
+
+    <Button
+        android:id="@+id/MaleSport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male Sports"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sport_list" />
+
     <ListView
         android:id="@+id/sport_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="358dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/sport_listMale"
+        android:layout_width="match_parent"
+        android:layout_height="314dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MaleSport">
+
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
