@@ -26,7 +26,7 @@ public interface BasicDao {
     void delete(Sport sport);
 
     @Query("SELECT * FROM sport")
-    LiveData<List<Sport>> getSport();
+    List<Sport> getSport();
 
     @Insert
     void insert(Athlete athlete);
@@ -38,7 +38,7 @@ public interface BasicDao {
     void delete(Athlete athlete);
 
     @Query("SELECT * FROM athlete")
-    LiveData<List<Athlete>> getAthlete();
+    List<Athlete> getAthlete();
 
     @Insert
     void insert(Team team);
@@ -50,6 +50,6 @@ public interface BasicDao {
     void delete(Team team);
 
     @Query("SELECT * FROM team")
-    LiveData<List<Team>> getTeam();
+    List<Team> getTeam();
 
 }

@@ -52,4 +52,10 @@ public class Sport {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return  "id:" + id + "\n" + name + "\n" +
+                individual + "\n" + gender ;
+    }
 }
