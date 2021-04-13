@@ -29,16 +29,9 @@ public class SportFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
-//        sportViewModel =
-//                new ViewModelProvider(this).get(SportViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_sport, container, false);
-//        final TextView textView = root.findViewById(R.id.text_sport);
-//        sportViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+
         ListView lv = root.findViewById(R.id.sport_list);
         List<Sport> list = MainActivity.localDatabase.basicDao().getSport();
         List<String> strings = new ArrayList<>();
@@ -46,8 +39,6 @@ public class SportFragment extends Fragment {
             strings.add(sport.toString());
         }
 
-
-//        String []strings ={"C","C++","Java","Python","Go"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, strings);
         lv.setAdapter(arrayAdapter);
         return root;
