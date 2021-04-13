@@ -32,8 +32,7 @@ public class TeamFragment extends Fragment {
 
         return root;
     }
-
-
+    
     private void createList() {
         list = MainActivity.localDatabase.basicDao().getTeam();
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
@@ -51,8 +50,4 @@ public class TeamFragment extends Fragment {
             }
         });
     }
-
-
-
-
 }
