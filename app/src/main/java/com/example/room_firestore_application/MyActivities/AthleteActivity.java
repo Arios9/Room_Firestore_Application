@@ -58,7 +58,7 @@ public class AthleteActivity extends AppCompatActivity {
                     athlete_birth_year
                 );
                 MainActivity.localDatabase.basicDao().insert(athlete);
-                Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
             }
 

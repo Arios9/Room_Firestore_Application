@@ -49,7 +49,7 @@ public class SportActivity extends AppCompatActivity {
                 String sportGender = gender.getText().toString();
                 Sport sport = new Sport(sportName,sportType,sportGender);
                 MainActivity.localDatabase.basicDao().insert(sport);
-                Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
             }
 

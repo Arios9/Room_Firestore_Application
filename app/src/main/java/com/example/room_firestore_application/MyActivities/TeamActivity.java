@@ -59,7 +59,7 @@ public class TeamActivity extends AppCompatActivity {
                 );
 
                 MainActivity.localDatabase.basicDao().insert(team);
-                Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
             }
 
