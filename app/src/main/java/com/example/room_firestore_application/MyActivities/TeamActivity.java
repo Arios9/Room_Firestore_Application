@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
@@ -22,9 +21,11 @@ public class TeamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
-
         setComponents();
-        setButtonListener();
+        if (getIntent().hasExtra("object"))
+            setEditAction();
+        else
+            setInsertAction();
     }
 
     private void setComponents() {
@@ -37,7 +38,7 @@ public class TeamActivity extends AppCompatActivity {
         button = findViewById(R.id.team_button);
     }
 
-    private void setButtonListener() {
+    private void setInsertAction() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,5 +72,40 @@ public class TeamActivity extends AppCompatActivity {
                 birth_year.setText("");
             }
         });
+    }
+
+    private void setEditAction() {
+        Team team = getIntent().getParcelableExtra("object");
+        loadObjectToForm(team);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int teamSportId = Integer.parseInt(sportID.getText().toString());
+                String teamName = name.getText().toString();
+                String teamStadium = stadium.getText().toString();
+                String teamCountry = country.getText().toString();
+                String teamCity = city.getText().toString();
+                int teamBirthYear = Integer.parseInt(birth_year.getText().toString());
+
+                team.setId(teamSportId);
+                team.setName(teamName);
+                team.setStadium(teamStadium);
+                team.setCountry(teamCountry);
+                team.setCity(teamCity);
+                team.setBirth_year(teamBirthYear);
+                MainActivity.localDatabase.basicDao().update(team);
+                finish();
+            }
+        });
+    }
+
+    private void loadObjectToForm(Team team) {
+        sportID.setText(String.valueOf(team.getId()));
+        name.setText(team.getName());
+        stadium.setText(team.getStadium());
+        country.setText(team.getCountry());
+        city.setText(team.getCity());
+        birth_year.setText(String.valueOf(team.getBirth_year()));
     }
 }
