@@ -33,7 +33,6 @@ public class SportActivity extends AppCompatActivity {
     }
 
 
-
     private void setComponents() {
         name = findViewById(R.id.sport_name);
         gender = findViewById(R.id.gender);
