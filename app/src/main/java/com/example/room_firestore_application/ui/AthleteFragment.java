@@ -28,7 +28,7 @@ public class AthleteFragment extends Fragment {
         listView = (ListView) root.findViewById(R.id.athlete_list);
 
         createList();
-        add_delete_listener(listView);
+        add_delete_listener();
 
         return root;
     }
@@ -39,7 +39,7 @@ public class AthleteFragment extends Fragment {
         listView.setAdapter(arrayAdapter);
     }
 
-    private void add_delete_listener(ListView listView) {
+    private void add_delete_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
