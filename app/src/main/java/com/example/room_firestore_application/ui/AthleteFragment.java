@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui.athlete;
+package com.example.room_firestore_application.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

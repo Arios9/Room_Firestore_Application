@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/nav_sport"
-        android:name="com.example.room_firestore_application.ui.sport.SportFragment"
+        android:name="com.example.room_firestore_application.ui.SportFragment"
         android:label="@string/menu_sport"
         tools:layout="@layout/fragment_sport" />
 
     <fragment
         android:id="@+id/nav_athlete"
-        android:name="com.example.room_firestore_application.ui.athlete.AthleteFragment"
+        android:name="com.example.room_firestore_application.ui.AthleteFragment"
         android:label="@string/menu_athlete"
         tools:layout="@layout/fragment_athlete" />
 
     <fragment
         android:id="@+id/nav_team"
-        android:name="com.example.room_firestore_application.ui.team.TeamFragment"
+        android:name="com.example.room_firestore_application.ui.TeamFragment"
         android:label="@string/menu_team"
         tools:layout="@layout/fragment_team" />
 
     <fragment
         android:id="@+id/nav_match"
-        android:name="com.example.room_firestore_application.ui.match.MatchFragment"
+        android:name="com.example.room_firestore_application.ui.MatchFragment"
         android:label="@string/menu_match"
         tools:layout="@layout/fragment_match" />
 </navigation>
