@@ -25,10 +25,14 @@ public class SportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sport);
-
         setComponents();
-        setButtonListener();
+        if (getIntent().hasExtra("object"))
+            setEditAction();
+        else
+            setInsertAction();
     }
+
+
 
     private void setComponents() {
         name = findViewById(R.id.sport_name);
@@ -37,24 +41,17 @@ public class SportActivity extends AppCompatActivity {
         button = findViewById(R.id.sport_button);
     }
 
-    private void setButtonListener() {
+    private void setInsertAction() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String sportName = name.getText().toString();
                 String sportType = getRadioText().toString();
                 String sportGender = gender.getText().toString();
-
                 Sport sport = new Sport(sportName,sportType,sportGender);
                 MainActivity.localDatabase.basicDao().insert(sport);
                 Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
                 resetForm();
-            }
-
-            private Object getRadioText() {
-                int id = radioGroup.getCheckedRadioButtonId();
-                radioButton = findViewById(id);
-                return radioButton.getText();
             }
 
             private void resetForm() {
@@ -63,5 +60,41 @@ public class SportActivity extends AppCompatActivity {
                 radioGroup.clearCheck();
             }
         });
+    }
+
+    private void loadObjectToForm(Sport sport) {
+        name.setText(sport.getName());
+        gender.setText(sport.getGender());
+        if(sport.getIndividual().equals("Individual"))
+            radioGroup.check(R.id.radioIndividual);
+        if(sport.getIndividual().equals("Team"))
+            radioGroup.check(R.id.radioTeam);
+    }
+
+    private void setEditAction() {
+        Sport sport = getIntent().getParcelableExtra("object");
+        loadObjectToForm(sport);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sportName = name.getText().toString();
+                String sportType = getRadioText().toString();
+                String sportGender = gender.getText().toString();
+
+                sport.setName(sportName);
+                sport.setIndividual(sportType);
+                sport.setGender(sportGender);
+                MainActivity.localDatabase.basicDao().update(sport);
+                finish();
+            }
+        });
+    }
+
+
+    private Object getRadioText() {
+        int id = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(id);
+        return radioButton.getText();
     }
 }
