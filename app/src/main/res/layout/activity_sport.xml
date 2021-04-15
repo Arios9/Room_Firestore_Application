@@ -8,6 +8,8 @@
     android:padding="16dp"
     tools:context=".MyActivities.SportActivity">
 
+
+
     <EditText
         android:id="@+id/sport_name"
         android:layout_width="match_parent"
@@ -36,13 +38,25 @@
             android:text="Team" />
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/gender"
+    <RadioGroup
+        android:id="@+id/radioGroupGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Gender"
-        android:inputType="text"
-        android:layout_margin="20dp"/>
+        android:orientation="horizontal"
+        android:layout_margin="20dp">
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Female" />
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Male" />
+    </RadioGroup>
+
 
     <Button
         android:id="@+id/sport_button"

@@ -20,7 +20,7 @@ public class SportActivity extends AppCompatActivity {
 
     private EditText name, gender;
     private Button button;
-    private RadioGroup radioGroup;
+    private RadioGroup radioGroup,radioGroup2;
     private RadioButton radioButton;
 
     @Override
@@ -34,8 +34,8 @@ public class SportActivity extends AppCompatActivity {
 
     private void setComponents() {
         name = findViewById(R.id.sport_name);
-        gender = findViewById(R.id.gender);
         radioGroup = findViewById(R.id.radio_type);
+        radioGroup2= findViewById(R.id.radioGroupGender);
         button = findViewById(R.id.sport_button);
     }
 
@@ -45,7 +45,7 @@ public class SportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String sportName = name.getText().toString();
                 String sportType = getRadioText().toString();
-                String sportGender = gender.getText().toString();
+                String sportGender = getRadioText2().toString();
 
                 Sport sport = new Sport(sportName,sportType,sportGender);
                 MainActivity.localDatabase.basicDao().insert(sport);
@@ -57,6 +57,12 @@ public class SportActivity extends AppCompatActivity {
 
             private Object getRadioText() {
                 int id = radioGroup.getCheckedRadioButtonId();
+                radioButton = findViewById(id);
+                return radioButton.getText();
+            }
+
+            private Object getRadioText2() {
+                int id = radioGroup2.getCheckedRadioButtonId();
                 radioButton = findViewById(id);
                 return radioButton.getText();
             }

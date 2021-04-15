@@ -64,12 +64,6 @@ public class AthleteFragment extends Fragment {
                 Athlete athlete = (Athlete) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(athlete);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
-                Fragment fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_container);
-                if (fragment instanceof AthleteFragment) {
-                    FragmentTransaction fragTransaction =   (getActivity()).getSupportFragmentManager().beginTransaction();
-                    fragTransaction.detach(fragment);
-                    fragTransaction.attach(fragment);
-                    fragTransaction.commit();}
                 return true;
 
             }
