@@ -1,5 +1,7 @@
 package com.example.room_firestore_application;
 
+import android.database.Cursor;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -28,6 +30,7 @@ public interface BasicDao {
     @Query("SELECT * FROM sport")
     List<Sport> getSport();
 
+
     @Query("SELECT * FROM sport WHERE gender='Male'")
     List<Sport> getMaleSport();
 
@@ -49,8 +52,8 @@ public interface BasicDao {
     @Query("SELECT * FROM athlete")
     List<Athlete> getAthlete();
 
-    @Query("SELECT * FROM athlete WHERE sid LIKE :sportId")
-    List<Athlete> getAthleteSport(int sportId);
+    @Query("SELECT a.name FROM 'sport' a INNER JOIN 'athlete' b ON a.id = b.sid WHERE b.sid = :sportid")
+    String getAthleteSport(int sportid);
 
     @Query("SELECT * FROM athlete WHERE country LIKE :countryName")
     List<Athlete> getAthleteCountry(String countryName);
@@ -58,6 +61,10 @@ public interface BasicDao {
     @Query("SELECT * FROM athlete WHERE birth_year < :maxAge AND birth_year > :minAge")
     List<Athlete> getAthleteBetweenAges(int minAge, int maxAge);
 
+    @Query("WITH S AS (SELECT sport.id, sport.name, athlete.sid, athlete.name " +
+            "FROM sport INNER JOIN athlete ON sport.id = athlete.sid)" +
+            "SELECT name FROM S")
+    String getNSportName();
     @Insert
     void insert(Team team);
 

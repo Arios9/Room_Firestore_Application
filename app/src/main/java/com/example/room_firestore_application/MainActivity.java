@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         ).allowMainThreadQueries().build();
     }
 
-    private void openRightActivity() {
+
+    public void openRightActivity() {
         Class currentClass = null;
 
         if (CurrentFragment instanceof SportFragment)

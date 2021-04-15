@@ -53,6 +53,9 @@ public class Sport {
         this.gender = gender;
     }
 
+//    public String getNameOfSport(int id){
+//        return
+//    }
     @Override
     public String toString() {
         return  "id:" + id + "\n" + name + "\n" +

@@ -23,7 +23,7 @@ public class SportFragment extends Fragment {
     private ListView listView;
     private List<Sport> list;
     //-----------tests-----------
-    private Button button;
+    private Button button,buttonFB;
     private ListView listViewTest;
     //---------------------------
 
@@ -49,6 +49,7 @@ public class SportFragment extends Fragment {
             }
 
         });
+
         //-----------------------------
         return root;
     }
