@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui.match;
+package com.example.room_firestore_application.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,21 +17,12 @@ import com.example.room_firestore_application.R;
 
 public class MatchFragment extends Fragment {
 
-    private MatchViewModel matchViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
-        matchViewModel =
-                new ViewModelProvider(this).get(MatchViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_match, container, false);
-        final TextView textView = root.findViewById(R.id.text_match);
-        matchViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }

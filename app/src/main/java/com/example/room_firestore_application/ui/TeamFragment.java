@@ -1,5 +1,6 @@
-package com.example.room_firestore_application.ui.team;
+package com.example.room_firestore_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
+import com.example.room_firestore_application.MyActivities.AthleteActivity;
+import com.example.room_firestore_application.MyActivities.TeamActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.myArrayAdapter.TeamAdapter;
 
@@ -30,25 +35,39 @@ public class TeamFragment extends Fragment {
         listView = (ListView) root.findViewById(R.id.team_list);
 
         createList();
-        add_delete_listener(listView);
+        add_edit_listener();
+        add_delete_listener();
 
         return root;
     }
 
-    private void createList() {
+
+    public void createList() {
         list = MainActivity.localDatabase.basicDao().getTeam();
-        //ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
         TeamAdapter teamAdapter = new TeamAdapter(getActivity(), list);
         listView.setAdapter(teamAdapter);
     }
 
-    private void add_delete_listener(ListView listView) {
+    private void add_edit_listener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Team team = (Team) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), TeamActivity.class);
+                intent.putExtra("object",team);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void add_delete_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Team team = (Team) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(team);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+                createList();
                 return true;
             }
         });

@@ -1,5 +1,6 @@
-package com.example.room_firestore_application.ui.sport;
+package com.example.room_firestore_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
+import com.example.room_firestore_application.MyActivities.SportActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.myArrayAdapter.SportsAdapter;
 
@@ -33,27 +35,39 @@ public class SportFragment extends Fragment {
         listView = root.findViewById(R.id.sport_list);
 
         createList();
-        add_delete_listener(listView);
+        add_edit_listener();
+        add_delete_listener();
 
         return root;
     }
 
-    private void createList() {
+    public void createList() {
         list = MainActivity.localDatabase.basicDao().getSport();
         SportsAdapter sportsAdapter = new SportsAdapter(getActivity(),list);
-        //ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
         listView.setAdapter(sportsAdapter);
     }
 
-    private void add_delete_listener(ListView listView) {
+    private void add_edit_listener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Sport sport = (Sport) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), SportActivity.class);
+                intent.putExtra("object",sport);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void add_delete_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Sport sport = (Sport) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(sport);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+                createList();
                 return true;
-
             }
         });
     }

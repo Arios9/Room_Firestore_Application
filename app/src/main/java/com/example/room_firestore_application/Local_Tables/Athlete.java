@@ -1,5 +1,8 @@
 package com.example.room_firestore_application.Local_Tables;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -17,7 +20,7 @@ import androidx.room.PrimaryKey;
             )
         }
 )
-public class Athlete {
+public class Athlete implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -44,6 +47,28 @@ public class Athlete {
         this.city = city;
         this.birth_year = birth_year;
     }
+
+    protected Athlete(Parcel in) {
+        id = in.readInt();
+        sport_id = in.readInt();
+        name = in.readString();
+        surname = in.readString();
+        country = in.readString();
+        city = in.readString();
+        birth_year = in.readInt();
+    }
+
+    public static final Creator<Athlete> CREATOR = new Creator<Athlete>() {
+        @Override
+        public Athlete createFromParcel(Parcel in) {
+            return new Athlete(in);
+        }
+
+        @Override
+        public Athlete[] newArray(int size) {
+            return new Athlete[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -112,5 +137,21 @@ public class Athlete {
                 ", city='" + city + '\'' +
                 ", birth_year=" + birth_year +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(sport_id);
+        dest.writeString(name);
+        dest.writeString(surname);
+        dest.writeString(country);
+        dest.writeString(city);
+        dest.writeInt(birth_year);
     }
 }

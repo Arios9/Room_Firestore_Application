@@ -15,10 +15,11 @@ import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.ui.SportFragment;
 
 public class SportActivity extends AppCompatActivity {
 
-    private EditText name, gender;
+    private EditText name;
     private Button button;
     private RadioGroup radioGroup,radioGroup2;
     private RadioButton radioButton;
@@ -27,10 +28,13 @@ public class SportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sport);
-
         setComponents();
-        setButtonListener();
+        if (getIntent().hasExtra("object"))
+            setEditAction();
+        else
+            setInsertAction();
     }
+
 
     private void setComponents() {
         name = findViewById(R.id.sport_name);
@@ -39,7 +43,7 @@ public class SportActivity extends AppCompatActivity {
         button = findViewById(R.id.sport_button);
     }
 
-    private void setButtonListener() {
+    private void setInsertAction() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,29 +53,65 @@ public class SportActivity extends AppCompatActivity {
 
                 Sport sport = new Sport(sportName,sportType,sportGender);
                 MainActivity.localDatabase.basicDao().insert(sport);
-                Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
 
-
-            }
-
-            private Object getRadioText() {
-                int id = radioGroup.getCheckedRadioButtonId();
-                radioButton = findViewById(id);
-                return radioButton.getText();
-            }
-
-            private Object getRadioText2() {
-                int id = radioGroup2.getCheckedRadioButtonId();
-                radioButton = findViewById(id);
-                return radioButton.getText();
+                ((SportFragment)MainActivity.CurrentFragment).createList();
             }
 
             private void resetForm() {
                 name.setText("");
-                gender.setText("");
                 radioGroup.clearCheck();
+                radioGroup2.clearCheck();
             }
         });
+    }
+
+    private void loadObjectToForm(Sport sport) {
+        name.setText(sport.getName());
+
+        if(sport.getIndividual().equals("Individual"))
+            radioGroup.check(R.id.radioIndividual);
+        if(sport.getIndividual().equals("Team"))
+            radioGroup.check(R.id.radioTeam);
+
+        if(sport.getIndividual().equals("Male"))
+            radioGroup2.check(R.id.radioMale);
+        if(sport.getIndividual().equals("Female"))
+            radioGroup2.check(R.id.radioFemale);
+    }
+
+    private void setEditAction() {
+        Sport sport = getIntent().getParcelableExtra("object");
+        loadObjectToForm(sport);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sportName = name.getText().toString();
+                String sportType = getRadioText().toString();
+                String sportGender = getRadioText2().toString();
+
+                sport.setName(sportName);
+                sport.setIndividual(sportType);
+                sport.setGender(sportGender);
+                MainActivity.localDatabase.basicDao().update(sport);
+                ((SportFragment)MainActivity.CurrentFragment).createList();
+                finish();
+            }
+        });
+    }
+
+
+    private Object getRadioText() {
+        int id = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(id);
+        return radioButton.getText();
+    }
+
+    private Object getRadioText2() {
+        int id = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(id);
+        return radioButton.getText();
     }
 }

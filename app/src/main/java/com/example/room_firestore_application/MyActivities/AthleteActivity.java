@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.ui.AthleteFragment;
+import com.example.room_firestore_application.ui.SportFragment;
 
 public class AthleteActivity extends AppCompatActivity {
 
@@ -22,9 +23,11 @@ public class AthleteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_athlete);
-
         setComponents();
-        setButtonListener();
+        if (getIntent().hasExtra("object"))
+            setEditAction();
+        else
+            setInsertAction();
     }
 
     private void setComponents() {
@@ -37,7 +40,7 @@ public class AthleteActivity extends AppCompatActivity {
         button = findViewById(R.id.athlete_button);
     }
 
-    private void setButtonListener() {
+    private void setInsertAction() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +60,9 @@ public class AthleteActivity extends AppCompatActivity {
                     athlete_birth_year
                 );
                 MainActivity.localDatabase.basicDao().insert(athlete);
-                Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
+                ((AthleteFragment)MainActivity.CurrentFragment).createList();
             }
 
             private void resetForm() {
@@ -70,5 +74,41 @@ public class AthleteActivity extends AppCompatActivity {
                 birth_year.setText("");
             }
         });
+    }
+
+    private void setEditAction() {
+        Athlete athlete = getIntent().getParcelableExtra("object");
+        loadObjectToForm(athlete);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int athleteSportId = Integer.parseInt(sportID.getText().toString());
+                String athleteName = name.getText().toString();
+                String athleteSurname = surname.getText().toString();
+                String athleteCountry = country.getText().toString();
+                String athleteCity = city.getText().toString();
+                int athleteBirthYear = Integer.parseInt(birth_year.getText().toString());
+
+                athlete.setId(athleteSportId);
+                athlete.setName(athleteName);
+                athlete.setSurname(athleteSurname);
+                athlete.setCountry(athleteCountry);
+                athlete.setCity(athleteCity);
+                athlete.setBirth_year(athleteBirthYear);
+                MainActivity.localDatabase.basicDao().update(athlete);
+                ((AthleteFragment)MainActivity.CurrentFragment).createList();
+                finish();
+            }
+        });
+    }
+
+    private void loadObjectToForm(Athlete athlete) {
+        sportID.setText(String.valueOf(athlete.getId()));
+        name.setText(athlete.getName());
+        surname.setText(athlete.getSurname());
+        country.setText(athlete.getCountry());
+        city.setText(athlete.getCity());
+        birth_year.setText(String.valueOf(athlete.getBirth_year()));
     }
 }

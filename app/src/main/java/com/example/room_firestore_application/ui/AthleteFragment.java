@@ -1,5 +1,6 @@
-package com.example.room_firestore_application.ui.athlete;
+package com.example.room_firestore_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
+import com.example.room_firestore_application.MyActivities.AthleteActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.myArrayAdapter.AthletesAdapter;
 
@@ -28,12 +30,6 @@ public class AthleteFragment extends Fragment {
     private ListView listView;
     private List<Athlete> list;
 
-    //-----------tests---------
-    private Button button,refresher;
-    private ListView listViewTest;
-    private EditText editText;
-    private TextView textView;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,14 +38,15 @@ public class AthleteFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_athlete, container, false);
         listView = (ListView) root.findViewById(R.id.athlete_list);
 
-
-        createList(root );
-        add_delete_listener(listView);
+        createList();
+        add_edit_listener();
+        add_delete_listener();
 
         return root;
     }
 
-    private void createList(View root) {
+
+    public void createList() {
 
         list = MainActivity.localDatabase.basicDao().getAthlete();
 
@@ -57,13 +54,26 @@ public class AthleteFragment extends Fragment {
         listView.setAdapter(athletesAdapter);
     }
 
-    private void add_delete_listener(ListView listView) {
+    private void add_edit_listener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Athlete athlete = (Athlete) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getActivity(), AthleteActivity.class);
+                intent.putExtra("object",athlete);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void add_delete_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Athlete athlete = (Athlete) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(athlete);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+                createList();
                 return true;
 
             }
