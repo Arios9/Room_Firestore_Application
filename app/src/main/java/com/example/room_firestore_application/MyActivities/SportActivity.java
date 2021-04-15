@@ -110,7 +110,7 @@ public class SportActivity extends AppCompatActivity {
     }
 
     private Object getRadioText2() {
-        int id = radioGroup.getCheckedRadioButtonId();
+        int id = radioGroup2.getCheckedRadioButtonId();
         radioButton = findViewById(id);
         return radioButton.getText();
     }
