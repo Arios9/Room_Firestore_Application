@@ -75,9 +75,9 @@ public class SportActivity extends AppCompatActivity {
         if(sport.getIndividual().equals("Team"))
             radioGroup.check(R.id.radioTeam);
 
-        if(sport.getIndividual().equals("Male"))
+        if(sport.getGender().equals("Male"))
             radioGroup2.check(R.id.radioMale);
-        if(sport.getIndividual().equals("Female"))
+        if(sport.getGender().equals("Female"))
             radioGroup2.check(R.id.radioFemale);
     }
 
