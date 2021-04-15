@@ -41,7 +41,7 @@ public class TeamFragment extends Fragment {
 
 
 
-    private void createList() {
+    public void createList() {
         list = MainActivity.localDatabase.basicDao().getTeam();
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
         listView.setAdapter(arrayAdapter);
@@ -66,6 +66,7 @@ public class TeamFragment extends Fragment {
                 Team team = (Team) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(team);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+                createList();
                 return true;
             }
         });

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.ui.SportFragment;
 
 public class SportActivity extends AppCompatActivity {
 
@@ -51,6 +52,7 @@ public class SportActivity extends AppCompatActivity {
                 MainActivity.localDatabase.basicDao().insert(sport);
                 Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
+                ((SportFragment)MainActivity.CurrentFragment).createList();
             }
 
             private void resetForm() {
@@ -85,6 +87,7 @@ public class SportActivity extends AppCompatActivity {
                 sport.setIndividual(sportType);
                 sport.setGender(sportGender);
                 MainActivity.localDatabase.basicDao().update(sport);
+                ((SportFragment)MainActivity.CurrentFragment).createList();
                 finish();
             }
         });

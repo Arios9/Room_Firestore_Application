@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.ui.AthleteFragment;
+import com.example.room_firestore_application.ui.SportFragment;
 
 public class AthleteActivity extends AppCompatActivity {
 
@@ -60,6 +62,7 @@ public class AthleteActivity extends AppCompatActivity {
                 MainActivity.localDatabase.basicDao().insert(athlete);
                 Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
+                ((AthleteFragment)MainActivity.CurrentFragment).createList();
             }
 
             private void resetForm() {
@@ -94,6 +97,7 @@ public class AthleteActivity extends AppCompatActivity {
                 athlete.setCity(athleteCity);
                 athlete.setBirth_year(athleteBirthYear);
                 MainActivity.localDatabase.basicDao().update(athlete);
+                ((AthleteFragment)MainActivity.CurrentFragment).createList();
                 finish();
             }
         });

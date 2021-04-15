@@ -36,7 +36,7 @@ public class SportFragment extends Fragment {
         return root;
     }
 
-    private void createList() {
+    public void createList() {
         list = MainActivity.localDatabase.basicDao().getSport();
         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
         listView.setAdapter(arrayAdapter);
@@ -61,6 +61,7 @@ public class SportFragment extends Fragment {
                 Sport sport = (Sport) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(sport);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+                createList();
                 return true;
             }
         });

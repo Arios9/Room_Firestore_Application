@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.ui.AthleteFragment;
+import com.example.room_firestore_application.ui.TeamFragment;
 
 public class TeamActivity extends AppCompatActivity {
 
@@ -61,6 +63,7 @@ public class TeamActivity extends AppCompatActivity {
                 MainActivity.localDatabase.basicDao().insert(team);
                 Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
+                ((TeamFragment)MainActivity.CurrentFragment).createList();
             }
 
             private void resetForm() {
@@ -95,6 +98,7 @@ public class TeamActivity extends AppCompatActivity {
                 team.setCity(teamCity);
                 team.setBirth_year(teamBirthYear);
                 MainActivity.localDatabase.basicDao().update(team);
+                ((TeamFragment)MainActivity.CurrentFragment).createList();
                 finish();
             }
         });
