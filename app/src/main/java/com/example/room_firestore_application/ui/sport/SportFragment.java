@@ -16,16 +16,14 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.myArrayAdapter.SportsAdapter;
+
 import java.util.List;
 
 public class SportFragment extends Fragment {
 
     private ListView listView;
     private List<Sport> list;
-    //-----------tests-----------
-    private Button button,buttonFB;
-    private ListView listViewTest;
-    //---------------------------
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,27 +35,14 @@ public class SportFragment extends Fragment {
         createList();
         add_delete_listener(listView);
 
-        //-----------tests-----------
-        listViewTest = root.findViewById(R.id.sport_listMale);
-        button = root.findViewById(R.id.MaleSport);
-        button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-               list = MainActivity.localDatabase.basicDao().getMaleSport();
-                ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
-                listViewTest.setAdapter(arrayAdapter);
-            }
-
-        });
-
-        //-----------------------------
         return root;
     }
 
     private void createList() {
         list = MainActivity.localDatabase.basicDao().getSport();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(arrayAdapter);
+        SportsAdapter sportsAdapter = new SportsAdapter(getActivity(),list);
+        //ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(sportsAdapter);
     }
 
     private void add_delete_listener(ListView listView) {

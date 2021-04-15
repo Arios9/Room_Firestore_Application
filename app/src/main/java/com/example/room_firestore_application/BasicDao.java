@@ -83,6 +83,9 @@ public interface BasicDao {
     @Query("SELECT * FROM team where name LIKE :teamName")
     List<Team> getTeamSportId(String teamName);
 
+    @Query("SELECT a.name FROM 'sport' a INNER JOIN 'team' b ON a.id = b.sid WHERE b.sid = :sportid")
+    String getTeamSport(int sportid);
+
 
 
 }

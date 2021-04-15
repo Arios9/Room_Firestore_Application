@@ -1,0 +1,151 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/athleteTable"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5sp"
+    android:layout_marginStart="5sp"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginEnd="5sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="5sp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10sp"
+        android:paddingLeft="5sp"
+        android:paddingTop="5sp"
+        android:paddingRight="5sp"
+        android:paddingBottom="5sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="122dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/tvSportNameLabel"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="Sport : " />
+            <TextView
+
+                android:id="@+id/tvNameSport"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"
+                android:text="Sport Name " />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/tvNameLabel"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Name/ID : " />
+
+            <TextView
+
+                android:id="@+id/tvTeamName"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/tvTeamID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/tvStadiumLabel"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+
+                android:text="Stadium :" />
+            <TextView
+
+                android:id="@+id/tvStadium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Stadium"
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"/>
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+
+                android:id="@+id/tvTeamCity"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="City " />
+            <TextView
+
+                android:id="@+id/tvTeamCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country"
+                android:textSize="18sp"
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textBuildYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Year" />
+        </TableRow>
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

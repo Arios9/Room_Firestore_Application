@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.myArrayAdapter.TeamAdapter;
+
 import java.util.List;
 
 public class TeamFragment extends Fragment {
@@ -35,8 +37,9 @@ public class TeamFragment extends Fragment {
 
     private void createList() {
         list = MainActivity.localDatabase.basicDao().getTeam();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(arrayAdapter);
+        //ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+        TeamAdapter teamAdapter = new TeamAdapter(getActivity(), list);
+        listView.setAdapter(teamAdapter);
     }
 
     private void add_delete_listener(ListView listView) {
