@@ -4,18 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Athlete;
+import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.ui.AthleteFragment;
-import com.example.room_firestore_application.ui.SportFragment;
+
+import java.util.List;
 
 public class AthleteActivity extends AppCompatActivity {
 
-    private EditText sportID, birth_year,
+    private Spinner spinner;
+    private EditText birth_year,
     name, surname, country, city;
     private Button button;
 
@@ -31,7 +36,8 @@ public class AthleteActivity extends AppCompatActivity {
     }
 
     private void setComponents() {
-        sportID = findViewById(R.id.athlete_sport_id);
+        spinner = findViewById(R.id.athlete_sport_id);
+        setSpinner();
         name = findViewById(R.id.athlete_name);
         surname = findViewById(R.id.athlete_surname);
         country = findViewById(R.id.athlete_country);
@@ -40,11 +46,20 @@ public class AthleteActivity extends AppCompatActivity {
         button = findViewById(R.id.athlete_button);
     }
 
+    private void setSpinner() {
+        List<Sport> list = MainActivity.localDatabase.basicDao().getIndividualSports();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, list);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+    }
+
+
     private void setInsertAction() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int sid = Integer.parseInt(sportID.getText().toString());
+                int athleteSportId = ((Sport) spinner.getSelectedItem()).getId();
                 String athlete_name = name.getText().toString();
                 String athlete_surname = surname.getText().toString();
                 String athlete_country = country.getText().toString();
@@ -52,7 +67,7 @@ public class AthleteActivity extends AppCompatActivity {
                 int athlete_birth_year = Integer.parseInt(birth_year.getText().toString());
 
                 Athlete athlete = new Athlete(
-                    sid,
+                    athleteSportId,
                     athlete_name,
                     athlete_surname,
                     athlete_country,
@@ -66,7 +81,7 @@ public class AthleteActivity extends AppCompatActivity {
             }
 
             private void resetForm() {
-                sportID.setText("");
+                spinner.setSelection(0);
                 name.setText("");
                 surname.setText("");
                 country.setText("");
@@ -83,20 +98,21 @@ public class AthleteActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int athleteSportId = Integer.parseInt(sportID.getText().toString());
+                int athleteSportId = ((Sport) spinner.getSelectedItem()).getId();
                 String athleteName = name.getText().toString();
                 String athleteSurname = surname.getText().toString();
                 String athleteCountry = country.getText().toString();
                 String athleteCity = city.getText().toString();
                 int athleteBirthYear = Integer.parseInt(birth_year.getText().toString());
 
-                athlete.setId(athleteSportId);
+                athlete.setSport_id(athleteSportId);
                 athlete.setName(athleteName);
                 athlete.setSurname(athleteSurname);
                 athlete.setCountry(athleteCountry);
                 athlete.setCity(athleteCity);
                 athlete.setBirth_year(athleteBirthYear);
                 MainActivity.localDatabase.basicDao().update(athlete);
+
                 ((AthleteFragment)MainActivity.CurrentFragment).createList();
                 finish();
             }
@@ -104,7 +120,6 @@ public class AthleteActivity extends AppCompatActivity {
     }
 
     private void loadObjectToForm(Athlete athlete) {
-        sportID.setText(String.valueOf(athlete.getId()));
         name.setText(athlete.getName());
         surname.setText(athlete.getSurname());
         country.setText(athlete.getCountry());
