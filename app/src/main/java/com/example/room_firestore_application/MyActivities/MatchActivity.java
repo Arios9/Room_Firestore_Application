@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPass {
+public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi {
 
     MatchTeamFragment fragment = new MatchTeamFragment();
     MatchIndividualFragment fragmentIndividual = new MatchIndividualFragment();
@@ -163,7 +163,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         teamB = teamBi;
     }
     @Override
-    public void onDataPass(String AthleteA, String scoreAthleteA, String athleteID){
+    public void onDataPassIndi(String AthleteA, String scoreAthleteA, String athleteID){
         athleteA = AthleteA;
         scoreAthlete = scoreAthleteA;
         athleteId = athleteID;
@@ -203,8 +203,11 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
 
+                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
+                    String identification = teamA.concat(" Match");
+
                     Map<String, Object> results = new HashMap<>();
-                    if(match_sport=="Team") {
+                    if(sportType.equals("Team")) {
 
                         results.put("Team A", teamA);
                         results.put("Team A Score", scoreTeamA);
@@ -223,8 +226,12 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 //                            .document("" + match_id).collection("Results").document(match_id + " results").set(results);
 
                        // theResultsCollection.add(results);
-                    theResultsCollection.document(match_id + " " +athleteId + " results").set(results);
-
+                    if(sportType.equals("Team")) {
+                        theResultsCollection.document(match_id + " " + identification + " results").set(results);
+                    }
+                    else {
+                        theResultsCollection.document(match_id + " " + athleteId + " results").set(results);
+                    }
                     db.collection("Matches").document("" + match_id).set(match);
 //                db.collection("Matches").add(match).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                    @Override

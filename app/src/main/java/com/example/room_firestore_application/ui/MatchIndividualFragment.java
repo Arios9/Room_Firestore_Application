@@ -33,16 +33,16 @@ public class MatchIndividualFragment extends Fragment {
     TextView tvTester;
 
 
-    OnDataPass dataPasser;
+    OnDataPassIndi dataPasser;
 
-    public interface OnDataPass{
-        public void onDataPass(String data,String dataB, String dataC);
+    public interface OnDataPassIndi{
+        public void onDataPassIndi(String data,String dataB, String dataC);
     }
 
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        dataPasser = (MatchIndividualFragment.OnDataPass) context;
+        dataPasser = (MatchIndividualFragment.OnDataPassIndi) context;
     }
     public static MatchIndividualFragment newInstance(String sport) {
 
@@ -120,7 +120,7 @@ public class MatchIndividualFragment extends Fragment {
     }
 
     public void passData(String dataA, String dataB, String dataC){
-        dataPasser.onDataPass(dataA,dataB,dataC);
+        dataPasser.onDataPassIndi(dataA,dataB,dataC);
     }
     private void resetForm() {
         editTextScore.setText("");
