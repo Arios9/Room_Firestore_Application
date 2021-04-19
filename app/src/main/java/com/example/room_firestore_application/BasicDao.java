@@ -29,7 +29,7 @@ public interface BasicDao {
 
     @Query("SELECT * FROM sport")
     List<Sport> getSport();
-    
+
     @Query("SELECT * FROM sport WHERE gender='Male'")
     List<Sport> getMaleSport();
 
@@ -91,7 +91,7 @@ public interface BasicDao {
     @Query("SELECT * FROM sport WHERE individual = 'Individual'")
     List<Sport> getIndividualSports();
 
-    @Query("SELECT * FROM sport WHERE individual = 'TEAM'")
+    @Query("SELECT * FROM sport WHERE individual = 'Team'")
     List<Sport> getTeamSports();
 
 

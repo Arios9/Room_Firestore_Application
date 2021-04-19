@@ -4,18 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.ui.AthleteFragment;
 import com.example.room_firestore_application.ui.TeamFragment;
+
+import java.util.List;
 
 public class TeamActivity extends AppCompatActivity {
 
-    private EditText sportID, birth_year,
+    private Spinner spinner;
+    private EditText birth_year,
     name, stadium, country, city;
     private Button button;
 
@@ -31,7 +37,8 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     private void setComponents() {
-        sportID = findViewById(R.id.team_sport_id);
+        spinner = findViewById(R.id.team_sport_id);
+        setSpinner();
         name = findViewById(R.id.team_name);
         stadium = findViewById(R.id.team_stadium);
         country = findViewById(R.id.team_country);
@@ -40,11 +47,19 @@ public class TeamActivity extends AppCompatActivity {
         button = findViewById(R.id.team_button);
     }
 
+    private void setSpinner() {
+        List<Sport> list = MainActivity.localDatabase.basicDao().getTeamSports();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, list);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+    }
+
     private void setInsertAction() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int sid = Integer.parseInt(sportID.getText().toString());
+                int teamSportId = ((Sport) spinner.getSelectedItem()).getId();
                 String team_name = name.getText().toString();
                 String team_stadium = stadium.getText().toString();
                 String team_country = country.getText().toString();
@@ -52,7 +67,7 @@ public class TeamActivity extends AppCompatActivity {
                 int team_birth_year = Integer.parseInt(birth_year.getText().toString());
 
                 Team team = new Team(
-                    sid,
+                    teamSportId,
                     team_name,
                     team_stadium,
                     team_country,
@@ -67,7 +82,7 @@ public class TeamActivity extends AppCompatActivity {
             }
 
             private void resetForm() {
-                sportID.setText("");
+                spinner.setSelection(0);
                 name.setText("");
                 stadium.setText("");
                 country.setText("");
@@ -84,14 +99,14 @@ public class TeamActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int teamSportId = Integer.parseInt(sportID.getText().toString());
+                int teamSportId = ((Sport) spinner.getSelectedItem()).getId();
                 String teamName = name.getText().toString();
                 String teamStadium = stadium.getText().toString();
                 String teamCountry = country.getText().toString();
                 String teamCity = city.getText().toString();
                 int teamBirthYear = Integer.parseInt(birth_year.getText().toString());
 
-                team.setId(teamSportId);
+                team.setSport_id(teamSportId);
                 team.setName(teamName);
                 team.setStadium(teamStadium);
                 team.setCountry(teamCountry);
@@ -105,7 +120,6 @@ public class TeamActivity extends AppCompatActivity {
     }
 
     private void loadObjectToForm(Team team) {
-        sportID.setText(String.valueOf(team.getId()));
         name.setText(team.getName());
         stadium.setText(team.getStadium());
         country.setText(team.getCountry());
