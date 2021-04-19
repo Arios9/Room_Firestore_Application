@@ -4,6 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyActivities.MatchActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MyActivities.TeamActivity">
+
+
+    <Spinner
+        android:id="@+id/spinnerSports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="24dp" />
+
+    <EditText
+        android:id="@+id/matchID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:hint="Match ID"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerSports" />
+
+    <EditText
+        android:id="@+id/matchDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:hint="Date"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchID" />
+
+    <EditText
+        android:id="@+id/matchCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:hint="Country"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchDate" />
+
+
+    <EditText
+        android:id="@+id/matchCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:hint="City"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchCountry" />
+
+
+    <Button
+        android:id="@+id/match_buttonToResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add Results"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchCity" />
+
+    <Button
+        android:id="@+id/match_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Submit"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toEndOf="@+id/buttonClear"
+        app:layout_constraintTop_toBottomOf="@+id/match_buttonToResults" />
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="20dp"
+        android:text="Clear"
+        app:layout_constraintBottom_toTopOf="@+id/sportTypeContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_buttonToResults"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <FrameLayout
+        android:id="@+id/sportTypeContainer"
+        android:layout_width="361dp"
+        android:layout_height="230dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_button"
+        app:layout_constraintVertical_bias="0.277">
+
+    </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

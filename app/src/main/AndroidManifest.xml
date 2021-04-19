@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Room_Firestore_Application">
-        <activity android:name=".MyActivities.MatchActivity"></activity>
+        <activity android:name=".MyActivities.MatchTypeActivity"></activity>
+        <activity android:name=".MyActivities.MatchActivity" />
         <activity android:name=".MyActivities.TeamActivity" />
         <activity android:name=".MyActivities.AthleteActivity" />
         <activity android:name=".MyActivities.SportActivity" />

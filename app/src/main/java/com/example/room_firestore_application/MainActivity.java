@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.multidex.MultiDex;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;

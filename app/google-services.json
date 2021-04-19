@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "459117003443",
+    "project_id": "room-firestore-applicati-491f5",
+    "storage_bucket": "room-firestore-applicati-491f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459117003443:android:b8f8a98cce5f581162e6c6",
+        "android_client_info": {
+          "package_name": "com.example.room_firestore_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459117003443-m6202ohqap7d4d364fsp01km9qcm0166.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHkNcIpNIEWDT3th2naPXdxrzWsJgmrC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459117003443-m6202ohqap7d4d364fsp01km9qcm0166.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

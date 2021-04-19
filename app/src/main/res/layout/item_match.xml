@@ -1,0 +1,123 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/athleteTable"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5sp"
+    android:layout_marginStart="5sp"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginEnd="5sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="5sp">
+
+    <TableLayout
+        android:layout_width="348dp"
+        android:layout_height="736dp"
+        android:layout_margin="30dp"
+        android:layout_marginTop="5dp"
+        android:padding="10sp"
+        android:paddingLeft="5sp"
+        android:paddingTop="5sp"
+        android:paddingRight="5sp"
+        android:paddingBottom="5sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/tvTeamAName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team A"
+                android:textSize="20sp" />
+
+            <TextView
+
+                android:id="@+id/tvBlank"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"
+                android:text="" />
+
+            <TextView
+
+                android:id="@+id/tvTeamBName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team B"
+                android:textSize="20sp" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/tvBlank1"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textSize="15sp" />
+
+            <TextView
+
+                android:id="@+id/tvSportName"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"
+                android:text="RESULT"
+                android:textSize="15sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:id="@+id/tvTeamAScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TeamA Score"
+                android:textSize="22sp" />
+
+            <TextView
+
+                android:id="@+id/tvBlank2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12sp"
+                android:layout_marginLeft="12sp"
+                android:text=""
+                android:textSize="18sp" />
+
+            <TextView
+
+                android:id="@+id/tvTeamBScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TeamB Score"
+                android:textSize="22sp" />
+        </TableRow>
+
+    </TableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
