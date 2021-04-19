@@ -9,12 +9,10 @@
     tools:context=".MyActivities.TeamActivity">
 
 
-    <EditText
+    <Spinner
         android:id="@+id/team_sport_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sport ID"
-        android:inputType="number"
         android:layout_margin="8dp"/>
 
     <EditText
