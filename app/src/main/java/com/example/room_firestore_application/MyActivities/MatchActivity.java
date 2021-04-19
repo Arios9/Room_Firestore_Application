@@ -204,11 +204,11 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Sport", match_sport);
 
                     String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
-                    String identification = teamA.concat(" Match");
+                    String identification="";
 
                     Map<String, Object> results = new HashMap<>();
                     if(sportType.equals("Team")) {
-
+                        identification = teamA.concat(" Match");
                         results.put("Team A", teamA);
                         results.put("Team A Score", scoreTeamA);
                         results.put("Team B", teamB);
