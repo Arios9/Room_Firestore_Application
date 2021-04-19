@@ -129,6 +129,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
                     fragment.setArguments(bundle);
                     ft = getSupportFragmentManager().beginTransaction().replace(R.id.sportTypeContainer, fragment, null);
+                    //ft.commit();
+                    ft.detach(fragment);
+                    ft.attach(fragment);
                     ft.commit();
                     ft.addToBackStack(null);
                 }
@@ -140,6 +143,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
                     fragmentIndividual.setArguments(bundle);
                     ft = getSupportFragmentManager().beginTransaction().replace(R.id.sportTypeContainer,fragmentIndividual,null);
+                    //ft.commit();
+                    ft.detach(fragmentIndividual);
+                    ft.attach(fragmentIndividual);
                     ft.commit();
                     ft.addToBackStack(null);
                 }
