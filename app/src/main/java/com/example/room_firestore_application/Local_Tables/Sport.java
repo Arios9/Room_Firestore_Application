@@ -75,9 +75,6 @@ public class Sport implements Parcelable {
         this.gender = gender;
     }
 
-//    public String getNameOfSport(int id){
-//        return
-//    }
     @Override
     public String toString() {
         return "Sport{" +
