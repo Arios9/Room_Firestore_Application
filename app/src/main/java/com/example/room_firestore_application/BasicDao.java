@@ -29,8 +29,7 @@ public interface BasicDao {
 
     @Query("SELECT * FROM sport")
     List<Sport> getSport();
-
-
+    
     @Query("SELECT * FROM sport WHERE gender='Male'")
     List<Sport> getMaleSport();
 
@@ -65,6 +64,7 @@ public interface BasicDao {
             "FROM sport INNER JOIN athlete ON sport.id = athlete.sid)" +
             "SELECT name FROM S")
     String getNSportName();
+
     @Insert
     void insert(Team team);
 
@@ -85,6 +85,16 @@ public interface BasicDao {
 
     @Query("SELECT a.name FROM 'sport' a INNER JOIN 'team' b ON a.id = b.sid WHERE b.sid = :sportid")
     String getTeamSport(int sportid);
+
+    // DROPDOWNS
+
+    @Query("SELECT * FROM sport WHERE individual = 'Individual'")
+    List<Sport> getIndividualSports();
+
+    @Query("SELECT * FROM sport WHERE individual = 'TEAM'")
+    List<Sport> getTeamSports();
+
+
 
 
 
