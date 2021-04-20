@@ -75,14 +75,10 @@ public class Sport implements Parcelable {
         this.gender = gender;
     }
 
+
     @Override
     public String toString() {
-        return "Sport{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", individual='" + individual + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
+        return name + " " + gender;
     }
 
     @Override
