@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyActivities.MatchTypeActivity">
+
+
+    <Spinner
+        android:id="@+id/spinnerTeamAt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerTeamBt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginRight="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etTeamAScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginTop="84dp"
+        android:hint="Team A Score"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTeamA" />
+
+    <EditText
+        android:id="@+id/etTeamBScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="80dp"
+        android:hint="Team B Score"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/etTeamAScore"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTeamB" />
+
+    <Button
+        android:id="@+id/button_return"
+        android:layout_width="281dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="44dp"
+        android:text="Submit"
+        app:layout_constraintTop_toBottomOf="@+id/etTeamBScore"
+        tools:layout_editor_absoluteX="65dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

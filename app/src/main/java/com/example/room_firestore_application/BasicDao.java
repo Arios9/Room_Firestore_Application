@@ -39,6 +39,9 @@ public interface BasicDao {
     @Query("SELECT * FROM sport WHERE name='Football'")
     List<Sport> getFootball();
 
+    @Query("SELECT individual FROM sport WHERE name LIKE :name")
+    String getSportType(String name);
+
     @Insert
     void insert(Athlete athlete);
 
@@ -53,6 +56,9 @@ public interface BasicDao {
 
     @Query("SELECT a.name FROM 'sport' a INNER JOIN 'athlete' b ON a.id = b.sid WHERE b.sid = :sportid")
     String getAthleteSport(int sportid);
+
+    @Query("SELECT a.surname FROM 'athlete' a INNER JOIN 'sport' b ON a.sid = b.id WHERE b.name =:sportName")
+    List<String> getAthleteBySport(String sportName);
 
     @Query("SELECT * FROM athlete WHERE country LIKE :countryName")
     List<Athlete> getAthleteCountry(String countryName);
@@ -80,10 +86,13 @@ public interface BasicDao {
     @Query("SELECT * FROM team where sid LIKE :sportId")
     List<Team> getTeamSportId(int sportId);
 
+    @Query("SELECT a.name FROM 'team' a JOIN 'sport' b ON a.sid = b.id AND b.name = :sportName")
+    List<String> getTeamsBySport(String sportName);
+
     @Query("SELECT * FROM team where name LIKE :teamName")
     List<Team> getTeamSportId(String teamName);
 
-    @Query("SELECT a.name FROM 'sport' a INNER JOIN 'team' b ON a.id = b.sid WHERE b.sid = :sportid")
+    @Query("SELECT a.name FROM 'sport' a INNER JOIN 'team' b ON a.id = b.sid WHERE b.sid = :sportid ")
     String getTeamSport(int sportid);
 
     // DROPDOWNS

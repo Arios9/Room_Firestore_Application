@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyActivities.MatchTypeActivity">
+
+    <Spinner
+        android:id="@+id/spinnerTeamAf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
+
+    <Spinner
+        android:id="@+id/spinnerTeamBf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="132dp"
+        android:layout_marginRight="132dp"
+ />
+
+    <EditText
+        android:id="@+id/etTeamASc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:hint="Team A Score"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/etTeamBSc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Team B Score"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_confirm_results"
+        android:layout_width="281dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginBottom="440dp"
+        android:text="Add Result"
+/>
+</LinearLayout>
