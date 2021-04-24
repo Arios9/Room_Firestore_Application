@@ -50,7 +50,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     //Variables to contain data passed from the fragment;
     static String teamA,teamB,scoreTeamA,scoreTeamB;
 
-    static String athleteA,scoreAthlete, athleteId; List<String> myList = new ArrayList<>();
+    static String athleteA,scoreAthlete, athleteId;
 
 
     private EditText matchID,matchDate, matchCity, matchCountry, scoreA, scoreB;
@@ -198,6 +198,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 //                String team_b = String.valueOf(sTeamB.getSelectedItem());
 
                     Map<String, Object> match = new HashMap<>();
+                    match.put("ID" , match_id);
                     match.put("City", match_city);
                     match.put("Country", match_country);
                     match.put("Date", match_date);
@@ -215,8 +216,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                         results.put("Team B Score", scoreTeamB);
                     }
                     else{
-                        results.put("Athlete " + athleteId, athleteA);
-                        results.put("Score Athlete "+ athleteId , scoreAthlete);
+                        results.put("Athlete" , athleteA);
+                        results.put("Score Athlete", scoreAthlete);
                     }
 
                     CollectionReference theResultsCollection = db.collection("Matches")

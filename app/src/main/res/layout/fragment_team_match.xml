@@ -1,5 +1,5 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/athleteTable"
 
@@ -27,8 +27,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
 
             <TextView
 
@@ -43,9 +44,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tvBlank"
 
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="12sp"
                 android:layout_marginLeft="12sp"
                 android:text="" />
@@ -62,15 +61,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
 
                 android:id="@+id/tvBlank1"
 
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:text=" "
                 android:textSize="15sp" />
@@ -80,8 +78,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tvResult"
 
                 android:layout_width="wrap_content"
-
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12sp"
                 android:layout_marginLeft="12sp"
                 android:text="RESULT"
@@ -89,8 +86,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
 
@@ -120,4 +117,4 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         </TableRow>
 
     </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
