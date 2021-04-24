@@ -46,18 +46,18 @@ public class MatchFragment extends Fragment {
     Fragment indiMatchFrag = new IndiMatchFragment();
 
     ListView listView;
-    List<String> list = new ArrayList<String>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference documentReference;
     CollectionReference collectionReference, collectionReferenceInside;
 
-    //Initializing arrays for parametric use:
-    ArrayList<String> myIds = new ArrayList<String>();
-    ArrayList<String> sportTypeAr = new ArrayList<String>();
-    ArrayList<String> sportCityAr = new ArrayList<String>();
-    ArrayList<String> sportCountryAr = new ArrayList<String>();
-    ArrayList<String> sportDateAr = new ArrayList<String>();
-    ArrayList<String> sportNameAr = new ArrayList<String>();
+
+    List<String> list ;
+    ArrayList<String> myIds ;
+    ArrayList<String> sportTypeAr ;
+    ArrayList<String> sportCityAr ;
+    ArrayList<String> sportCountryAr ;
+    ArrayList<String> sportDateAr ;
+    ArrayList<String> sportNameAr ;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,46 +70,59 @@ public class MatchFragment extends Fragment {
         listView = (ListView) root.findViewById(R.id.match_list);
         addOnClickListener();
         collectionReference = db.collection("Matches");
+        createList();
 
+         return root;
+    }
+
+    public void createList() {
         collectionReference
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                           @Override
-                                           public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                               if (task.isSuccessful()) {
-                                                   for (QueryDocumentSnapshot document : task.getResult()) {
-                                                       String city = document.getString("City");
-                                                       String country = document.getString("Country");
-                                                       String date = document.getString("Date");
-                                                       String sport = document.getString("Sport");
-                                                       String match_id = document.getString("ID");
-                                                       list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
-                                                       myIds.add(match_id);
-                                                       sportCityAr.add(city);
-                                                       sportCountryAr.add(country);
-                                                       sportNameAr.add(sport);
-                                                       sportDateAr.add(date);
-                                                       if(MainActivity.localDatabase.basicDao().getSportType(sport).equals("Team")) {
-                                                           sportTypeAr.add("Team");
-                                                       }
-                                                       else{
-                                                           sportTypeAr.add("Individual");
-                                                       }
-                                                       if (getContext() != null) {
-                                                           ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
-                                                           listView.setAdapter(adapter);
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String city = document.getString("City");
+                                String country = document.getString("Country");
+                                String date = document.getString("Date");
+                                String sport = document.getString("Sport");
+                                String match_id = document.getString("ID");
 
-                                                       }
-                                                   }
+                                list = new ArrayList<String>();
+                                myIds = new ArrayList<String>();
+                                sportTypeAr = new ArrayList<String>();
+                                sportCityAr = new ArrayList<String>();
+                                sportCountryAr = new ArrayList<String>();
+                                sportDateAr = new ArrayList<String>();
+                                sportNameAr = new ArrayList<String>();
 
-                                               } else {
-                                                   Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
-                                               }
-                                           }
-                                       });
+                                list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
+                                myIds.add(match_id);
+                                sportCityAr.add(city);
+                                sportCountryAr.add(country);
+                                sportNameAr.add(sport);
+                                sportDateAr.add(date);
+                                if(MainActivity.localDatabase.basicDao().getSportType(sport).equals("Team")) {
+                                    sportTypeAr.add("Team");
+                                }
+                                else{
+                                    sportTypeAr.add("Individual");
+                                }
+                                if (getContext() != null) {
+                                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+                                    listView.setAdapter(adapter);
+
+                                }
+                            }
+
+                        } else {
+                            Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
 
-        return root;
     }
 
 

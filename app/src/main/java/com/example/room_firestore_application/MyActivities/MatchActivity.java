@@ -25,6 +25,7 @@ import com.example.room_firestore_application.ui.AthleteFragment;
 import com.example.room_firestore_application.ui.MatchFragment;
 import com.example.room_firestore_application.ui.MatchIndividualFragment;
 import com.example.room_firestore_application.ui.MatchTeamFragment;
+import com.example.room_firestore_application.ui.SportFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -257,6 +258,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     Toast.makeText(getApplicationContext(), "Inserted", Toast.LENGTH_SHORT).show();
                     if(match_sport=="Team")
                     resetForm();
+
+
+                    ((MatchFragment)MainActivity.CurrentFragment).createList();
+
 
                 }
 
