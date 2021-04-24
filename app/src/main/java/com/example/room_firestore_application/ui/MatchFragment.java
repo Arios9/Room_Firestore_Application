@@ -82,21 +82,22 @@ public class MatchFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+
+                            list = new ArrayList<String>();
+                            myIds = new ArrayList<String>();
+                            sportTypeAr = new ArrayList<String>();
+                            sportCityAr = new ArrayList<String>();
+                            sportCountryAr = new ArrayList<String>();
+                            sportDateAr = new ArrayList<String>();
+                            sportNameAr = new ArrayList<String>();
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String city = document.getString("City");
                                 String country = document.getString("Country");
                                 String date = document.getString("Date");
                                 String sport = document.getString("Sport");
                                 String match_id = document.getString("ID");
-
-                                list = new ArrayList<String>();
-                                myIds = new ArrayList<String>();
-                                sportTypeAr = new ArrayList<String>();
-                                sportCityAr = new ArrayList<String>();
-                                sportCountryAr = new ArrayList<String>();
-                                sportDateAr = new ArrayList<String>();
-                                sportNameAr = new ArrayList<String>();
-
+                                
                                 list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
                                 myIds.add(match_id);
                                 sportCityAr.add(city);
