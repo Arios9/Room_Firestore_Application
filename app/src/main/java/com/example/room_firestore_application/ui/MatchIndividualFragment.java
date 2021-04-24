@@ -88,7 +88,7 @@ public class MatchIndividualFragment extends Fragment {
                     sItems = view.findViewById(R.id.spinner2);
                     sItems.setAdapter(adapterAthletesSport);
                     buttonSetAthlete = new Button(getActivity());
-                    buttonSetAthlete.setText("Submit");
+                    buttonSetAthlete.setText("Add Result");
                     buttonSetAthlete.setBackgroundColor(getResources().getColor(R.color.purple_500));
                     buttonSetAthlete.setTextColor(getResources().getColor(R.color.white));
                     ll.addView(buttonSetAthlete);

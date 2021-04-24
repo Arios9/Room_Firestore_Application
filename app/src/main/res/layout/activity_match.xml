@@ -24,7 +24,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:hint="Match ID"
-        android:inputType="text"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinnerSports" />
 
@@ -36,7 +36,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:hint="Date"
-        android:inputType="text"
+        android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/matchID" />
 
@@ -78,38 +78,33 @@
 
     <Button
         android:id="@+id/match_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="20dp"
         android:text="Submit"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
-        app:layout_constraintStart_toEndOf="@+id/buttonClear"
-        app:layout_constraintTop_toBottomOf="@+id/match_buttonToResults" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sportTypeContainer" />
 
     <Button
         android:id="@+id/buttonClear"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
-        android:layout_marginTop="20dp"
         android:text="Clear"
-        app:layout_constraintBottom_toTopOf="@+id/sportTypeContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/match_buttonToResults"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintTop_toBottomOf="@+id/match_buttonToResults" />
 
     <FrameLayout
         android:id="@+id/sportTypeContainer"
         android:layout_width="361dp"
         android:layout_height="230dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/match_button"
-        app:layout_constraintVertical_bias="0.277">
+        app:layout_constraintTop_toBottomOf="@+id/buttonClear">
 
     </FrameLayout>
 

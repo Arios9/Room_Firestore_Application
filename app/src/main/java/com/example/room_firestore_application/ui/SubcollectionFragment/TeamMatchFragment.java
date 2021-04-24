@@ -22,22 +22,27 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class TeamMatchFragment extends Fragment {
 
-    TextView tvTeamA,tvTeamB,tvResult,tvScoreA,tvScoreB;
+    TextView tvTeamA,tvTeamB,tvResult,tvScoreA,tvScoreB,tvName, tvDate, tvCity, tvCountry;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference dref;
+   // DocumentReference dref;
     CollectionReference cref;
 
-   String tag;
+    String tag ,city,country,date, name;
 
     public TeamMatchFragment() {
         // Required empty public constructor
     }
 
-    public static TeamMatchFragment newInstance(String tag) {
+    public static TeamMatchFragment newInstance(String tag, String name, String date, String city, String country) {
         TeamMatchFragment fragment = new TeamMatchFragment();
         Bundle args = new Bundle();
         args.putString("ID", tag);
+        args.putString("Name", name);
+        args.putString("Date", date);
+        args.putString("City",city);
+        args.putString("Country", country);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,10 +59,24 @@ public class TeamMatchFragment extends Fragment {
         tvScoreA = view.findViewById(R.id.tvTeamAScore);
         tvScoreB = view.findViewById(R.id.tvTeamBScore);
 
+        tvName = view.findViewById(R.id.textSportName);
+        tvDate = view.findViewById(R.id.textDate);
+        tvCity = view.findViewById(R.id.textCity);
+        tvCountry = view.findViewById(R.id.textCountry);
+
 
         Bundle args = getArguments();
         tag = args.getString("ID");
+        city = args.getString("City");
+        country = args.getString("Country");
+        date = args.getString("Date");
+        name = args.getString("Name");
 
+
+        tvName.setText(name);
+        tvDate.setText(date);
+        tvCity.setText(city);
+        tvCountry.setText(country);
         cref = db.collection("Matches")
                 .document(""+tag).collection("Results");
 
@@ -77,6 +96,8 @@ public class TeamMatchFragment extends Fragment {
                                 tvTeamB.setText(teamB);
                                 tvScoreA.setText(teamAscore);
                                 tvScoreB.setText(teamBscore);
+
+
                                 if (getContext() != null) {
                                     if (Integer.parseInt(teamAscore) > Integer.parseInt(teamBscore)) {
                                         tvScoreA.setTextColor(getResources().getColor(R.color.green));

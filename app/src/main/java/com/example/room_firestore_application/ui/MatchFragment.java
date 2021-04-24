@@ -51,9 +51,13 @@ public class MatchFragment extends Fragment {
     DocumentReference documentReference;
     CollectionReference collectionReference, collectionReferenceInside;
 
-    //stack overflow solutions:
+    //Initializing arrays for parametric use:
     ArrayList<String> myIds = new ArrayList<String>();
     ArrayList<String> sportTypeAr = new ArrayList<String>();
+    ArrayList<String> sportCityAr = new ArrayList<String>();
+    ArrayList<String> sportCountryAr = new ArrayList<String>();
+    ArrayList<String> sportDateAr = new ArrayList<String>();
+    ArrayList<String> sportNameAr = new ArrayList<String>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +85,10 @@ public class MatchFragment extends Fragment {
                                                        String match_id = document.getString("ID");
                                                        list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
                                                        myIds.add(match_id);
+                                                       sportCityAr.add(city);
+                                                       sportCountryAr.add(country);
+                                                       sportNameAr.add(sport);
+                                                       sportDateAr.add(date);
                                                        if(MainActivity.localDatabase.basicDao().getSportType(sport).equals("Team")) {
                                                            sportTypeAr.add("Team");
                                                        }
@@ -113,13 +121,24 @@ public class MatchFragment extends Fragment {
 
                 String myId = myIds.get(position);
                 String sportType = sportTypeAr.get(position);
+                String sportName = sportNameAr.get(position);
+                String sportCity = sportCityAr.get(position);
+                String sportCountry = sportCountryAr.get(position);
+                String sportDate = sportDateAr.get(position);
+
+                Bundle bundle = new Bundle();
+
 
                 if(sportType.equals("Team")) {
                     // String tag = String.valueOf(view.getTag());
-                    Bundle bundle = new Bundle();
+
                     bundle.putString("ID", myId);
                     // bundle.putString("sportype", sportType);
 
+                    bundle.putString("City",sportCity);
+                    bundle.putString("Country", sportCountry);
+                    bundle.putString("Date", sportDate);
+                    bundle.putString("Name", sportName);
                     teamMatchFrag.setArguments(bundle);
 
                     ft = getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, teamMatchFrag, null);
@@ -132,7 +151,7 @@ public class MatchFragment extends Fragment {
                 }
                 else{
                     //Toast.makeText(getActivity(),"Not a team match", Toast.LENGTH_LONG).show();
-                    Bundle bundle = new Bundle();
+
                     bundle.putString("ID", myId);
 
                     indiMatchFrag.setArguments(bundle);
