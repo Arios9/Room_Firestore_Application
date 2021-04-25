@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.AthleteActivity;
+import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.ui.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.ui.SubcollectionFragment.TeamMatchFragment;
@@ -68,12 +69,16 @@ public class MatchFragment extends Fragment {
 //                .document("RUN1");
 
         listView = (ListView) root.findViewById(R.id.match_list);
-        addOnClickListener();
         collectionReference = db.collection("Matches");
         createList();
+        addOnClickListener();
+        add_edit_listener();
 
-         return root;
+
+        return root;
     }
+
+
 
     public void createList() {
         collectionReference
@@ -126,6 +131,29 @@ public class MatchFragment extends Fragment {
 
     }
 
+    private void add_edit_listener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String sid = myIds.get(position);
+                String city = sportCityAr.get(position);
+                String country = sportCountryAr.get(position);
+                String date = sportDateAr.get(position);
+
+                Intent intent = new Intent(getActivity(), MatchActivity.class);
+
+                intent.putExtra("id",sid);
+                intent.putExtra("date",date);
+                intent.putExtra("country",country);
+                intent.putExtra("city",city);
+
+                startActivity(intent);
+
+                return true;
+            }
+        });
+    }
 
     private void addOnClickListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

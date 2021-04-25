@@ -59,6 +59,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     private Button buttonToResults, buttonSubmit, buttonClear;
     private TextView implemented;
 
+
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -70,9 +72,23 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         setComponents();
         setCheckSportTypeAction();
 
-        setInsertAction();
+        setSubmitAction();
 
         setClearAction();
+
+        //an to activity exei anoiksei gia edit
+        if (getIntent().hasExtra("id")){
+
+            String sid = getIntent().getStringExtra("id");
+            String city = getIntent().getStringExtra("city");
+            String country = getIntent().getStringExtra("country");
+            String date = getIntent().getStringExtra("date");
+
+            matchID.setText(sid);
+            matchDate.setText(date);
+            matchCity.setText(city);
+            matchCountry.setText(country);
+        }
 
     }
 
@@ -172,7 +188,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
 
 
-    private void setInsertAction(){
+    private void setSubmitAction(){
 //        if(teamA.equals("1")){
 //            buttonSubmit.setVisibility(View.VISIBLE);
 //        }
@@ -255,13 +271,17 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 //                            }
 //                        });
 
-                    Toast.makeText(getApplicationContext(), "Inserted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Submit", Toast.LENGTH_SHORT).show();
                     if(match_sport=="Team")
                     resetForm();
 
 
                     ((MatchFragment)MainActivity.CurrentFragment).createList();
 
+                    //an to activity exei anoiksei gia edit kleinei meta to submit
+                    if (getIntent().hasExtra("id")){
+                        finish();
+                    }
 
                 }
 
