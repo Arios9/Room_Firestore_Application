@@ -248,10 +248,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
                        // theResultsCollection.add(results);
                     if(sportType.equals("Team")) {
-                        theResultsCollection.document(match_id + " " + identification + " results").set(results);
+                        theResultsCollection.document(match_id/*+ " " + identification*/ + " results").set(results);
                     }
                     else {
-                        theResultsCollection.document(match_id + " " + athleteId + " results").set(results);
+                        theResultsCollection.document(match_id +  " " + athleteId + " results").set(results);
                     }
                     db.collection("Matches").document("" + match_id).set(match);
 //                db.collection("Matches").add(match).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
