@@ -102,6 +102,7 @@ public class MatchFragment extends Fragment {
                                 String date = document.getString("Date");
                                 String sport = document.getString("Sport");
                                 String match_id = document.getString("ID");
+                                String match_sportType = document.getString("SportType");
                                 
                                 list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
                                 myIds.add(match_id);
@@ -109,7 +110,7 @@ public class MatchFragment extends Fragment {
                                 sportCountryAr.add(country);
                                 sportNameAr.add(sport);
                                 sportDateAr.add(date);
-                                if(MainActivity.localDatabase.basicDao().getSportType(sport).equals("Team")) {
+                                if(match_sportType.equals("Team")) {
                                     sportTypeAr.add("Team");
                                 }
                                 else{

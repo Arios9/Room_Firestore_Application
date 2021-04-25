@@ -221,7 +221,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
 
-                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
+                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);//ne  mallon
+
+                    match.put("SportType", sportType);
+
                     String identification="";
 
                     Map<String, Object> results = new HashMap<>();
