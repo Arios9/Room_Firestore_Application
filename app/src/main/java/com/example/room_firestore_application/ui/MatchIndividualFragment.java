@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MatchIndividualFragment extends Fragment {
 
-    Spinner sItems,sAthletes;
+    Spinner sItems,sIds;
     String sport;
     LinearLayout ll;
     EditText editTextScore,editTextId;
@@ -70,21 +70,29 @@ public class MatchIndividualFragment extends Fragment {
 
         ll = (LinearLayout) view.findViewById(R.id.myLinearLayout);
 
-//        List<String> list= new ArrayList<>();
-//        list.add("Giannis");
-//        list.add("Vaggelis");
-//ArrayAdapter<String> testAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,list);
-
-
+        List<String> athleteIds = new ArrayList<>();
+        athleteIds.add("A");
+        athleteIds.add("B");
+        athleteIds.add("C");
+        athleteIds.add("D");
+        athleteIds.add("E");
+        athleteIds.add("F");
+        athleteIds.add("G");
+        athleteIds.add("H");
         List<String> namesOfAthletes = new ArrayList<>();
         namesOfAthletes= MainActivity.localDatabase.basicDao().getAthleteBySport(sport);
 
         ArrayAdapter<String> adapterAthletesSport = new ArrayAdapter<String>(
                 getActivity(), android.R.layout.simple_spinner_item, namesOfAthletes);
+        ArrayAdapter<String> adapterAthletesID = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_spinner_item, athleteIds);
+
 
 
                     editTextScore = view.findViewById(R.id.editTextAthleteScore);
-                    editTextId = view.findViewById(R.id.editTextAthleteID);
+                   // editTextId = view.findViewById(R.id.editTextAthleteID);
+                    sIds = view.findViewById(R.id.spinnerAthleteID);
+                    sIds.setAdapter(adapterAthletesID);
                     sItems = view.findViewById(R.id.spinner2);
                     sItems.setAdapter(adapterAthletesSport);
                     buttonSetAthlete = new Button(getActivity());
@@ -95,7 +103,7 @@ public class MatchIndividualFragment extends Fragment {
                     buttonSetAthlete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            passData(String.valueOf(sItems.getSelectedItem()),String.valueOf(editTextScore.getText()), String.valueOf(editTextId.getText()));
+                            passData(String.valueOf(sItems.getSelectedItem()),String.valueOf(editTextScore.getText()), String.valueOf(sIds.getSelectedItem()));
                         }
                     });
 

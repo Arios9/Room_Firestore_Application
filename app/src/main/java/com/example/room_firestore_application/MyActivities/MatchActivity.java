@@ -57,7 +57,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     private EditText matchID,matchDate, matchCity, matchCountry, scoreA, scoreB;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
-    private TextView implemented;
 
 
 
@@ -69,6 +68,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
+
         setComponents();
         setCheckSportTypeAction();
 
@@ -77,6 +77,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         setClearAction();
 
         //an to activity exei anoiksei gia edit
+
         if (getIntent().hasExtra("id")){
 
             String sid = getIntent().getStringExtra("id");
@@ -88,8 +89,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             matchDate.setText(date);
             matchCity.setText(city);
             matchCountry.setText(country);
-        }
 
+
+        }
     }
 
 
@@ -127,11 +129,11 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         buttonToResults = findViewById(R.id.match_buttonToResults);
 
     }
-
     private void setCheckSportTypeAction() {
         buttonToResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 //Check the sport type (individual/team)
                 String sportType = MainActivity.localDatabase.basicDao().getSportType(String.valueOf(sItems.getSelectedItem()));
