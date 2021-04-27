@@ -1,6 +1,9 @@
 package com.example.room_firestore_application.ui;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -37,7 +42,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MatchFragment extends Fragment {
@@ -60,6 +67,11 @@ public class MatchFragment extends Fragment {
     ArrayList<String> sportDateAr ;
     ArrayList<String> sportNameAr ;
 
+    // this is used to compare the match days and if the strings are equal
+    // it means that there is match today so it creates a notification
+    private String TodayDate;
+    private static final String CHANNEL_ID = "channel0";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
@@ -74,11 +86,10 @@ public class MatchFragment extends Fragment {
         addOnClickListener();
         add_edit_listener();
 
+        TodayDate = getTodayFormatString();
 
         return root;
     }
-
-
 
     public void createList() {
         collectionReference
@@ -119,8 +130,9 @@ public class MatchFragment extends Fragment {
                                 if (getContext() != null) {
                                     ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
                                     listView.setAdapter(adapter);
-
                                 }
+                                if(getActivity()!=null)
+                                compareDates(date);
                             }
 
                         } else {
@@ -131,6 +143,10 @@ public class MatchFragment extends Fragment {
 
 
     }
+
+
+
+
 
     private void add_edit_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -209,4 +225,48 @@ public class MatchFragment extends Fragment {
             }
         });
     }
+
+
+    private String getTodayFormatString() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String string = simpleDateFormat.format(calendar.getTime());
+        return string;
+    }
+
+    private void compareDates(String date) {
+        if(TodayDate.equals(date)){
+            createNotificationChannel();
+            createNotification();
+        }
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "My channel name";
+            String description = "My channel description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getActivity().getApplicationContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void createNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getActivity().getApplicationContext(),CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setContentTitle("Notification")
+                        .setContentText("There is a Match Today!!!")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity().getApplicationContext());
+        notificationManager.notify(0, builder.build());
+    }
+
 }
