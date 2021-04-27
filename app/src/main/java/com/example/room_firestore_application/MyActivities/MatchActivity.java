@@ -2,6 +2,7 @@ package com.example.room_firestore_application.MyActivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,6 +22,7 @@ import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.helpClasses.DatePickerFragment;
 import com.example.room_firestore_application.ui.AthleteFragment;
 import com.example.room_firestore_application.ui.MatchFragment;
 import com.example.room_firestore_application.ui.MatchIndividualFragment;
@@ -54,7 +56,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     static String athleteA,scoreAthlete, athleteId;
 
 
-    private EditText matchID,matchDate, matchCity, matchCountry, scoreA, scoreB;
+    private EditText matchID, matchCity, matchCountry, scoreA, scoreB;
+    public static EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
 
@@ -75,7 +78,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         setSubmitAction();
 
         setClearAction();
-
+        setDatePicker();
         //an to activity exei anoiksei gia edit
 
         if (getIntent().hasExtra("id")){
@@ -89,11 +92,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             matchDate.setText(date);
             matchCity.setText(city);
             matchCountry.setText(country);
-
-
         }
-    }
 
+
+    }
 
     private void setComponents() {
 
@@ -223,7 +225,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
 
-                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);//ne  mallon
+                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
 
                     match.put("SportType", sportType);
 
@@ -322,4 +324,19 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             }
         });
     }
+
+
+    private void setDatePicker() {
+        matchDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    DialogFragment newFragment = new DatePickerFragment();
+                    newFragment.show(getSupportFragmentManager(), "datePicker");
+                }
+            }
+        });
+    }
+
+
 }
