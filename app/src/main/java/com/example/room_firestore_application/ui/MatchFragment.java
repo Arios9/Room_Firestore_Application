@@ -29,6 +29,7 @@ import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.AthleteActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.ui.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.ui.SubcollectionFragment.TeamMatchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -70,7 +71,6 @@ public class MatchFragment extends Fragment {
     // this is used to compare the match days and if the strings are equal
     // it means that there is match today so it creates a notification
     private String TodayDate;
-    private static final String CHANNEL_ID = "channel0";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -236,37 +236,10 @@ public class MatchFragment extends Fragment {
 
     private void compareDates(String date) {
         if(TodayDate.equals(date)){
-            createNotificationChannel();
-            createNotification();
+            new MyNotification(getActivity().getApplicationContext());
         }
     }
 
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "My channel name";
-            String description = "My channel description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getActivity().getApplicationContext().getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 
-    private void createNotification() {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(getActivity().getApplicationContext(),CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
-                        .setContentTitle("Notification")
-                        .setContentText("There is a Match Today!!!")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setAutoCancel(true);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity().getApplicationContext());
-        notificationManager.notify(0, builder.build());
-    }
 
 }
