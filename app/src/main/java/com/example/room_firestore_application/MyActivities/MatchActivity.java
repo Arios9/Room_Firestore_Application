@@ -38,6 +38,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hbb20.CountryCodePicker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +57,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     static String athleteA,scoreAthlete, athleteId;
 
 
-    private EditText matchID, matchCity, matchCountry, scoreA, scoreB;
+    private EditText matchID, matchCity, scoreA, scoreB;
+    private CountryCodePicker matchCountry;
     public static EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
@@ -91,7 +93,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             matchID.setText(sid);
             matchDate.setText(date);
             matchCity.setText(city);
-            matchCountry.setText(country);
+            //matchCountry.setText(country);
         }
 
 
@@ -212,7 +214,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     String match_sport = String.valueOf(sItems.getSelectedItem());
                     String match_date = matchDate.getText().toString();
                     String match_city = matchCity.getText().toString();
-                    String match_country = matchCountry.getText().toString();
+                    String match_country = matchCountry.getSelectedCountryName();
 //                String team_a_score = scoreA.getText().toString();
 //                String team_b_score = scoreB.getText().toString();
 //                String team_a = String.valueOf(sTeamA.getSelectedItem());
@@ -303,7 +305,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         matchID.setText("");
         matchDate.setText("");
         matchCity.setText("");
-        matchCountry.setText("");
+        //matchCountry.setText("");
         if (fragment.isVisible()) {
             ft = getSupportFragmentManager().beginTransaction().remove(fragment);
             ft.commit();

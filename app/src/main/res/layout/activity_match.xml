@@ -40,15 +40,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/matchID" />
 
-    <EditText
+    <com.hbb20.CountryCodePicker
         android:id="@+id/matchCountry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Country"
-        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/matchDate" />
+        app:layout_constraintTop_toBottomOf="@id/matchDate"
+        app:ccp_showFullName="true"
+        app:ccp_showPhoneCode="false"
+        app:ccp_showNameCode="false"/>
 
 
     <EditText

@@ -15,14 +15,15 @@ import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.ui.TeamFragment;
+import com.hbb20.CountryCodePicker;
 
 import java.util.List;
 
 public class TeamActivity extends AppCompatActivity {
 
     private Spinner spinner;
-    private EditText birth_year,
-    name, stadium, country, city;
+    private EditText birth_year, name, stadium, city;
+    private CountryCodePicker country;
     private Button button;
 
     @Override
@@ -62,7 +63,7 @@ public class TeamActivity extends AppCompatActivity {
                 int teamSportId = ((Sport) spinner.getSelectedItem()).getId();
                 String team_name = name.getText().toString();
                 String team_stadium = stadium.getText().toString();
-                String team_country = country.getText().toString();
+                String team_country = country.getSelectedCountryName();
                 String team_city = city.getText().toString();
                 int team_birth_year = Integer.parseInt(birth_year.getText().toString());
 
@@ -85,7 +86,6 @@ public class TeamActivity extends AppCompatActivity {
                 spinner.setSelection(0);
                 name.setText("");
                 stadium.setText("");
-                country.setText("");
                 city.setText("");
                 birth_year.setText("");
             }
@@ -102,7 +102,7 @@ public class TeamActivity extends AppCompatActivity {
                 int teamSportId = ((Sport) spinner.getSelectedItem()).getId();
                 String teamName = name.getText().toString();
                 String teamStadium = stadium.getText().toString();
-                String teamCountry = country.getText().toString();
+                String teamCountry = country.getSelectedCountryName();
                 String teamCity = city.getText().toString();
                 int teamBirthYear = Integer.parseInt(birth_year.getText().toString());
 
@@ -122,7 +122,6 @@ public class TeamActivity extends AppCompatActivity {
     private void loadObjectToForm(Team team) {
         name.setText(team.getName());
         stadium.setText(team.getStadium());
-        country.setText(team.getCountry());
         city.setText(team.getCity());
         birth_year.setText(String.valueOf(team.getBirth_year()));
     }
