@@ -31,13 +31,14 @@
         android:inputType="text"
         android:layout_margin="8dp"/>
 
-    <EditText
+    <com.hbb20.CountryCodePicker
         android:id="@+id/team_country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Country"
-        android:inputType="text"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        app:ccp_showFullName="true"
+        app:ccp_showPhoneCode="false"
+        app:ccp_showNameCode="false"/>
 
     <EditText
         android:id="@+id/team_city"
