@@ -22,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class TeamMatchFragment extends Fragment {
 
-    TextView tvTeamA,tvTeamB,tvResult,tvScoreA,tvScoreB,tvName, tvDate, tvCity, tvCountry;
+    TextView tvTeamA,tvTeamB,tvResult,tvScoreA,tvScoreB,tvName, tvDate, tvCity, tvCountry, tvRes;
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -63,6 +63,7 @@ public class TeamMatchFragment extends Fragment {
         tvDate = view.findViewById(R.id.textDate);
         tvCity = view.findViewById(R.id.textCity);
         tvCountry = view.findViewById(R.id.textCountry);
+        tvRes = view.findViewById(R.id.textViewWon);
 
 
         Bundle args = getArguments();
@@ -92,6 +93,16 @@ public class TeamMatchFragment extends Fragment {
                                 String teamAscore = document.getString("Team A Score");
                                 String teamBscore = document.getString("Team B Score");
 
+                                String wholeTeamA =teamA;
+                                String wholeTeamB =teamB;
+                                if(teamA.length()>4){
+                                    teamA = teamA.substring(0,4);
+                                    teamA = teamA.toUpperCase();
+                                }
+                                if(teamB.length()>4){
+                                    teamB = teamB.substring(0,4);
+                                    teamB = teamB.toUpperCase();
+                                }
                                 tvTeamA.setText(teamA);
                                 tvTeamB.setText(teamB);
                                 tvScoreA.setText(teamAscore);
@@ -102,11 +113,19 @@ public class TeamMatchFragment extends Fragment {
                                     if (Integer.parseInt(teamAscore) > Integer.parseInt(teamBscore)) {
                                         tvScoreA.setTextColor(getResources().getColor(R.color.green));
                                         tvScoreB.setTextColor(getResources().getColor(R.color.red));
-                                        tvResult.setText(teamA + " Won");
-                                    } else {
+                                        tvResult.setText(wholeTeamA);
+                                        tvRes.setText("Won");
+                                    } else if(Integer.parseInt(teamBscore) > Integer.parseInt(teamAscore)){
                                         tvScoreB.setTextColor(getResources().getColor(R.color.green));
                                         tvScoreA.setTextColor(getResources().getColor(R.color.red));
-                                        tvResult.setText(teamB + " Won");
+                                        tvResult.setText(wholeTeamB);
+                                        tvRes.setText("Won");
+                                    }
+                                    else{
+                                        tvScoreA.setTextColor(getResources().getColor(R.color.orange));
+                                        tvScoreB.setTextColor(getResources().getColor(R.color.orange));
+                                        tvResult.setText("");
+                                        tvRes.setText("Match Draw");
                                     }
                                 }
                             }
