@@ -2,9 +2,13 @@ package com.example.room_firestore_application.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -48,8 +52,8 @@ public class MatchFragment extends Fragment {
 
     ListView listView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference documentReference;
-    CollectionReference collectionReference, collectionReferenceInside;
+
+    CollectionReference collectionReference;
 
 
     List<String> list ;
@@ -137,7 +141,44 @@ public class MatchFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String sid = myIds.get(position);
+
+                setItemPosition(position);
+
+                registerForContextMenu(listView);
+                getActivity().openContextMenu(listView);
+
+
+
+
+//                String city = sportCityAr.get(position);
+//                String country = sportCountryAr.get(position);
+//                String date = sportDateAr.get(position);
+//
+//                Intent intent = new Intent(getActivity(), MatchActivity.class);
+//
+//                intent.putExtra("id",sid);
+//                intent.putExtra("date",date);
+//                intent.putExtra("country",country);
+//                intent.putExtra("city",city);
+//
+//                startActivity(intent);
+
+                return true;
+            }
+        });
+        }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select Option ").setHeaderIcon(R.drawable.ic_baseline_help_24);
+        menu.add(Menu.NONE, 1 , Menu.NONE, "Edit");
+        menu.add(Menu.NONE, 2,Menu.NONE,"Delete");
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case 1:{
+                int position = getItemPosition();
+                                String sid = myIds.get(position);
                 String city = sportCityAr.get(position);
                 String country = sportCountryAr.get(position);
                 String date = sportDateAr.get(position);
@@ -150,11 +191,19 @@ public class MatchFragment extends Fragment {
                 intent.putExtra("city",city);
 
                 startActivity(intent);
-
-                return true;
             }
-        });
+            break;
+            case 2:{
+                Toast.makeText(getActivity(), "Document Deleted", Toast.LENGTH_SHORT).show();
+                int position = getItemPosition();
+                String documentId = myIds.get(position);
+                collectionReference.document(documentId).delete();
+            }
+            break;
+        }
+        return true;
     }
+
 
     private void addOnClickListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -185,7 +234,6 @@ public class MatchFragment extends Fragment {
                     teamMatchFrag.setArguments(bundle);
 
                     ft = getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, teamMatchFrag, null);
-                    //ft.commit();
                     ft.detach(teamMatchFrag);
                     ft.attach(teamMatchFrag);
                     ft.commit();
@@ -193,14 +241,12 @@ public class MatchFragment extends Fragment {
 
                 }
                 else{
-                    //Toast.makeText(getActivity(),"Not a team match", Toast.LENGTH_LONG).show();
 
                     bundle.putString("ID", myId);
 
                     indiMatchFrag.setArguments(bundle);
 
                     ft = getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, indiMatchFrag, null);
-                    //ft.commit();
                     ft.detach(indiMatchFrag);
                     ft.attach(indiMatchFrag);
                     ft.commit();
@@ -208,5 +254,14 @@ public class MatchFragment extends Fragment {
                 }
             }
         });
+    }
+
+    //Helper methods , holding the selected ListView item's position.
+    int _position;
+    public void setItemPosition(int position){
+        _position = position;
+    }
+    public int getItemPosition(){
+        return _position;
     }
 }
