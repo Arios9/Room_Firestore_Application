@@ -40,9 +40,9 @@ public class MyNotification {
     private void createNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(applicationContext,CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setSmallIcon(R.drawable.ic_baseline_local_fire_department_24)
                         .setContentTitle("Notification")
-                        .setContentText("There is a Match Today!!!")
+                        .setContentText("There is a Match Today!")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(applicationContext);
