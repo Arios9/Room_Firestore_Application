@@ -1,6 +1,9 @@
 package com.example.room_firestore_application.ui;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -28,6 +33,7 @@ import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.AthleteActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.ui.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.ui.SubcollectionFragment.TeamMatchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +47,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MatchFragment extends Fragment {
@@ -64,6 +72,10 @@ public class MatchFragment extends Fragment {
     ArrayList<String> sportDateAr ;
     ArrayList<String> sportNameAr ;
 
+    // this is used to compare the match days and if the strings are equal
+    // it means that there is match today so it creates a notification
+    private String TodayDate;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentFragment = this;
@@ -78,11 +90,10 @@ public class MatchFragment extends Fragment {
         addOnClickListener();
         add_edit_listener();
 
+        TodayDate = getTodayFormatString();
 
         return root;
     }
-
-
 
     public void createList() {
         collectionReference
@@ -123,8 +134,9 @@ public class MatchFragment extends Fragment {
                                 if (getContext() != null) {
                                     ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
                                     listView.setAdapter(adapter);
-
                                 }
+                                if(getActivity()!=null)
+                                compareDates(date);
                             }
 
                         } else {
@@ -135,6 +147,10 @@ public class MatchFragment extends Fragment {
 
 
     }
+
+
+
+
 
     private void add_edit_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -240,6 +256,7 @@ public class MatchFragment extends Fragment {
         });
     }
 
+
     //Helper methods , holding the selected ListView item's position.
     int _position;
     public void setItemPosition(int position){
@@ -248,4 +265,23 @@ public class MatchFragment extends Fragment {
     public int getItemPosition(){
         return _position;
     }
+
+
+
+    private String getTodayFormatString() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String string = simpleDateFormat.format(calendar.getTime());
+        return string;
+    }
+
+    private void compareDates(String date) {
+        if(TodayDate.equals(date)){
+            new MyNotification(getActivity().getApplicationContext());
+        }
+    }
+
+
+
 }
+
