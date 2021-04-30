@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -20,13 +21,11 @@ import java.util.List;
 public class MyNotification {
 
     private Context applicationContext;
-    private GeoPointArrayList GeoPointArrayList;
     private static final String CHANNEL_ID = "channel0";
 
-    public MyNotification(Context applicationContext, GeoPointArrayList GeoPointArrayList) {
+    public MyNotification(Context applicationContext) {
         this.applicationContext = applicationContext;
-        this.GeoPointArrayList = this.GeoPointArrayList;
-        createNotificationChannel();
+                createNotificationChannel();
         createNotification();
     }
 
@@ -49,8 +48,7 @@ public class MyNotification {
     private void createNotification() {
 
         Intent intent = new Intent(applicationContext, NotificationMapsActivity.class);
-        intent.putExtra("GeoPointArrayList", (Parcelable) GeoPointArrayList);
-        PendingIntent pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(applicationContext,CHANNEL_ID)

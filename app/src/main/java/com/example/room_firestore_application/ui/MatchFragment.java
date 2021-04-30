@@ -58,7 +58,7 @@ public class MatchFragment extends Fragment {
     ArrayList<String> sportNameAr ;
 
     private String TodayDate;
-    private GeoPointArrayList GeoPointArrayList = new GeoPointArrayList();
+    public static GeoPointArrayList GeoPointArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +94,8 @@ public class MatchFragment extends Fragment {
                             sportCountryAr = new ArrayList<String>();
                             sportDateAr = new ArrayList<String>();
                             sportNameAr = new ArrayList<String>();
+
+                            GeoPointArrayList = new GeoPointArrayList();
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String city = document.getString("City");
@@ -139,7 +141,7 @@ public class MatchFragment extends Fragment {
     private void createNotification() {
         if(GeoPointArrayList.isEmpty())
             return;
-        new MyNotification(getActivity().getApplicationContext(), GeoPointArrayList);
+        new MyNotification(getActivity().getApplicationContext());
     }
 
 
