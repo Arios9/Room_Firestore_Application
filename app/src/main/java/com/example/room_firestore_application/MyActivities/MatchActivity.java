@@ -62,6 +62,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     public static EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
+    private TextView mapTextView;
 
 
 
@@ -81,6 +82,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
         setClearAction();
         setDatePicker();
+        setmapTextViewAction();
         //an to activity exei anoiksei gia edit
 
         if (getIntent().hasExtra("id")){
@@ -95,6 +97,16 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         }
 
 
+    }
+
+    private void setmapTextViewAction() {
+        mapTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setComponents() {
@@ -129,6 +141,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         matchCountry = findViewById(R.id.matchCountry);
         buttonSubmit = findViewById(R.id.match_button);
         buttonToResults = findViewById(R.id.match_buttonToResults);
+        mapTextView = findViewById(R.id.matchGeopoint);
 
     }
     private void setCheckSportTypeAction() {
