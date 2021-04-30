@@ -57,18 +57,6 @@ public class AthleteFragment extends Fragment {
         listView.setAdapter(athletesAdapter);
     }
 
-//    private void add_edit_listener() {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Athlete athlete = (Athlete) parent.getItemAtPosition(position);
-//                Intent intent = new Intent(getActivity(), AthleteActivity.class);
-//                intent.putExtra("object",athlete);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
     private void add_context() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
