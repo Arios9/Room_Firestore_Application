@@ -49,7 +49,7 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
 
 
     private void addMarkers(GeoPointArrayList geoPointArrayList) {
-        for(GeoPoint geoPoint : geoPointArrayList){
+        for (GeoPoint geoPoint : geoPointArrayList) {
             LatLng latLng = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
             mMap.addMarker(new MarkerOptions().position(latLng));
         }
