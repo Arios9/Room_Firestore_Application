@@ -87,13 +87,11 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
             String sid = getIntent().getStringExtra("id");
             String city = getIntent().getStringExtra("city");
-            String country = getIntent().getStringExtra("country");
             String date = getIntent().getStringExtra("date");
 
             matchID.setText(sid);
             matchDate.setText(date);
             matchCity.setText(city);
-            //matchCountry.setText(country);
         }
 
 
@@ -305,7 +303,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         matchID.setText("");
         matchDate.setText("");
         matchCity.setText("");
-        //matchCountry.setText("");
         if (fragment.isVisible()) {
             ft = getSupportFragmentManager().beginTransaction().remove(fragment);
             ft.commit();

@@ -135,6 +135,7 @@ public class MatchFragment extends Fragment {
                                     ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
                                     listView.setAdapter(adapter);
                                 }
+                                // elenxos gia notification
                                 if(getActivity()!=null)
                                 compareDates(date);
                             }
@@ -178,16 +179,14 @@ public class MatchFragment extends Fragment {
         switch(item.getItemId()){
             case 1:{
                 int position = getItemPosition();
-                                String sid = myIds.get(position);
+                String sid = myIds.get(position);
                 String city = sportCityAr.get(position);
-                String country = sportCountryAr.get(position);
                 String date = sportDateAr.get(position);
 
                 Intent intent = new Intent(getActivity(), MatchActivity.class);
 
                 intent.putExtra("id",sid);
                 intent.putExtra("date",date);
-                intent.putExtra("country",country);
                 intent.putExtra("city",city);
 
                 startActivity(intent);
