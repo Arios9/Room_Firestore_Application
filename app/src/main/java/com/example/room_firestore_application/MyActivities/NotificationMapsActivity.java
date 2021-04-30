@@ -3,13 +3,9 @@ package com.example.room_firestore_application.MyActivities;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.example.room_firestore_application.ui.MatchFragment;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -43,7 +39,6 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         addMarkers(MatchFragment.GeoPointArrayList);
     }
 
