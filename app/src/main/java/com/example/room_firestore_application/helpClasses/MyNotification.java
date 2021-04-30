@@ -2,21 +2,30 @@ package com.example.room_firestore_application.helpClasses;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.room_firestore_application.MyActivities.NotificationMapsActivity;
 import com.example.room_firestore_application.R;
+import com.google.firebase.firestore.GeoPoint;
+
+import java.util.List;
 
 public class MyNotification {
 
     private Context applicationContext;
+    private GeoPointArrayList GeoPointArrayList;
     private static final String CHANNEL_ID = "channel0";
 
-    public MyNotification(Context applicationContext) {
+    public MyNotification(Context applicationContext, GeoPointArrayList GeoPointArrayList) {
         this.applicationContext = applicationContext;
+        this.GeoPointArrayList = this.GeoPointArrayList;
         createNotificationChannel();
         createNotification();
     }
@@ -38,11 +47,17 @@ public class MyNotification {
     }
 
     private void createNotification() {
+
+        Intent intent = new Intent(applicationContext, NotificationMapsActivity.class);
+        intent.putExtra("GeoPointArrayList", (Parcelable) GeoPointArrayList);
+        PendingIntent pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(applicationContext,CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_baseline_local_fire_department_24)
                         .setContentTitle("Notification")
                         .setContentText("There is a Match Today!")
+                        .setContentIntent(pendingIntent)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(applicationContext);
