@@ -3,6 +3,7 @@ package com.example.room_firestore_application.MyActivities;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.room_firestore_application.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.GeoPoint;
 
 public class InputMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -40,8 +42,18 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                MatchActivity.geoPoint = new GeoPoint(
+                        latLng.latitude,
+                        latLng.longitude
+                );
+                finish();
+            };
+        });
     }
 }

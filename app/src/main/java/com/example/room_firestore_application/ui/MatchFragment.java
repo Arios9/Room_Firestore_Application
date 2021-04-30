@@ -44,6 +44,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -118,6 +119,9 @@ public class MatchFragment extends Fragment {
                                 String sport = document.getString("Sport");
                                 String match_id = document.getString("ID");
                                 String match_sportType = document.getString("SportType");
+
+                                GeoPoint match_geoPoint = document.getGeoPoint("location");
+
                                 
                                 list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
                                 myIds.add(match_id);
@@ -139,7 +143,6 @@ public class MatchFragment extends Fragment {
                                 if(getActivity()!=null)
                                 compareDates(date);
                             }
-
                         } else {
                             Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
                         }

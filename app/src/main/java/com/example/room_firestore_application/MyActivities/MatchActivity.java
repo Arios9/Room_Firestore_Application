@@ -36,6 +36,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hbb20.CountryCodePicker;
@@ -63,6 +64,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
     private TextView mapTextView;
+
+    public static GeoPoint geoPoint;
 
 
 
@@ -96,7 +99,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             matchCity.setText(city);
         }
 
-
+        geoPoint = null;
     }
 
     private void setmapTextViewAction() {
@@ -226,6 +229,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     String match_date = matchDate.getText().toString();
                     String match_city = matchCity.getText().toString();
                     String match_country = matchCountry.getSelectedCountryName();
+                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
+
 //                String team_a_score = scoreA.getText().toString();
 //                String team_b_score = scoreB.getText().toString();
 //                String team_a = String.valueOf(sTeamA.getSelectedItem());
@@ -237,10 +242,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Country", match_country);
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
-
-                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
-
                     match.put("SportType", sportType);
+                    //
+                    match.put("location",geoPoint);
 
                     String identification="";
 
