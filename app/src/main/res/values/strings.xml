@@ -13,4 +13,6 @@
     <string name="menu_match">Match</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_input_maps">Map</string>
+    <string name="title_activity_notification_maps">Map</string>
 </resources>

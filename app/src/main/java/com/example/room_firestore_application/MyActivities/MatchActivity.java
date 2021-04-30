@@ -1,14 +1,10 @@
 package com.example.room_firestore_application.MyActivities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,30 +12,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.Local_Tables.Sport;
-import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.DatePickerFragment;
-import com.example.room_firestore_application.ui.AthleteFragment;
 import com.example.room_firestore_application.ui.MatchFragment;
 import com.example.room_firestore_application.ui.MatchIndividualFragment;
 import com.example.room_firestore_application.ui.MatchTeamFragment;
-import com.example.room_firestore_application.ui.SportFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.GeoPoint;
 import com.hbb20.CountryCodePicker;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +45,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     public static EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
+    private TextView mapTextView;
+
+    public static GeoPoint geoPoint;
 
 
 
@@ -81,6 +67,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
         setClearAction();
         setDatePicker();
+        setmapTextViewAction();
         //an to activity exei anoiksei gia edit
 
         if (getIntent().hasExtra("id")){
@@ -94,7 +81,17 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             matchCity.setText(city);
         }
 
+        geoPoint = null;
+    }
 
+    private void setmapTextViewAction() {
+        mapTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setComponents() {
@@ -128,6 +125,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         matchCountry = findViewById(R.id.matchCountry);
         buttonSubmit = findViewById(R.id.match_button);
         buttonToResults = findViewById(R.id.match_buttonToResults);
+        mapTextView = findViewById(R.id.matchGeopoint);
 
     }
     private void setCheckSportTypeAction() {
@@ -203,13 +201,13 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     resetForm();
                 }
                 else {
-
                     String match_id = matchID.getText().toString();
                     String match_sport = String.valueOf(sItems.getSelectedItem());
                     String match_date = matchDate.getText().toString();
                     String match_city = matchCity.getText().toString();
                     String match_country = matchCountry.getSelectedCountryName();
 
+                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
 
                     Map<String, Object> match = new HashMap<>();
                     match.put("ID" , match_id);
@@ -217,12 +215,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Country", match_country);
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
-
-                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
-
                     match.put("SportType", sportType);
-
-
+                    //
+                    match.put("location",geoPoint);
 
                     Map<String, Object> results = new HashMap<>();
                     if(sportType.equals("Team")) {
@@ -257,13 +252,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     if (getIntent().hasExtra("id")){
                         finish();
                     }
-
                 }
-
             }
-
-
-
         });
 
     }
