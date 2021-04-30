@@ -102,8 +102,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         //Fetching list of sports and teams from Room Local Database
         List<Sport> sport = MainActivity.localDatabase.basicDao().getSport();
         List<String> spinnerArray = new ArrayList<String>();
-//        List<Team> teams = MainActivity.localDatabase.basicDao().getTeam();
-//        List<String> spinnerArrayTeams = new ArrayList<String>();
+
 
         //Giving the names of the sports to the newly created String Array for the Spinner
         for (Sport i: sport) {
@@ -193,9 +192,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
 
     private void setSubmitAction(){
-//        if(teamA.equals("1")){
-//            buttonSubmit.setVisibility(View.VISIBLE);
-//        }
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -206,17 +203,13 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     resetForm();
                 }
                 else {
-//                String sportType = MainActivity.localDatabase.basicDao().getSportType(String.valueOf(sItems.getSelectedItem()));
 
                     String match_id = matchID.getText().toString();
                     String match_sport = String.valueOf(sItems.getSelectedItem());
                     String match_date = matchDate.getText().toString();
                     String match_city = matchCity.getText().toString();
                     String match_country = matchCountry.getSelectedCountryName();
-//                String team_a_score = scoreA.getText().toString();
-//                String team_b_score = scoreB.getText().toString();
-//                String team_a = String.valueOf(sTeamA.getSelectedItem());
-//                String team_b = String.valueOf(sTeamB.getSelectedItem());
+
 
                     Map<String, Object> match = new HashMap<>();
                     match.put("ID" , match_id);
@@ -229,11 +222,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
                     match.put("SportType", sportType);
 
-                    String identification="";
+
 
                     Map<String, Object> results = new HashMap<>();
                     if(sportType.equals("Team")) {
-                        identification = teamA.concat(" Match");
                         results.put("Team A", teamA);
                         results.put("Team A Score", scoreTeamA);
                         results.put("Team B", teamB);
@@ -247,39 +239,15 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     CollectionReference theResultsCollection = db.collection("Matches")
                             .document("" + match_id).collection("Results");
 
-//                    db.collection("Matches")
-//                            .document("" + match_id).collection("Results").document(match_id + " results").set(results);
-
-                       // theResultsCollection.add(results);
                     if(sportType.equals("Team")) {
-                        theResultsCollection.document(match_id/*+ " " + identification*/ + " results").set(results);
+                        theResultsCollection.document(match_id + " results").set(results);
                     }
                     else {
                         theResultsCollection.document(match_id +  " " + athleteId + " results").set(results);
                     }
                     db.collection("Matches").document("" + match_id).set(match);
-//                db.collection("Matches").add(match).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Toast.makeText(getApplicationContext(), "Match Added", Toast.LENGTH_LONG).show();
-//                    }
-//                })
-//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                Toast.makeText(getApplicationContext(), "Match Added", Toast.LENGTH_LONG).show();
-//                            }
-//
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(getApplicationContext(), "Failure to add Match", Toast.LENGTH_LONG).show();
-//                            }
-//                        });
 
                     Toast.makeText(getApplicationContext(), "Submit", Toast.LENGTH_SHORT).show();
-                    if(match_sport=="Team")
                     resetForm();
 
 
