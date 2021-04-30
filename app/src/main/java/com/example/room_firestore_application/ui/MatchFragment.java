@@ -58,6 +58,7 @@ public class MatchFragment extends Fragment {
     ArrayList<String> sportNameAr ;
 
     private String TodayDate;
+    // saves today's matches that have geopoint in firebase
     public static GeoPointArrayList GeoPointArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,10 +66,8 @@ public class MatchFragment extends Fragment {
         MainActivity.CurrentFragment = this;
 
         View root = inflater.inflate(R.layout.fragment_match, container, false);
-//        documentReference = db.collection("Matches")
-//                .document("RUN1");
 
-        listView = (ListView) root.findViewById(R.id.match_list);
+        listView = root.findViewById(R.id.match_list);
         collectionReference = db.collection("Matches");
         createList();
         addOnClickListener();
@@ -87,13 +86,13 @@ public class MatchFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            list = new ArrayList<String>();
-                            myIds = new ArrayList<String>();
-                            sportTypeAr = new ArrayList<String>();
-                            sportCityAr = new ArrayList<String>();
-                            sportCountryAr = new ArrayList<String>();
-                            sportDateAr = new ArrayList<String>();
-                            sportNameAr = new ArrayList<String>();
+                            list = new ArrayList<>();
+                            myIds = new ArrayList<>();
+                            sportTypeAr = new ArrayList<>();
+                            sportCityAr = new ArrayList<>();
+                            sportCountryAr = new ArrayList<>();
+                            sportDateAr = new ArrayList<>();
+                            sportNameAr = new ArrayList<>();
 
                             GeoPointArrayList = new GeoPointArrayList();
 
@@ -113,28 +112,22 @@ public class MatchFragment extends Fragment {
                                 sportCountryAr.add(country);
                                 sportNameAr.add(sport);
                                 sportDateAr.add(date);
-                                if(match_sportType.equals("Team")) {
-                                    sportTypeAr.add("Team");
-                                }
-                                else{
-                                    sportTypeAr.add("Individual");
-                                }
-                                if (getContext() != null) {
-                                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
-                                    listView.setAdapter(adapter);
-                                }
-                                // elenxos gia notification
-                                if(getActivity()!=null)
-                                checkforNotification(date,geoPoint);
-                            }
-                            createNotification();
+                                sportTypeAr.add(match_sportType);
 
+                                if(getActivity()!=null)
+                                checkDateAndGeopoint(date,geoPoint);
+                            }
+                            if (getContext() != null) {
+                                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+                                listView.setAdapter(adapter);
+                            }
+
+                            createNotification();
                         } else {
                             Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-
 
     }
 
@@ -246,7 +239,6 @@ public class MatchFragment extends Fragment {
         });
     }
 
-
     //Helper methods , holding the selected ListView item's position.
     int _position;
     public void setItemPosition(int position){
@@ -257,7 +249,6 @@ public class MatchFragment extends Fragment {
     }
 
 
-
     private String getTodayFormatString() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -265,14 +256,11 @@ public class MatchFragment extends Fragment {
         return string;
     }
 
-
-    private void checkforNotification(String date, GeoPoint geoPoint) {
-        if(TodayDate.equals(date)&&geoPoint!=null){
+    // date must be today and geopoint must exist to add it in the list
+    private void checkDateAndGeopoint(String date, GeoPoint geoPoint) {
+        if(TodayDate.equals(date)&&geoPoint!=null)
             GeoPointArrayList.add(geoPoint);
-        }
     }
-
-
 
 }
 

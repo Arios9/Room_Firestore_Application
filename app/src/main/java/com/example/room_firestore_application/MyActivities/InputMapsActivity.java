@@ -1,17 +1,12 @@
 package com.example.room_firestore_application.MyActivities;
 
 import androidx.fragment.app.FragmentActivity;
-
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.room_firestore_application.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.GeoPoint;
 
 public class InputMapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -41,15 +36,12 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                MatchActivity.geoPoint = new GeoPoint(
-                        latLng.latitude,
-                        latLng.longitude
-                );
+            public void onMapLongClick(LatLng latLng) {
+                MatchActivity.geoPoint = new GeoPoint(latLng.latitude, latLng.longitude);
                 finish();
-            };
+            }
         });
     }
 }

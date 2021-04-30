@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class AthletesAdapter extends ArrayAdapter {

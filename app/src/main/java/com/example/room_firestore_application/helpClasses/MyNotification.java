@@ -25,7 +25,7 @@ public class MyNotification {
 
     public MyNotification(Context applicationContext) {
         this.applicationContext = applicationContext;
-                createNotificationChannel();
+        createNotificationChannel();
         createNotification();
     }
 

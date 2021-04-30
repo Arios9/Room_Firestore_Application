@@ -15,10 +15,7 @@ import com.example.room_firestore_application.ui.SportFragment;
 import com.example.room_firestore_application.ui.TeamFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.multidex.MultiDex;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,7 +27,6 @@ import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static FragmentManager fragmentManager;
     private AppBarConfiguration mAppBarConfiguration;
     public static Fragment CurrentFragment;
     public static LocalDatabase localDatabase;
