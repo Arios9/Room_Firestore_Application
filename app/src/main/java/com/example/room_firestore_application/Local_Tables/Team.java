@@ -127,19 +127,6 @@ public class Team implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "Team{" +
-                "id=" + id +
-                ", sport_id=" + sport_id +
-                ", name='" + name + '\'' +
-                ", stadium='" + stadium + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", birth_year=" + birth_year +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }

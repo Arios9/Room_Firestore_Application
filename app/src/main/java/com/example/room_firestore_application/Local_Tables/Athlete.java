@@ -127,19 +127,6 @@ public class Athlete implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "Athlete{" +
-                "id=" + id +
-                ", sport_id=" + sport_id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", birth_year=" + birth_year +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
