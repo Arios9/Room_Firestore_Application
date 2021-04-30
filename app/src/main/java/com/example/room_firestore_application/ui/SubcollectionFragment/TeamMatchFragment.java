@@ -110,6 +110,7 @@ public class TeamMatchFragment extends Fragment {
 
 
                                 if (getContext() != null) {
+                                    
                                     if (Integer.parseInt(teamAscore) > Integer.parseInt(teamBscore)) {
                                         tvScoreA.setTextColor(getResources().getColor(R.color.green));
                                         tvScoreB.setTextColor(getResources().getColor(R.color.red));

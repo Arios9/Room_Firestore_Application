@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
@@ -90,10 +91,16 @@ public class MatchTeamFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  ((MatchActivity) getActivity()).getTeamAScore(String.valueOf(sTeamA));
-                passData(String.valueOf(sTeamA.getSelectedItem()),String.valueOf(sTeamB.getSelectedItem()),String.valueOf(etTeamA.getText()),String.valueOf(etTeamB.getText()));
+                if(etTeamA.getText().toString().isEmpty() || etTeamB.getText().toString().isEmpty() ){
+                    Toast.makeText(getContext(),"Score cannot be Empty",Toast.LENGTH_SHORT).show();
+                    resetForm();
+                }
+                else {
+                    //  ((MatchActivity) getActivity()).getTeamAScore(String.valueOf(sTeamA));
+                    passData(String.valueOf(sTeamA.getSelectedItem()), String.valueOf(sTeamB.getSelectedItem()), String.valueOf(etTeamA.getText()), String.valueOf(etTeamB.getText()));
 
-                resetForm();
+                    resetForm();
+                }
             }
         });
 

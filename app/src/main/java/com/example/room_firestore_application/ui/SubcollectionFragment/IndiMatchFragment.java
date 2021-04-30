@@ -74,24 +74,27 @@ public class IndiMatchFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                        String athlete = document.getString("Athlete");
-                                        String athleteScore = document.getString("Score Athlete");
+                                String athlete = document.getString("Athlete");
+                                String athleteScore = document.getString("Score Athlete");
 
-                                        list.add(" Athlete : " + athlete
-                                                + "\n Score : " + athleteScore);
+                                list.add(" Athlete : " + athlete
+                                        + "\n Score : " + athleteScore);
 
                                 if (getContext() != null) {
                                     ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
                                     listView.setAdapter(adapter);
                                 }
-                                if(Double.parseDouble(athleteScore)>max){
-                                    max = Double.parseDouble(athleteScore);
-                                    maxAthlete = athlete;
-                                  //  listMax.add(athlete);
-                                }
-                                textAnnounce.setText(" " + maxAthlete);
-                                textAnnounceScore.setText( " " + max);
+                                if (athleteScore != null) {
+                                    if (Double.parseDouble(athleteScore) > max) {
+                                        max = Double.parseDouble(athleteScore);
+                                        maxAthlete = athlete;
+                                        //  listMax.add(athlete);
+                                    }
 
+                                    textAnnounce.setText(" " + maxAthlete);
+                                    textAnnounceScore.setText(" " + max);
+
+                                }
                             }
                         }
                         else{

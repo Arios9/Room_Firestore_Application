@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
@@ -103,7 +104,13 @@ public class MatchIndividualFragment extends Fragment {
                     buttonSetAthlete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            passData(String.valueOf(sItems.getSelectedItem()),String.valueOf(editTextScore.getText()), String.valueOf(sIds.getSelectedItem()));
+                            if (editTextScore.getText().toString().isEmpty()){
+                                Toast.makeText(getContext(),"Score cannot be left Empty",Toast.LENGTH_SHORT).show();
+
+                            }
+                            else {
+                                passData(String.valueOf(sItems.getSelectedItem()), String.valueOf(editTextScore.getText()), String.valueOf(sIds.getSelectedItem()));
+                            }
                         }
                     });
 
