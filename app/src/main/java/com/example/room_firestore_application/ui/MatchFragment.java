@@ -1,9 +1,6 @@
 package com.example.room_firestore_application.ui;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -11,39 +8,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
-import com.example.room_firestore_application.MyActivities.AthleteActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.ui.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.ui.SubcollectionFragment.TeamMatchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -72,9 +57,8 @@ public class MatchFragment extends Fragment {
     ArrayList<String> sportDateAr ;
     ArrayList<String> sportNameAr ;
 
-    // this is used to compare the match days and if the strings are equal
-    // it means that there is match today so it creates a notification
     private String TodayDate;
+    public static GeoPointArrayList GeoPointArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -111,6 +95,8 @@ public class MatchFragment extends Fragment {
                             sportDateAr = new ArrayList<String>();
                             sportNameAr = new ArrayList<String>();
 
+                            GeoPointArrayList = new GeoPointArrayList();
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String city = document.getString("City");
                                 String country = document.getString("Country");
@@ -118,7 +104,9 @@ public class MatchFragment extends Fragment {
                                 String sport = document.getString("Sport");
                                 String match_id = document.getString("ID");
                                 String match_sportType = document.getString("SportType");
-                                
+
+                                GeoPoint geoPoint = document.getGeoPoint("location");
+
                                 list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
                                 myIds.add(match_id);
                                 sportCityAr.add(city);
@@ -137,8 +125,9 @@ public class MatchFragment extends Fragment {
                                 }
                                 // elenxos gia notification
                                 if(getActivity()!=null)
-                                compareDates(date);
+                                checkforNotification(date,geoPoint);
                             }
+                            createNotification();
 
                         } else {
                             Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
@@ -149,15 +138,17 @@ public class MatchFragment extends Fragment {
 
     }
 
-
-
+    private void createNotification() {
+        if(GeoPointArrayList.isEmpty())
+            return;
+        new MyNotification(getActivity().getApplicationContext());
+    }
 
 
     private void add_edit_listener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
 
                 setItemPosition(position);
 
@@ -167,7 +158,7 @@ public class MatchFragment extends Fragment {
                 return true;
             }
         });
-        }
+    }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         menu.setHeaderTitle("Select Option ").setHeaderIcon(R.drawable.ic_baseline_help_24);
@@ -274,9 +265,10 @@ public class MatchFragment extends Fragment {
         return string;
     }
 
-    private void compareDates(String date) {
-        if(TodayDate.equals(date)){
-            new MyNotification(getActivity().getApplicationContext());
+
+    private void checkforNotification(String date, GeoPoint geoPoint) {
+        if(TodayDate.equals(date)&&geoPoint!=null){
+            GeoPointArrayList.add(geoPoint);
         }
     }
 
