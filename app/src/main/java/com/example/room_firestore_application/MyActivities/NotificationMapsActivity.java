@@ -4,7 +4,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.example.room_firestore_application.ui.MatchFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -12,6 +11,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.GeoPoint;
+
+import java.util.ArrayList;
 
 public class NotificationMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -43,7 +44,7 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
     }
 
 
-    private void addMarkers(GeoPointArrayList geoPointArrayList) {
+    private void addMarkers(ArrayList<GeoPoint> geoPointArrayList) {
         for (GeoPoint geoPoint : geoPointArrayList) {
             LatLng latLng = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
             mMap.addMarker(new MarkerOptions().position(latLng));

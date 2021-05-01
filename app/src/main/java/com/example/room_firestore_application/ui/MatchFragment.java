@@ -20,7 +20,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.ui.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.ui.SubcollectionFragment.TeamMatchFragment;
@@ -59,7 +58,7 @@ public class MatchFragment extends Fragment {
 
     private String TodayDate;
     // saves today's matches that have geopoint in firebase
-    public static GeoPointArrayList GeoPointArrayList;
+    public static ArrayList<GeoPoint> GeoPointArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -94,7 +93,7 @@ public class MatchFragment extends Fragment {
                             sportDateAr = new ArrayList<>();
                             sportNameAr = new ArrayList<>();
 
-                            GeoPointArrayList = new GeoPointArrayList();
+                            GeoPointArrayList = new ArrayList<>();
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String city = document.getString("City");
