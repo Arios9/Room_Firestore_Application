@@ -6,7 +6,7 @@
     android:id="@+id/myLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MatchIndividualFragment"
+    tools:context=".MyFragments.MatchIndividualFragment"
     android:orientation="vertical">
     <Spinner
         android:id="@+id/spinnerAthleteID"

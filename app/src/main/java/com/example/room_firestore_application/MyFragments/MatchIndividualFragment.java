@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui;
+package com.example.room_firestore_application.MyFragments;
 
 import android.content.Context;
 import android.os.Build;

@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui;
+package com.example.room_firestore_application.MyFragments.ListFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.MyNotification;
-import com.example.room_firestore_application.ui.SubcollectionFragment.IndiMatchFragment;
-import com.example.room_firestore_application.ui.SubcollectionFragment.TeamMatchFragment;
+import com.example.room_firestore_application.MyFragments.SubcollectionFragment.IndiMatchFragment;
+import com.example.room_firestore_application.MyFragments.SubcollectionFragment.TeamMatchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -89,7 +89,7 @@ public class MatchFragment extends Fragment {
                                 createNewArrayLists();
 
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    
+
                                     String city = document.getString("City");
                                     String country = document.getString("Country");
                                     String date = document.getString("Date");

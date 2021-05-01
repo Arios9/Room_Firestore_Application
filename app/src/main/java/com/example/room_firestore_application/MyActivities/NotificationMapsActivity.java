@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.ui.MatchFragment;
+import com.example.room_firestore_application.MyFragments.ListFragments.MatchFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;

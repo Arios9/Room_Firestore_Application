@@ -14,7 +14,7 @@ import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.ui.TeamFragment;
+import com.example.room_firestore_application.MyFragments.ListFragments.TeamFragment;
 import com.hbb20.CountryCodePicker;
 
 import java.util.List;

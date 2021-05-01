@@ -13,7 +13,7 @@ import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.ui.AthleteFragment;
+import com.example.room_firestore_application.MyFragments.ListFragments.AthleteFragment;
 import com.hbb20.CountryCodePicker;
 
 import java.util.List;

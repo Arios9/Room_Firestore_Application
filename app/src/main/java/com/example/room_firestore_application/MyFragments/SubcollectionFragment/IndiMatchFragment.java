@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui.SubcollectionFragment;
+package com.example.room_firestore_application.MyFragments.SubcollectionFragment;
 
 import android.os.Bundle;
 

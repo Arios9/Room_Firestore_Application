@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui;
+package com.example.room_firestore_application.MyFragments.ListFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,24 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.room_firestore_application.Local_Tables.Athlete;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.AthleteActivity;
-import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.myArrayAdapter.AthletesAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AthleteFragment extends Fragment {

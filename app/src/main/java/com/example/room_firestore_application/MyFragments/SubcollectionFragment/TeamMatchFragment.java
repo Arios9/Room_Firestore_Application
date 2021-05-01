@@ -1,4 +1,4 @@
-package com.example.room_firestore_application.ui.SubcollectionFragment;
+package com.example.room_firestore_application.MyFragments.SubcollectionFragment;
 
 import android.os.Bundle;
 
@@ -15,7 +15,6 @@ import com.example.room_firestore_application.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.ui.SportFragment;
+import com.example.room_firestore_application.MyFragments.ListFragments.SportFragment;
 
 public class SportActivity extends AppCompatActivity {
 

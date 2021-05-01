@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_weight="8"
-    tools:context=".ui.SubcollectionFragment.IndiMatchFragment">
+    tools:context=".MyFragments.SubcollectionFragment.IndiMatchFragment">
 
 
     <TextView

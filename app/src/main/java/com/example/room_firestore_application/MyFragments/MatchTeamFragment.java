@@ -1,9 +1,8 @@
-package com.example.room_firestore_application.ui;
+package com.example.room_firestore_application.MyFragments;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,9 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.room_firestore_application.Local_Tables.Team;
 import com.example.room_firestore_application.MainActivity;
-import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
 
 import java.util.ArrayList;
