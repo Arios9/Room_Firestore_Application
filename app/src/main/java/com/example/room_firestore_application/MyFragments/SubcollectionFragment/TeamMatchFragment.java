@@ -3,6 +3,7 @@ package com.example.room_firestore_application.MyFragments.SubcollectionFragment
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class TeamMatchFragment extends Fragment {
 
     TextView tvTeamA,tvTeamB,tvResult,tvScoreA,tvScoreB,tvName, tvDate, tvCity, tvCountry, tvRes;
+    ConstraintLayout thisLayout;
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -51,6 +53,8 @@ public class TeamMatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_team_match, container, false);
+        thisLayout = view.findViewById(R.id.athleteTable);
+
 
         tvTeamA = view.findViewById(R.id.tvTeamAName);
         tvTeamB = view.findViewById(R.id.tvTeamBName);
@@ -72,6 +76,21 @@ public class TeamMatchFragment extends Fragment {
         date = args.getString("Date");
         name = args.getString("Name");
 
+        if(name.equals("Football")||name.equals("football")){
+            thisLayout.setBackground(getResources().getDrawable(R.drawable.football_background));
+        }
+        else if(name.equals("Basketball")||name.equals("basketball")||name.equals("Basket")||name.equals("basket")){
+            thisLayout.setBackground(getResources().getDrawable(R.drawable.basketball_background));
+        }
+        else if(name.equals("Handball")||name.equals("Handball")){
+            thisLayout.setBackground(getResources().getDrawable(R.drawable.handball_background));
+        }
+        else if(name.equals("Volley")||name.equals("volley")||name.equals("Volleyball")||name.equals("volleyball")){
+            thisLayout.setBackground(getResources().getDrawable(R.drawable.volleyball_background));
+        }
+        else{
+            thisLayout.setBackground(getResources().getDrawable(R.drawable.teamsport_background));
+        }
 
         tvName.setText(name);
         tvDate.setText(date);
