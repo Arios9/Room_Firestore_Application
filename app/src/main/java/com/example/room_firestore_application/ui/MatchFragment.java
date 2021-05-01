@@ -92,7 +92,6 @@ public class MatchFragment extends Fragment {
                             sportCountryAr = new ArrayList<>();
                             sportDateAr = new ArrayList<>();
                             sportNameAr = new ArrayList<>();
-
                             GeoPointArrayList = new ArrayList<>();
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
@@ -116,10 +115,8 @@ public class MatchFragment extends Fragment {
                                 if(getActivity()!=null)
                                 checkDateAndGeopoint(date,geoPoint);
                             }
-                            if (getContext() != null) {
-                                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
-                                listView.setAdapter(adapter);
-                            }
+                            ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+                            listView.setAdapter(adapter);
 
                             checkForNotification();
                         } else {
@@ -180,6 +177,7 @@ public class MatchFragment extends Fragment {
                 int position = getItemPosition();
                 String documentId = myIds.get(position);
                 collectionReference.document(documentId).delete();
+                createList();
             }
             break;
         }
