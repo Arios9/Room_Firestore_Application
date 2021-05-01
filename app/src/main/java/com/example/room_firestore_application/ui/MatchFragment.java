@@ -78,6 +78,7 @@ public class MatchFragment extends Fragment {
     }
 
     public void createList() {
+        if(getContext()!=null) {
             collectionReference
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -85,23 +86,16 @@ public class MatchFragment extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
 
-                                list = new ArrayList<>();
-                                myIds = new ArrayList<>();
-                                sportTypeAr = new ArrayList<>();
-                                sportCityAr = new ArrayList<>();
-                                sportCountryAr = new ArrayList<>();
-                                sportDateAr = new ArrayList<>();
-                                sportNameAr = new ArrayList<>();
-                                GeoPointArrayList = new ArrayList<>();
+                                createNewArrayLists();
 
                                 for (QueryDocumentSnapshot document : task.getResult()) {
+                                    
                                     String city = document.getString("City");
                                     String country = document.getString("Country");
                                     String date = document.getString("Date");
                                     String sport = document.getString("Sport");
                                     String match_id = document.getString("ID");
                                     String match_sportType = document.getString("SportType");
-
                                     GeoPoint geoPoint = document.getGeoPoint("location");
 
                                     list.add("Match ID : " + match_id + "\n" + " City : " + city + "\n Country : " + country + "\n Date : " + date + "\n Sport : " + sport);
@@ -112,19 +106,30 @@ public class MatchFragment extends Fragment {
                                     sportDateAr.add(date);
                                     sportTypeAr.add(match_sportType);
 
-                                    if (getActivity() != null)
-                                        checkDateAndGeopoint(date, geoPoint);
+                                    checkDateAndGeopoint(date, geoPoint);
                                 }
-                                if(getContext()!=null) {
-                                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
-                                    listView.setAdapter(adapter);
-                                }
+
+                                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+                                listView.setAdapter(adapter);
+
                                 checkForNotification();
                             } else {
                                 Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
+        }
+    }
+
+    private void createNewArrayLists() {
+        list = new ArrayList<>();
+        myIds = new ArrayList<>();
+        sportTypeAr = new ArrayList<>();
+        sportCityAr = new ArrayList<>();
+        sportCountryAr = new ArrayList<>();
+        sportDateAr = new ArrayList<>();
+        sportNameAr = new ArrayList<>();
+        GeoPointArrayList = new ArrayList<>();
     }
 
     private void addOnClickListener() {
