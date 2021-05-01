@@ -27,6 +27,7 @@ public class ParentFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 setItemPosition(position);
+                setParent(parent);
                 registerForContextMenu(listView);
                 getActivity().openContextMenu(listView);
                 return true;
