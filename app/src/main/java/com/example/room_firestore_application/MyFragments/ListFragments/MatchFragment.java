@@ -107,10 +107,11 @@ public class MatchFragment extends ParentFragment {
 
                                     geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
-                                geoPointArrayList.checkForNotification(getActivity().getApplicationContext());
-
-                                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
-                                listView.setAdapter(adapter);
+                                if(getActivity()!=null){
+                                    geoPointArrayList.checkForNotification(getActivity().getApplicationContext());
+                                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+                                    listView.setAdapter(adapter);
+                                }
 
                             } else {
                                 Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
