@@ -76,7 +76,7 @@ public class MatchFragment extends ParentFragment {
     }
 
     public void createList() {
-        if(getContext()!=null) {
+        if(getActivity()!=null) {
             collectionReference = db.collection("Matches");
             collectionReference
                     .get()
