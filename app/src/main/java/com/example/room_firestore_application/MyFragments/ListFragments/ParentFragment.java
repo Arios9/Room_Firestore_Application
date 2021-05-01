@@ -1,6 +1,5 @@
 package com.example.room_firestore_application.MyFragments.ListFragments;
 
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import com.example.room_firestore_application.MainActivity;
-import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
 
 public abstract class ParentFragment extends Fragment {
