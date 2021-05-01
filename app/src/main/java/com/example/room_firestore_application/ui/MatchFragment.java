@@ -70,7 +70,7 @@ public class MatchFragment extends Fragment {
         collectionReference = db.collection("Matches");
         createList();
         addOnClickListener();
-        add_edit_listener();
+        add_context();
 
         TodayDate = getTodayFormatString();
 
@@ -121,7 +121,7 @@ public class MatchFragment extends Fragment {
                                 listView.setAdapter(adapter);
                             }
 
-                            createNotification();
+                            checkForNotification();
                         } else {
                             Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
                         }
@@ -130,14 +130,14 @@ public class MatchFragment extends Fragment {
 
     }
 
-    private void createNotification() {
+    private void checkForNotification() {
         if(GeoPointArrayList.isEmpty())
             return;
         new MyNotification(getActivity().getApplicationContext());
     }
 
 
-    private void add_edit_listener() {
+    private void add_context() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
