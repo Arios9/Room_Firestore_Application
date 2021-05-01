@@ -22,9 +22,8 @@ import com.example.room_firestore_application.myArrayAdapter.SportsAdapter;
 
 import java.util.List;
 
-public class SportFragment extends Fragment {
+public class SportFragment extends ParentFragment {
 
-    private ListView listView;
     private List<Sport> list;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,43 +45,6 @@ public class SportFragment extends Fragment {
         listView.setAdapter(sportsAdapter);
     }
 
-//    private void add_edit_listener() {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Sport sport = (Sport) parent.getItemAtPosition(position);
-//                Intent intent = new Intent(getActivity(), SportActivity.class);
-//                intent.putExtra("object",sport);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
-    private void add_context() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                setItemPosition(position);
-                setParent(parent);
-                registerForContextMenu(listView);
-                getActivity().openContextMenu(listView);
-
-//                Sport sport = (Sport) parent.getItemAtPosition(position);
-//                MainActivity.localDatabase.basicDao().delete(sport);
-//                Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
-//                createList();
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Select Option ").setHeaderIcon(R.drawable.ic_baseline_help_24);
-        menu.add(Menu.NONE, 1 , Menu.NONE, "Edit");
-        menu.add(Menu.NONE, 2,Menu.NONE,"Delete");
-    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
@@ -100,7 +62,7 @@ public class SportFragment extends Fragment {
             case 2:{
                 int position = getItemPosition();
                 AdapterView parent = get_parent();
-               Sport sport = (Sport) parent.getItemAtPosition(position);
+                Sport sport = (Sport) parent.getItemAtPosition(position);
                 MainActivity.localDatabase.basicDao().delete(sport);
                 Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
                 createList();
@@ -110,21 +72,4 @@ public class SportFragment extends Fragment {
         return true;
     }
 
-
-    //Helper methods , holding the selected ListView item's position.
-    int _position;
-    AdapterView _parent;
-    public void setItemPosition(int position){
-        _position = position;
-    }
-
-    public int getItemPosition(){
-        return _position;
-    }
-    public void setParent(AdapterView<?> parent){
-        _parent = parent;
-    }
-    public AdapterView get_parent(){
-        return _parent;
-    }
 }

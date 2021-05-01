@@ -36,13 +36,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MatchFragment extends Fragment {
+public class MatchFragment extends ParentFragment {
 
     FragmentTransaction ft;
     Fragment teamMatchFrag = new TeamMatchFragment();
     Fragment indiMatchFrag = new IndiMatchFragment();
 
-    ListView listView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     CollectionReference collectionReference;
@@ -171,26 +170,8 @@ public class MatchFragment extends Fragment {
     }
 
 
-    private void add_context() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                setItemPosition(position);
 
-                registerForContextMenu(listView);
-                getActivity().openContextMenu(listView);
-
-                return true;
-            }
-        });
-    }
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Select Option ").setHeaderIcon(R.drawable.ic_baseline_help_24);
-        menu.add(Menu.NONE, 1 , Menu.NONE, "Edit");
-        menu.add(Menu.NONE, 2,Menu.NONE,"Delete");
-    }
     @Override
     public boolean onContextItemSelected(MenuItem item){
         switch(item.getItemId()){
@@ -219,15 +200,6 @@ public class MatchFragment extends Fragment {
             break;
         }
         return true;
-    }
-
-    //Helper methods , holding the selected ListView item's position.
-    int _position;
-    public void setItemPosition(int position){
-        _position = position;
-    }
-    public int getItemPosition(){
-        return _position;
     }
 
 

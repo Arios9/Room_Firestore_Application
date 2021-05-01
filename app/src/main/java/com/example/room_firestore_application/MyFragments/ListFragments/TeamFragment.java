@@ -22,9 +22,8 @@ import com.example.room_firestore_application.myArrayAdapter.TeamAdapter;
 
 import java.util.List;
 
-public class TeamFragment extends Fragment {
+public class TeamFragment extends ParentFragment {
 
-    private ListView listView;
     private List<Team> list;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,33 +39,12 @@ public class TeamFragment extends Fragment {
         return root;
     }
 
-
     public void createList() {
         list = MainActivity.localDatabase.basicDao().getTeam();
         TeamAdapter teamAdapter = new TeamAdapter(getActivity(), list);
         listView.setAdapter(teamAdapter);
     }
 
-
-    private void add_context() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                setItemPosition(position);
-                setParent(parent);
-                registerForContextMenu(listView);
-                getActivity().openContextMenu(listView);
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Select Option ").setHeaderIcon(R.drawable.ic_baseline_help_24);
-        menu.add(Menu.NONE, 1 , Menu.NONE, "Edit");
-        menu.add(Menu.NONE, 2,Menu.NONE,"Delete");
-    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
@@ -94,20 +72,4 @@ public class TeamFragment extends Fragment {
         return true;
     }
 
-    //Helper methods , holding the selected ListView item's position.
-    int _position;
-    AdapterView _parent;
-    public void setItemPosition(int position){
-        _position = position;
-    }
-
-    public int getItemPosition(){
-        return _position;
-    }
-    public void setParent(AdapterView<?> parent){
-        _parent = parent;
-    }
-    public AdapterView get_parent(){
-        return _parent;
-    }
 }
