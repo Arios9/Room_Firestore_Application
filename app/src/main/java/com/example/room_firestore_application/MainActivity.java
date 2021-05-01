@@ -11,6 +11,7 @@ import com.example.room_firestore_application.MyActivities.SportActivity;
 import com.example.room_firestore_application.MyActivities.TeamActivity;
 import com.example.room_firestore_application.MyFragments.ListFragments.AthleteFragment;
 import com.example.room_firestore_application.MyFragments.ListFragments.MatchFragment;
+import com.example.room_firestore_application.MyFragments.ListFragments.ParentFragment;
 import com.example.room_firestore_application.MyFragments.ListFragments.SportFragment;
 import com.example.room_firestore_application.MyFragments.ListFragments.TeamFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,8 +29,10 @@ import androidx.room.Room;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static Fragment CurrentFragment;
+    public static ParentFragment CurrentFragment;
+    public static Class CurrentActivityClass;
     public static LocalDatabase localDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,20 +69,8 @@ public class MainActivity extends AppCompatActivity {
         ).allowMainThreadQueries().build();
     }
 
-
     public void openRightActivity() {
-        Class currentClass = null;
-
-        if (CurrentFragment instanceof SportFragment)
-            currentClass= SportActivity.class;
-        else if (CurrentFragment instanceof AthleteFragment)
-            currentClass= AthleteActivity.class;
-        else if (CurrentFragment instanceof TeamFragment)
-            currentClass= TeamActivity.class;
-        else if(CurrentFragment instanceof MatchFragment)
-            currentClass= MatchActivity.class;
-
-        Intent intent = new Intent(this, currentClass);
+        Intent intent = new Intent(this, CurrentActivityClass);
         startActivity(intent);
     }
 

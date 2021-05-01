@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.SportActivity;
+import com.example.room_firestore_application.MyActivities.TeamActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.myArrayAdapter.SportsAdapter;
 
@@ -25,10 +26,11 @@ import java.util.List;
 public class SportFragment extends ParentFragment {
 
     private List<Sport> list;
+    public final Class ActivityClass = SportActivity.class;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.CurrentFragment = this;
+        MainActivity.CurrentActivityClass = ActivityClass;
 
         View root = inflater.inflate(R.layout.fragment_sport, container, false);
         listView = root.findViewById(R.id.sport_list);
@@ -45,31 +47,24 @@ public class SportFragment extends ParentFragment {
         listView.setAdapter(sportsAdapter);
     }
 
+    @Override
+    void EditAction() {
+        int position = getItemPosition();
+        AdapterView parent = get_parent();
+        Sport sport = (Sport) parent.getItemAtPosition(position);
+        Intent intent = new Intent(getActivity(), SportActivity.class);
+        intent.putExtra("object",sport);
+        startActivity(intent);
+    }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case 1:{
-                int position = getItemPosition();
-                AdapterView parent = get_parent();
-                Sport sport = (Sport) parent.getItemAtPosition(position);
-                Intent intent = new Intent(getActivity(), SportActivity.class);
-                intent.putExtra("object",sport);
-                startActivity(intent);
-
-            }
-            break;
-            case 2:{
-                int position = getItemPosition();
-                AdapterView parent = get_parent();
-                Sport sport = (Sport) parent.getItemAtPosition(position);
-                MainActivity.localDatabase.basicDao().delete(sport);
-                Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
-                createList();
-            }
-            break;
-        }
-        return true;
+    void DeleteAction() {
+        int position = getItemPosition();
+        AdapterView parent = get_parent();
+        Sport sport = (Sport) parent.getItemAtPosition(position);
+        MainActivity.localDatabase.basicDao().delete(sport);
+        Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+        createList();
     }
 
 }

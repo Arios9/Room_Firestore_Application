@@ -25,10 +25,11 @@ import java.util.List;
 public class TeamFragment extends ParentFragment {
 
     private List<Team> list;
+    public final Class ActivityClass = TeamActivity.class;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.CurrentFragment = this;
+        MainActivity.CurrentActivityClass = ActivityClass;
 
         View root = inflater.inflate(R.layout.fragment_team, container, false);
         listView = (ListView) root.findViewById(R.id.team_list);
@@ -45,31 +46,24 @@ public class TeamFragment extends ParentFragment {
         listView.setAdapter(teamAdapter);
     }
 
+    @Override
+    void EditAction() {
+        int position = getItemPosition();
+        AdapterView parent = get_parent();
+        Team team = (Team) parent.getItemAtPosition(position);
+        Intent intent = new Intent(getActivity(), TeamActivity.class);
+        intent.putExtra("object",team);
+        startActivity(intent);
+    }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case 1:{
-                int position = getItemPosition();
-                AdapterView parent = get_parent();
-                Team team = (Team) parent.getItemAtPosition(position);
-                Intent intent = new Intent(getActivity(), TeamActivity.class);
-                intent.putExtra("object",team);
-                startActivity(intent);
-
-            }
-            break;
-            case 2:{
-                int position = getItemPosition();
-                AdapterView parent = get_parent();
-                Team team = (Team) parent.getItemAtPosition(position);
-                MainActivity.localDatabase.basicDao().delete(team);
-                Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
-                createList();
-            }
-            break;
-        }
-        return true;
+    void DeleteAction() {
+        int position = getItemPosition();
+        AdapterView parent = get_parent();
+        Team team = (Team) parent.getItemAtPosition(position);
+        MainActivity.localDatabase.basicDao().delete(team);
+        Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
+        createList();
     }
 
 }

@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
+import com.example.room_firestore_application.MyActivities.TeamActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.IndiMatchFragment;
@@ -37,6 +38,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MatchFragment extends ParentFragment {
+
+    public final Class ActivityClass = MatchActivity.class;
 
     FragmentTransaction ft;
     Fragment teamMatchFrag = new TeamMatchFragment();
@@ -61,15 +64,16 @@ public class MatchFragment extends ParentFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.CurrentFragment = this;
+        MainActivity.CurrentActivityClass = ActivityClass;
 
         View root = inflater.inflate(R.layout.fragment_match, container, false);
 
         listView = root.findViewById(R.id.match_list);
         collectionReference = db.collection("Matches");
         createList();
-        addOnClickListener();
         add_context();
+
+        addOnClickListener();
 
         TodayDate = getTodayFormatString();
 
@@ -170,38 +174,28 @@ public class MatchFragment extends ParentFragment {
     }
 
 
-
-
     @Override
-    public boolean onContextItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case 1:{
-                int position = getItemPosition();
-                String sid = myIds.get(position);
-                String city = sportCityAr.get(position);
-                String date = sportDateAr.get(position);
+    void EditAction() {
+        int position = getItemPosition();
+        String sid = myIds.get(position);
+        String city = sportCityAr.get(position);
+        String date = sportDateAr.get(position);
 
-                Intent intent = new Intent(getActivity(), MatchActivity.class);
-
-                intent.putExtra("id",sid);
-                intent.putExtra("date",date);
-                intent.putExtra("city",city);
-
-                startActivity(intent);
-            }
-            break;
-            case 2:{
-                Toast.makeText(getActivity(), "Document Deleted", Toast.LENGTH_SHORT).show();
-                int position = getItemPosition();
-                String documentId = myIds.get(position);
-                collectionReference.document(documentId).delete();
-                createList();
-            }
-            break;
-        }
-        return true;
+        Intent intent = new Intent(getActivity(), MatchActivity.class);
+        intent.putExtra("id",sid);
+        intent.putExtra("date",date);
+        intent.putExtra("city",city);
+        startActivity(intent);
     }
 
+    @Override
+    void DeleteAction() {
+        Toast.makeText(getActivity(), "Document Deleted", Toast.LENGTH_SHORT).show();
+        int position = getItemPosition();
+        String documentId = myIds.get(position);
+        collectionReference.document(documentId).delete();
+        createList();
+    }
 
     private String getTodayFormatString() {
         Calendar calendar = Calendar.getInstance();
