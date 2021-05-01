@@ -2,6 +2,8 @@ package com.example.room_firestore_application.MyActivities;
 
 import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.example.room_firestore_application.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +42,7 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onMapLongClick(LatLng latLng) {
                 MatchActivity.geoPoint = new GeoPoint(latLng.latitude, latLng.longitude);
+                Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

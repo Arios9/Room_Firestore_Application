@@ -2,6 +2,7 @@ package com.example.room_firestore_application.MyFragments.ListFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,7 +61,7 @@ public class MatchFragment extends ParentFragment {
     ArrayList<String> sportNameAr ;
 
     // saves today's matches that have geopoint in firebase
-    public static GeoPointArrayList geoPointArrayList;
+    public static GeoPointArrayList geoPointArrayList  = new GeoPointArrayList();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class MatchFragment extends ParentFragment {
     }
 
     public void createList() {
-        if(getActivity()!=null) {
+        if(getContext()!=null) {
             collectionReference = db.collection("Matches");
             collectionReference
                     .get()
@@ -107,10 +108,17 @@ public class MatchFragment extends ParentFragment {
 
                                     geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
-                                geoPointArrayList.checkForNotification(getActivity().getApplicationContext());
+                                geoPointArrayList.checkForNotification(getActivity());
 
-                                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
-                                listView.setAdapter(adapter);
+                                if(getContext()!=null) {
+                                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+                                    listView.setAdapter(adapter);
+                                }
+
+
+
+
+
 
                             } else {
                                 Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
