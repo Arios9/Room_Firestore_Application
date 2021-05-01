@@ -65,7 +65,6 @@ public class MatchFragment extends ParentFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.CurrentActivityClass = ActivityClass;
-
         View root = inflater.inflate(R.layout.fragment_match, container, false);
 
         listView = root.findViewById(R.id.match_list);
