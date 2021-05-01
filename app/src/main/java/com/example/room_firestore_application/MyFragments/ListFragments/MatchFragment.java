@@ -77,7 +77,7 @@ public class MatchFragment extends ParentFragment {
     }
 
     public void createList() {
-        if(getContext()!=null) {
+        if(getActivity()!=null){
             collectionReference = db.collection("Matches");
             collectionReference
                     .get()
@@ -108,15 +108,13 @@ public class MatchFragment extends ParentFragment {
 
                                     geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
-                                geoPointArrayList.checkForNotification(getActivity());
 
-                                if(getContext()!=null) {
-                                    ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
+
+                                if(getActivity()!=null) {
+                                    geoPointArrayList.checkForNotification(getActivity());
+                                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
                                     listView.setAdapter(adapter);
                                 }
-
-
-
 
 
 

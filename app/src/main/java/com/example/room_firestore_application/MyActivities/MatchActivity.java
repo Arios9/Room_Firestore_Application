@@ -32,7 +32,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
     MatchTeamFragment fragment = new MatchTeamFragment();
     MatchIndividualFragment fragmentIndividual = new MatchIndividualFragment();
-    FragmentTransaction ft, ft1;
+    FragmentTransaction ft;
 
     //Variables to contain data passed from the fragment;
     static String teamA,teamB,scoreTeamA,scoreTeamB;
@@ -40,7 +40,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     static String athleteA,scoreAthlete, athleteId;
 
 
-    private EditText matchID, matchCity, scoreA, scoreB;
+    private EditText matchID, matchCity;
     private CountryCodePicker matchCountry;
     public static EditText matchDate;
     private Spinner sItems;
