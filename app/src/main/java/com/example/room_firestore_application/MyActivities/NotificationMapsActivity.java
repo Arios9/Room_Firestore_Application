@@ -40,7 +40,7 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        addMarkers(MatchFragment.GeoPointArrayList);
+        addMarkers(MatchFragment.geoPointArrayList);
     }
 
 

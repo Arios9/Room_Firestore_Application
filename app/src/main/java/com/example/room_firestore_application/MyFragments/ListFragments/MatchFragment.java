@@ -21,6 +21,7 @@ import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.MyActivities.TeamActivity;
 import com.example.room_firestore_application.R;
+import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.TeamMatchFragment;
@@ -58,9 +59,8 @@ public class MatchFragment extends ParentFragment {
     ArrayList<String> sportDateAr ;
     ArrayList<String> sportNameAr ;
 
-    private String TodayDate;
     // saves today's matches that have geopoint in firebase
-    public static ArrayList<GeoPoint> GeoPointArrayList;
+    public static GeoPointArrayList geoPointArrayList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,8 +73,6 @@ public class MatchFragment extends ParentFragment {
         add_context();
 
         addOnClickListener();
-
-        TodayDate = getTodayFormatString();
 
         return root;
     }
@@ -108,13 +106,13 @@ public class MatchFragment extends ParentFragment {
                                     sportDateAr.add(date);
                                     sportTypeAr.add(match_sportType);
 
-                                    checkDateAndGeopoint(date, geoPoint);
+                                    geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
+                                geoPointArrayList.checkForNotification(getActivity().getApplicationContext());
 
                                 ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
                                 listView.setAdapter(adapter);
 
-                                checkForNotification();
                             } else {
                                 Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
                             }
@@ -131,7 +129,7 @@ public class MatchFragment extends ParentFragment {
         sportCountryAr = new ArrayList<>();
         sportDateAr = new ArrayList<>();
         sportNameAr = new ArrayList<>();
-        GeoPointArrayList = new ArrayList<>();
+        geoPointArrayList = new GeoPointArrayList();
     }
 
     private void addOnClickListener() {
@@ -194,25 +192,6 @@ public class MatchFragment extends ParentFragment {
         String documentId = myIds.get(position);
         collectionReference.document(documentId).delete();
         createList();
-    }
-
-    private String getTodayFormatString() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String string = simpleDateFormat.format(calendar.getTime());
-        return string;
-    }
-
-    // date must be today and geopoint must exist to add it in the list
-    private void checkDateAndGeopoint(String date, GeoPoint geoPoint) {
-        if(TodayDate.equals(date)&&geoPoint!=null)
-            GeoPointArrayList.add(geoPoint);
-    }
-
-    private void checkForNotification() {
-        if(GeoPointArrayList.isEmpty())
-            return;
-        new MyNotification(getActivity().getApplicationContext());
     }
 
 
