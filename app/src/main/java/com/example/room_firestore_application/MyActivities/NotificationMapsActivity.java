@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.MyFragments.ListFragments.MatchFragment;
+import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -43,11 +44,11 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
         addMarkers(MatchFragment.geoPointArrayList);
     }
 
-
-    private void addMarkers(ArrayList<GeoPoint> geoPointArrayList) {
+    private void addMarkers(GeoPointArrayList geoPointArrayList) {
         for (GeoPoint geoPoint : geoPointArrayList) {
             LatLng latLng = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
             mMap.addMarker(new MarkerOptions().position(latLng));
         }
     }
+
 }
