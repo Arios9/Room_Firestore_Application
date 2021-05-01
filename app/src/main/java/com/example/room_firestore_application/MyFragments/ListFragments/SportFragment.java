@@ -25,13 +25,10 @@ import java.util.List;
 
 public class SportFragment extends ParentFragment {
 
-    private List<Sport> list;
-    public final Class ActivityClass = SportActivity.class;
+    private final Class ActivityClass = SportActivity.class;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.CurrentActivityClass = ActivityClass;
-
         View root = inflater.inflate(R.layout.fragment_sport, container, false);
         listView = root.findViewById(R.id.sport_list);
 
@@ -42,7 +39,7 @@ public class SportFragment extends ParentFragment {
     }
 
     public void createList() {
-        list = MainActivity.localDatabase.basicDao().getSport();
+        List<Sport> list = MainActivity.localDatabase.basicDao().getSport();
         SportsAdapter sportsAdapter = new SportsAdapter(getActivity(),list);
         listView.setAdapter(sportsAdapter);
     }
@@ -66,5 +63,11 @@ public class SportFragment extends ParentFragment {
         Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
         createList();
     }
+
+    @Override
+    public Class getActivityClass() {
+        return ActivityClass;
+    }
+
 
 }

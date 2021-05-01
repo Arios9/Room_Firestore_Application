@@ -9,11 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import com.example.room_firestore_application.MainActivity;
+import com.example.room_firestore_application.MyActivities.MatchActivity;
 import com.example.room_firestore_application.R;
 
 public abstract class ParentFragment extends Fragment {
 
     ListView listView;
+
 
     public ParentFragment() {
         MainActivity.CurrentFragment = this;
@@ -22,6 +24,7 @@ public abstract class ParentFragment extends Fragment {
     abstract void EditAction();
     abstract void DeleteAction();
 
+    public abstract Class getActivityClass();
 
      void add_context() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

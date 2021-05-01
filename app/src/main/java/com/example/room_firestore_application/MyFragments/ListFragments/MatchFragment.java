@@ -40,7 +40,7 @@ import java.util.List;
 
 public class MatchFragment extends ParentFragment {
 
-    public final Class ActivityClass = MatchActivity.class;
+    private final Class ActivityClass = MatchActivity.class;
 
     FragmentTransaction ft;
     Fragment teamMatchFrag = new TeamMatchFragment();
@@ -64,11 +64,9 @@ public class MatchFragment extends ParentFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.CurrentActivityClass = ActivityClass;
         View root = inflater.inflate(R.layout.fragment_match, container, false);
 
         listView = root.findViewById(R.id.match_list);
-        collectionReference = db.collection("Matches");
         createList();
         add_context();
 
@@ -79,6 +77,7 @@ public class MatchFragment extends ParentFragment {
 
     public void createList() {
         if(getContext()!=null) {
+            collectionReference = db.collection("Matches");
             collectionReference
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -192,6 +191,11 @@ public class MatchFragment extends ParentFragment {
         String documentId = myIds.get(position);
         collectionReference.document(documentId).delete();
         createList();
+    }
+
+    @Override
+    public Class getActivityClass() {
+        return ActivityClass;
     }
 
 

@@ -5,18 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.example.room_firestore_application.MyActivities.AthleteActivity;
-import com.example.room_firestore_application.MyActivities.MatchActivity;
-import com.example.room_firestore_application.MyActivities.SportActivity;
-import com.example.room_firestore_application.MyActivities.TeamActivity;
-import com.example.room_firestore_application.MyFragments.ListFragments.AthleteFragment;
-import com.example.room_firestore_application.MyFragments.ListFragments.MatchFragment;
 import com.example.room_firestore_application.MyFragments.ListFragments.ParentFragment;
-import com.example.room_firestore_application.MyFragments.ListFragments.SportFragment;
-import com.example.room_firestore_application.MyFragments.ListFragments.TeamFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static ParentFragment CurrentFragment;
-    public static Class CurrentActivityClass;
     public static LocalDatabase localDatabase;
 
     @Override
@@ -70,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openRightActivity() {
-        Intent intent = new Intent(this, CurrentActivityClass);
+        Class currentClass = CurrentFragment.getActivityClass();
+        Intent intent = new Intent(this, currentClass);
         startActivity(intent);
     }
 
