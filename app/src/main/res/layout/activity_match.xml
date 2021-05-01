@@ -79,8 +79,6 @@
         app:layout_constraintTop_toBottomOf="@id/matchCity" />
 
 
-
-
     <Button
         android:id="@+id/match_buttonToResults"
         android:layout_width="match_parent"
