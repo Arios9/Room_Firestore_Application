@@ -26,18 +26,10 @@ import java.util.List;
 public class SportFragment extends ParentFragment {
 
     private final Class ActivityClass = SportActivity.class;
+    private final int FRAGMENT_ID = R.layout.fragment_sport;
+    private final int LIST_ID = R.id.sport_list;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_sport, container, false);
-        listView = root.findViewById(R.id.sport_list);
-
-        createList();
-        add_context();
-
-        return root;
-    }
-
+    @Override
     public void createList() {
         List<Sport> list = MainActivity.localDatabase.basicDao().getSport();
         SportsAdapter sportsAdapter = new SportsAdapter(getActivity(),list);
@@ -65,9 +57,18 @@ public class SportFragment extends ParentFragment {
     }
 
     @Override
+    int getFragmentId() {
+        return FRAGMENT_ID;
+    }
+
+    @Override
+    int getListId() {
+        return LIST_ID;
+    }
+
+    @Override
     public Class getActivityClass() {
         return ActivityClass;
     }
-
 
 }

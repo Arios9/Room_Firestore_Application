@@ -25,19 +25,10 @@ import java.util.List;
 public class TeamFragment extends ParentFragment {
 
     private final Class ActivityClass = TeamActivity.class;
+    private final int FRAGMENT_ID = R.layout.fragment_team;
+    private final int LIST_ID = R.id.team_list;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_team, container, false);
-        listView = (ListView) root.findViewById(R.id.team_list);
-
-        createList();
-        add_context();
-
-        return root;
-    }
-
+    @Override
     public void createList() {
         List<Team> list = MainActivity.localDatabase.basicDao().getTeam();
         TeamAdapter teamAdapter = new TeamAdapter(getActivity(), list);
@@ -62,6 +53,16 @@ public class TeamFragment extends ParentFragment {
         MainActivity.localDatabase.basicDao().delete(team);
         Toast.makeText(getActivity(),"Deleted",Toast.LENGTH_SHORT).show();
         createList();
+    }
+
+    @Override
+    int getFragmentId() {
+        return FRAGMENT_ID;
+    }
+
+    @Override
+    int getListId() {
+        return LIST_ID;
     }
 
     @Override

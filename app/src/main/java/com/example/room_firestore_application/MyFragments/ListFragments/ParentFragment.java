@@ -1,11 +1,16 @@
 package com.example.room_firestore_application.MyFragments.ListFragments;
 
+import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
@@ -13,18 +18,30 @@ import com.example.room_firestore_application.R;
 public abstract class ParentFragment extends Fragment {
 
     ListView listView;
-
-
-    public ParentFragment() {
-        MainActivity.CurrentFragment = this;
-    }
-
-    abstract void EditAction();
-    abstract void DeleteAction();
-
+    
     public abstract Class getActivityClass();
 
-     void add_context() {
+    abstract void createList();
+    abstract void EditAction();
+    abstract void DeleteAction();
+    abstract int getFragmentId();
+    abstract int getListId();
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.CurrentFragment = this;
+
+        View root = inflater.inflate(getFragmentId(), container, false);
+        listView = root.findViewById(getListId());
+
+        createList();
+        add_context();
+
+        return root;
+    }
+
+
+    void add_context() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -41,7 +58,7 @@ public abstract class ParentFragment extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         menu.setHeaderTitle("Select Option ").setHeaderIcon(R.drawable.ic_baseline_help_24);
         menu.add(Menu.NONE, 1 , Menu.NONE, "Edit");
-        menu.add(Menu.NONE, 2,Menu.NONE,"Delete");
+        menu.add(Menu.NONE, 2, Menu.NONE,"Delete");
     }
 
     @Override

@@ -44,12 +44,12 @@ import java.util.List;
 public class MatchFragment extends ParentFragment {
 
     private final Class ActivityClass = MatchActivity.class;
-
+    private final int FRAGMENT_ID = R.layout.fragment_match;
+    private final int LIST_ID = R.id.match_list;
 
     CollectionReference collectionReference;
 
     Activity mainContext;
-
 
     List<String> list ;
     ArrayList<String> myIds ;
@@ -62,19 +62,7 @@ public class MatchFragment extends ParentFragment {
     // saves today's matches that have geopoint in firebase
     public static GeoPointArrayList geoPointArrayList  = new GeoPointArrayList();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_match, container, false);
-
-        listView = root.findViewById(R.id.match_list);
-        createList();
-        add_context();
-
-        addOnClickListener();
-
-        return root;
-    }
-
+    @Override
     public void createList() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         collectionReference = db.collection("Matches");
@@ -118,6 +106,7 @@ public class MatchFragment extends ParentFragment {
                             }
                         }
                     });
+        addOnClickListener();
     }
 
     private void createNewArrayLists() {
@@ -193,6 +182,16 @@ public class MatchFragment extends ParentFragment {
         String documentId = myIds.get(position);
         collectionReference.document(documentId).delete();
         createList();
+    }
+
+    @Override
+    int getFragmentId() {
+        return FRAGMENT_ID;
+    }
+
+    @Override
+    int getListId() {
+        return LIST_ID;
     }
 
     @Override
