@@ -2,6 +2,7 @@ package com.example.room_firestore_application.MyActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.DatePickerFragment;
-import com.example.room_firestore_application.MyFragments.ListFragments.MatchFragment;
 import com.example.room_firestore_application.MyFragments.MatchIndividualFragment;
 import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
 import com.google.firebase.firestore.CollectionReference;
@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi {
 
-    MatchTeamFragment fragment = new MatchTeamFragment();
+    MatchTeamFragment fragmentTeam = new MatchTeamFragment();
     MatchIndividualFragment fragmentIndividual = new MatchIndividualFragment();
     FragmentTransaction ft;
 
@@ -125,6 +125,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         matchCountry = findViewById(R.id.matchCountry);
         buttonSubmit = findViewById(R.id.match_button);
         buttonToResults = findViewById(R.id.match_buttonToResults);
+        buttonClear = findViewById(R.id.buttonClear);
         mapTextView = findViewById(R.id.matchGeopoint);
 
     }
@@ -138,35 +139,24 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                 String sportType = MainActivity.localDatabase.basicDao().getSportType(String.valueOf(sItems.getSelectedItem()));
 
                 //Switch to MatchActivityTeam or MatchActivityIndividual depending on the Sport
-
                 if(sportType.equals("Team")){
-
-                    Bundle bundle = new Bundle();
-                    String sport = String.valueOf(sItems.getSelectedItem());
-                    bundle.putString("sport", sport);
-
-                    fragment.setArguments(bundle);
-                    ft = getSupportFragmentManager().beginTransaction().replace(R.id.sportTypeContainer, fragment, null);
-                    //ft.commit();
-                    ft.detach(fragment);
-                    ft.attach(fragment);
-                    ft.commit();
-                    ft.addToBackStack(null);
+                    openFragment(fragmentTeam);
+                }else{
+                    openFragment(fragmentIndividual);
                 }
+            }
 
-                else{
-                    Bundle bundle = new Bundle();
-                    String sport = String.valueOf(sItems.getSelectedItem());
-                    bundle.putString("sport", sport);
+            private void openFragment(Fragment fragment) {
+                Bundle bundle = new Bundle();
+                String sport = String.valueOf(sItems.getSelectedItem());
+                bundle.putString("sport", sport);
 
-                    fragmentIndividual.setArguments(bundle);
-                    ft = getSupportFragmentManager().beginTransaction().replace(R.id.sportTypeContainer,fragmentIndividual,null);
-                    //ft.commit();
-                    ft.detach(fragmentIndividual);
-                    ft.attach(fragmentIndividual);
-                    ft.commit();
-                    ft.addToBackStack(null);
-                }
+                fragment.setArguments(bundle);
+                ft = getSupportFragmentManager().beginTransaction().replace(R.id.sportTypeContainer, fragment, null);
+                ft.detach(fragment);
+                ft.attach(fragment);
+                ft.commit();
+                ft.addToBackStack(null);
             }
 
         });
@@ -261,8 +251,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         matchID.setText("");
         matchDate.setText("");
         matchCity.setText("");
-        if (fragment.isVisible()) {
-            ft = getSupportFragmentManager().beginTransaction().remove(fragment);
+        if (fragmentTeam.isVisible()) {
+            ft = getSupportFragmentManager().beginTransaction().remove(fragmentTeam);
             ft.commit();
             ft.addToBackStack(null);
         }
@@ -272,8 +262,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             ft.addToBackStack(null);
         }
     }
+
     private void setClearAction(){
-        buttonClear = findViewById(R.id.buttonClear);
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
