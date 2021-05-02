@@ -50,9 +50,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     public static GeoPoint geoPoint;
 
 
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -221,6 +218,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                         results.put("Score Athlete", scoreAthlete);
                     }
 
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
                     CollectionReference theResultsCollection = db.collection("Matches")
                             .document("" + match_id).collection("Results");
 
