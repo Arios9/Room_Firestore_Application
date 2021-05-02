@@ -35,13 +35,13 @@ public abstract class ParentFragment extends Fragment {
         listView = root.findViewById(getListId());
 
         createList();
-        add_context();
+        addItemListener();
 
         return root;
     }
 
 
-    void add_context() {
+    void addItemListener() {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
