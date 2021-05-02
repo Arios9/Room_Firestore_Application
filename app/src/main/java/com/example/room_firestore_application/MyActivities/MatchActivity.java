@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     public static EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
-    private TextView mapTextView;
+    private ImageButton imageButton;
 
     public static GeoPoint geoPoint;
 
@@ -82,7 +83,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     }
 
     private void setmapTextViewAction() {
-        mapTextView.setOnClickListener(new View.OnClickListener() {
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
@@ -123,7 +124,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         buttonSubmit = findViewById(R.id.match_button);
         buttonToResults = findViewById(R.id.match_buttonToResults);
         buttonClear = findViewById(R.id.buttonClear);
-        mapTextView = findViewById(R.id.matchGeopoint);
+        imageButton = findViewById(R.id.matchGeopoint);
 
     }
     private void setCheckSportTypeAction() {
