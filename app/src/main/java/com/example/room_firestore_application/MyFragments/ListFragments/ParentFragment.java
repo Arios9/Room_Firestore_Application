@@ -21,7 +21,7 @@ public abstract class ParentFragment extends Fragment {
     
     public abstract Class getActivityClass();
 
-    abstract void createList();
+    public abstract void createList();
     abstract void EditAction();
     abstract void DeleteAction();
     abstract int getFragmentId();

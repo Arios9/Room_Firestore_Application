@@ -52,7 +52,7 @@ public class SportActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
 
-                ((SportFragment)MainActivity.CurrentFragment).createList();
+                MainActivity.CurrentFragment.createList();
             }
 
             private void resetForm() {
@@ -92,7 +92,7 @@ public class SportActivity extends AppCompatActivity {
                 sport.setIndividual(sportType);
                 sport.setGender(sportGender);
                 MainActivity.localDatabase.basicDao().update(sport);
-                ((SportFragment)MainActivity.CurrentFragment).createList();
+                MainActivity.CurrentFragment.createList();
                 finish();
             }
         });

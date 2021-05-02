@@ -79,11 +79,10 @@ public class TeamActivity extends AppCompatActivity {
                 MainActivity.localDatabase.basicDao().insert(team);
                 Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
-                ((TeamFragment)MainActivity.CurrentFragment).createList();
+                MainActivity.CurrentFragment.createList();
             }
 
             private void resetForm() {
-                spinner.setSelection(0);
                 name.setText("");
                 stadium.setText("");
                 city.setText("");
@@ -113,7 +112,8 @@ public class TeamActivity extends AppCompatActivity {
                 team.setCity(teamCity);
                 team.setBirth_year(teamBirthYear);
                 MainActivity.localDatabase.basicDao().update(team);
-                ((TeamFragment)MainActivity.CurrentFragment).createList();
+
+                MainActivity.CurrentFragment.createList();
                 finish();
             }
         });

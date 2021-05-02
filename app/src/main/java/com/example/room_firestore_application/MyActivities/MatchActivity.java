@@ -246,7 +246,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     resetForm();
 
 
-                    ((MatchFragment)MainActivity.CurrentFragment).createList();
+                    MainActivity.CurrentFragment.createList();
 
                     //an to activity exei anoiksei gia edit kleinei meta to submit
                     if (getIntent().hasExtra("id")){

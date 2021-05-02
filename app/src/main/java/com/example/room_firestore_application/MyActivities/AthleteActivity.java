@@ -78,11 +78,10 @@ public class AthleteActivity extends AppCompatActivity {
                 MainActivity.localDatabase.basicDao().insert(athlete);
                 Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_SHORT).show();
                 resetForm();
-                ((AthleteFragment)MainActivity.CurrentFragment).createList();
+                MainActivity.CurrentFragment.createList();
             }
 
             private void resetForm() {
-                spinner.setSelection(0);
                 name.setText("");
                 surname.setText("");
                 city.setText("");
@@ -113,7 +112,7 @@ public class AthleteActivity extends AppCompatActivity {
                 athlete.setBirth_year(athleteBirthYear);
                 MainActivity.localDatabase.basicDao().update(athlete);
 
-                ((AthleteFragment)MainActivity.CurrentFragment).createList();
+                MainActivity.CurrentFragment.createList();
                 finish();
             }
         });
