@@ -111,10 +111,10 @@ public class MatchFragment extends ParentFragment {
 
                                     geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
+                                geoPointArrayList.checkForNotification(mainContext);
 
-                                    geoPointArrayList.checkForNotification(mainContext);
-                                    ArrayAdapter adapter = new ArrayAdapter(mainContext, android.R.layout.simple_list_item_1, list);
-                                    listView.setAdapter(adapter);
+                                ArrayAdapter adapter = new ArrayAdapter(mainContext, android.R.layout.simple_list_item_1, list);
+                                listView.setAdapter(adapter);
 
 
                             } else {

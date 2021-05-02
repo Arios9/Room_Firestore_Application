@@ -1,5 +1,6 @@
 package com.example.room_firestore_application.helpClasses;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.google.firebase.firestore.GeoPoint;
@@ -22,10 +23,10 @@ public class GeoPointArrayList extends ArrayList<GeoPoint> {
             add(geoPoint);
     }
 
-    public void checkForNotification(Context applicationContext) {
+    public void checkForNotification(Activity mainContext) {
         if(isEmpty())
             return;
-        new MyNotification(applicationContext);
+        new MyNotification(mainContext);
     }
 
     private String getTodayFormatString() {
@@ -34,4 +35,5 @@ public class GeoPointArrayList extends ArrayList<GeoPoint> {
         String string = simpleDateFormat.format(calendar.getTime());
         return string;
     }
+
 }
