@@ -45,11 +45,6 @@ public class MatchFragment extends ParentFragment {
 
     private final Class ActivityClass = MatchActivity.class;
 
-    FragmentTransaction ft;
-    Fragment teamMatchFrag = new TeamMatchFragment();
-    Fragment indiMatchFrag = new IndiMatchFragment();
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     CollectionReference collectionReference;
 
@@ -81,7 +76,8 @@ public class MatchFragment extends ParentFragment {
     }
 
     public void createList() {
-            collectionReference = db.collection("Matches");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        collectionReference = db.collection("Matches");
             collectionReference
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -156,19 +152,21 @@ public class MatchFragment extends ParentFragment {
                     bundle.putString("Date", sportDate);
                     bundle.putString("Name", sportName);
 
+                    Fragment teamMatchFrag = new TeamMatchFragment();
                     openFragment(teamMatchFrag, bundle);
                 }
                 else{
+                    Fragment indiMatchFrag = new IndiMatchFragment();
                     openFragment(indiMatchFrag, bundle);
                 }
             }
             private void openFragment(Fragment fragment, Bundle bundle) {
                 fragment.setArguments(bundle);
-                ft = getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, fragment, null);
+                FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, fragment, null);
                 ft.detach(fragment);
                 ft.attach(fragment);
-                ft.commit();
                 ft.addToBackStack(null);
+                ft.commit();
             }
         });
     }
