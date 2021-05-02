@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_match"
+            android:icon="@drawable/ic_baseline_local_fire_department_24"
+            android:title="@string/menu_match" />
+        <item
             android:id="@+id/nav_sport"
             android:icon="@drawable/ic_baseline_sports_basketball_24"
             android:title="@string/menu_sport" />
@@ -16,9 +20,5 @@
             android:id="@+id/nav_team"
             android:icon="@drawable/ic_baseline_group_24"
             android:title="@string/menu_team" />
-        <item
-            android:id="@+id/nav_match"
-            android:icon="@drawable/ic_baseline_local_fire_department_24"
-            android:title="@string/menu_match" />
     </group>
 </menu>
