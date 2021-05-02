@@ -1,5 +1,7 @@
 package com.example.room_firestore_application.MyFragments.ListFragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +53,8 @@ public class MatchFragment extends ParentFragment {
 
     CollectionReference collectionReference;
 
+    Activity mainContext;
+
 
     List<String> list ;
     ArrayList<String> myIds ;
@@ -77,7 +81,6 @@ public class MatchFragment extends ParentFragment {
     }
 
     public void createList() {
-        if(getActivity()!=null){
             collectionReference = db.collection("Matches");
             collectionReference
                     .get()
@@ -109,21 +112,16 @@ public class MatchFragment extends ParentFragment {
                                     geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
 
-
-                                if(getActivity()!=null) {
-                                    geoPointArrayList.checkForNotification(getActivity());
-                                    ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+                                    geoPointArrayList.checkForNotification(mainContext);
+                                    ArrayAdapter adapter = new ArrayAdapter(mainContext, android.R.layout.simple_list_item_1, list);
                                     listView.setAdapter(adapter);
-                                }
-
 
 
                             } else {
-                                Toast.makeText(getActivity(), "Document doesnt Exist", Toast.LENGTH_LONG).show();
+                                Toast.makeText(mainContext, "Document doesnt Exist", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-        }
     }
 
     private void createNewArrayLists() {
@@ -204,6 +202,10 @@ public class MatchFragment extends ParentFragment {
         return ActivityClass;
     }
 
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mainContext = (Activity) context;
+    }
 }
 
