@@ -4,7 +4,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import com.example.room_firestore_application.R;
-import com.example.room_firestore_application.MyFragments.ListFragments.MatchFragment;
 import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -13,9 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.GeoPoint;
 
-import java.util.ArrayList;
-
-import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.geoPointArrayList;
+import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.TodaysGeoPointArrayList;
 
 public class NotificationMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -30,11 +27,11 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-    
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        addMarkers(geoPointArrayList);
+        addMarkers(TodaysGeoPointArrayList);
     }
 
     private void addMarkers(GeoPointArrayList geoPointArrayList) {

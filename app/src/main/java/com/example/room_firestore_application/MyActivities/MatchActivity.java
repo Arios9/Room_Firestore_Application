@@ -72,6 +72,12 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             String city = getIntent().getStringExtra("city");
             String date = getIntent().getStringExtra("date");
 
+            if(getIntent().hasExtra("latitude")&&getIntent().hasExtra("longitude")){
+                double latitude = getIntent().getDoubleExtra("latitude",0);
+                double longitude = getIntent().getDoubleExtra("longitude",0);
+                geoPoint = new GeoPoint(latitude,longitude);
+            }
+
             matchID.setText(sid);
             matchDate.setText(date);
             matchCity.setText(city);

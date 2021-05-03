@@ -12,7 +12,7 @@ import java.util.Calendar;
 public class GeoPointArrayList extends ArrayList<GeoPoint> {
 
     // saves today's matches that have geopoint in firebase
-    public static GeoPointArrayList geoPointArrayList;
+    public static GeoPointArrayList TodaysGeoPointArrayList;
 
     // date must be today and geopoint must exist to add it in the list
     public void checkDateAndGeopoint(String date, GeoPoint geoPoint) {

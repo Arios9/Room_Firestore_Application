@@ -4,28 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.room_firestore_application.MainActivity;
 import com.example.room_firestore_application.MyActivities.MatchActivity;
-import com.example.room_firestore_application.MyActivities.TeamActivity;
 import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
-import com.example.room_firestore_application.helpClasses.MyNotification;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.TeamMatchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,12 +26,10 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.geoPointArrayList;
+import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.TodaysGeoPointArrayList;
 
 public class MatchFragment extends ParentFragment {
 
@@ -60,6 +48,7 @@ public class MatchFragment extends ParentFragment {
     ArrayList<String> sportCountryAr ;
     ArrayList<String> sportDateAr ;
     ArrayList<String> sportNameAr ;
+    ArrayList<GeoPoint> sportGeopointAr ;
 
 
     @Override
@@ -92,10 +81,11 @@ public class MatchFragment extends ParentFragment {
                                     sportNameAr.add(sport);
                                     sportDateAr.add(date);
                                     sportTypeAr.add(match_sportType);
+                                    sportGeopointAr.add(geoPoint);
 
-                                    geoPointArrayList.checkDateAndGeopoint(date, geoPoint);
+                                    TodaysGeoPointArrayList.checkDateAndGeopoint(date, geoPoint);
                                 }
-                                geoPointArrayList.checkForNotification(mainContext);
+                                TodaysGeoPointArrayList.checkForNotification(mainContext);
 
                                 ArrayAdapter adapter = new ArrayAdapter(mainContext, android.R.layout.simple_list_item_1, list);
                                 listView.setAdapter(adapter);
@@ -117,7 +107,8 @@ public class MatchFragment extends ParentFragment {
         sportCountryAr = new ArrayList<>();
         sportDateAr = new ArrayList<>();
         sportNameAr = new ArrayList<>();
-        geoPointArrayList = new GeoPointArrayList();
+        sportGeopointAr = new ArrayList<>();
+        TodaysGeoPointArrayList = new GeoPointArrayList();
     }
 
     private void addOnClickListener() {
@@ -167,11 +158,16 @@ public class MatchFragment extends ParentFragment {
         String sid = myIds.get(position);
         String city = sportCityAr.get(position);
         String date = sportDateAr.get(position);
+        GeoPoint geoPoint = sportGeopointAr.get(position);
 
         Intent intent = new Intent(getActivity(), MatchActivity.class);
         intent.putExtra("id",sid);
         intent.putExtra("date",date);
         intent.putExtra("city",city);
+        if(geoPoint!=null){
+            intent.putExtra("latitude",geoPoint.getLatitude());
+            intent.putExtra("longitude",geoPoint.getLongitude());
+        }
         startActivity(intent);
     }
 
