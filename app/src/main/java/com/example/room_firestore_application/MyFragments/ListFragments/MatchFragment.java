@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.geoPointArrayList;
+
 public class MatchFragment extends ParentFragment {
 
     private final Class ActivityClass = MatchActivity.class;
@@ -59,8 +61,6 @@ public class MatchFragment extends ParentFragment {
     ArrayList<String> sportDateAr ;
     ArrayList<String> sportNameAr ;
 
-    // saves today's matches that have geopoint in firebase
-    public static GeoPointArrayList geoPointArrayList  = new GeoPointArrayList();
 
     @Override
     public void createList() {

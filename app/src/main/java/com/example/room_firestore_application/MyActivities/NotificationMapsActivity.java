@@ -15,6 +15,8 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 
+import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.geoPointArrayList;
+
 public class NotificationMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -41,7 +43,7 @@ public class NotificationMapsActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        addMarkers(MatchFragment.geoPointArrayList);
+        addMarkers(geoPointArrayList);
     }
 
     private void addMarkers(GeoPointArrayList geoPointArrayList) {

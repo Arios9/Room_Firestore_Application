@@ -30,12 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openRightActivity();
-            }
-        });
+        fab.setOnClickListener(view -> openCorrespondingActivity());
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -59,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         ).allowMainThreadQueries().build();
     }
 
-    public void openRightActivity() {
+    public void openCorrespondingActivity() {
         Class currentClass = CurrentFragment.getActivityClass();
         Intent intent = new Intent(this, currentClass);
         startActivity(intent);
