@@ -1,5 +1,6 @@
 package com.example.room_firestore_application.MyActivities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.room_firestore_application.Local_Tables.Sport;
 import com.example.room_firestore_application.MainActivity;
@@ -40,15 +40,13 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
     static String athleteA,scoreAthlete, athleteId;
 
-
     private EditText matchID, matchCity;
     private CountryCodePicker matchCountry;
     public static EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
     private ImageButton imageButton;
-
-    public static GeoPoint geoPoint;
+    private GeoPoint geoPoint;
 
 
     @Override
@@ -79,17 +77,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             matchCity.setText(city);
         }
 
-        geoPoint = null;
-    }
-
-    private void setmapTextViewAction() {
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void setComponents() {
@@ -124,7 +111,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         buttonSubmit = findViewById(R.id.match_button);
         buttonToResults = findViewById(R.id.match_buttonToResults);
         buttonClear = findViewById(R.id.buttonClear);
-        imageButton = findViewById(R.id.matchGeopoint);
+        imageButton = findViewById(R.id.imageButton);
 
     }
     private void setCheckSportTypeAction() {
@@ -204,8 +191,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
                     match.put("SportType", sportType);
-                    //
-                    match.put("location",geoPoint);
+                    //--------------
+                    match.put("location", geoPoint);
 
                     Map<String, Object> results = new HashMap<>();
                     if(sportType.equals("Team")) {
@@ -271,7 +258,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         });
     }
 
-
     private void setDatePicker() {
         matchDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -283,6 +269,30 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             }
         });
     }
+    
+    private static final int REQUEST_CODE = 0;
+
+    private void setmapTextViewAction() {
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+    }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longitude = data.getDoubleExtra("longitude", 0);
+            geoPoint = new GeoPoint(latitude,longitude);
+            //Toast.makeText(MatchActivity.this,geoPoint.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

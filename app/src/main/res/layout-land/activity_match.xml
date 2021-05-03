@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@id/matchCountry" />
 
     <TextView
-        android:id="@+id/matchGeopoint"
+        android:id="@+id/imageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

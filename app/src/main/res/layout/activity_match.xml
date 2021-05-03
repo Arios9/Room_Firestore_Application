@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@id/matchCountry" />
 
     <ImageButton
-        android:id="@+id/matchGeopoint"
+        android:id="@+id/imageButton"
         android:src="@drawable/ic_add_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/matchGeopoint" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     <Button
         android:id="@+id/match_button"

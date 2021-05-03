@@ -1,6 +1,8 @@
 package com.example.room_firestore_application.MyActivities;
 
 import androidx.fragment.app.FragmentActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -41,8 +43,11 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
-                MatchActivity.geoPoint = new GeoPoint(latLng.latitude, latLng.longitude);
-                Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
+                //GeoPoint geoPoint = new GeoPoint(latLng.latitude, latLng.longitude);
+                Intent intent = new Intent();
+                intent.putExtra("latitude",latLng.latitude);
+                intent.putExtra("longitude",latLng.longitude);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
