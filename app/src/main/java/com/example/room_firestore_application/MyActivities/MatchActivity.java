@@ -297,7 +297,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             double latitude = data.getDoubleExtra("latitude", 0);
             double longitude = data.getDoubleExtra("longitude", 0);
             geoPoint = new GeoPoint(latitude,longitude);
-            //Toast.makeText(MatchActivity.this,geoPoint.toString(),Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
         }
     }
