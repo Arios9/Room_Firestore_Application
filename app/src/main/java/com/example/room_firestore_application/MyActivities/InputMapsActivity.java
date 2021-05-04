@@ -37,7 +37,7 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapClick(LatLng latLng) {
         if(myMarker == null)
-            myMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("ela").draggable(true));
+            myMarker = mMap.addMarker(new MarkerOptions().position(latLng).draggable(true));
         else
             myMarker.setPosition(latLng);
     }
