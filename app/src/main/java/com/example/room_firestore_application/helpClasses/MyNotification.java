@@ -46,7 +46,6 @@ public class MyNotification {
     }
 
     private void createNotification() {
-
         Intent intent = new Intent(applicationContext, NotificationMapsActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -55,9 +54,10 @@ public class MyNotification {
                         .setSmallIcon(R.drawable.ic_baseline_local_fire_department_24)
                         .setContentTitle("Today's Matches")
                         .setContentText("Click to see the Locations")
-                        .setContentIntent(pendingIntent)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
+
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(applicationContext);
         notificationManager.notify(0, builder.build());
     }
