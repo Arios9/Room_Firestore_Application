@@ -23,6 +23,7 @@ import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.type.LatLng;
 import com.hbb20.CountryCodePicker;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -298,6 +299,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             double longitude = data.getDoubleExtra("longitude", 0);
             geoPoint = new GeoPoint(latitude,longitude);
             Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),geoPoint.toString(),Toast.LENGTH_SHORT).show();
         }
     }
 }
