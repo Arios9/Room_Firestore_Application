@@ -44,8 +44,8 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        myMarker = null;
         marker.remove();
+        myMarker = null;
         return true;
     }
 
@@ -74,6 +74,5 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
         }
         super.onBackPressed();
     }
-
-
+    
 }
