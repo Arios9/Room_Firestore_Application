@@ -27,10 +27,11 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
+    @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
         Calendar cal = Calendar.getInstance();
-        cal.set(year,month,day);
+        cal.set(year, month, day);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String string = simpleDateFormat.format(cal.getTime());
         MatchActivity.matchDate.setText(string);
