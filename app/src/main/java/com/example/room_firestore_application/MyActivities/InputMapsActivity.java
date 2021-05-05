@@ -3,6 +3,8 @@ package com.example.room_firestore_application.MyActivities;
 import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.example.room_firestore_application.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,6 +48,7 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
     public boolean onMarkerClick(Marker marker) {
         marker.remove();
         myMarker = null;
+        Toast.makeText(this, myMarker.getPosition().toString(), Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -61,7 +64,7 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        myMarker = marker;
+
     }
 
     @Override
