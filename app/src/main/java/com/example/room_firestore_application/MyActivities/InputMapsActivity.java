@@ -48,7 +48,6 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
     public boolean onMarkerClick(Marker marker) {
         marker.remove();
         myMarker = null;
-        Toast.makeText(this, myMarker.getPosition().toString(), Toast.LENGTH_SHORT).show();
         return true;
     }
 
