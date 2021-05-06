@@ -284,6 +284,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
+                if (geoPoint!=null){
+                    intent.putExtra("latitude",geoPoint.getLatitude());
+                    intent.putExtra("longitude",geoPoint.getLongitude());
+                }
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
@@ -299,7 +303,8 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             double longitude = data.getDoubleExtra("longitude", 0);
             geoPoint = new GeoPoint(latitude,longitude);
             Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getApplicationContext(),geoPoint.toString(),Toast.LENGTH_SHORT).show();
+        }else{
+            geoPoint = null;
         }
     }
 }

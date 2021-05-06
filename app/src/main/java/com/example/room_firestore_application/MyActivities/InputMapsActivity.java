@@ -3,7 +3,6 @@ package com.example.room_firestore_application.MyActivities;
 import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.room_firestore_application.R;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,6 +33,16 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
         mMap.setOnMapClickListener(this);
         mMap.setOnMarkerClickListener(this);
         mMap.setOnMarkerDragListener(this);
+
+        addMarkerIfGeopointAlreadyExists();
+    }
+
+    private void addMarkerIfGeopointAlreadyExists() {
+        if(getIntent().hasExtra("latitude")&&getIntent().hasExtra("longitude")){
+            double latitude = getIntent().getDoubleExtra("latitude",0);
+            double longitude = getIntent().getDoubleExtra("longitude",0);
+            onMapClick(new LatLng(latitude,longitude));
+        }
     }
 
     @Override
