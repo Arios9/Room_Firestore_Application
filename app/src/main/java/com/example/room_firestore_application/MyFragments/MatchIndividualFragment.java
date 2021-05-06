@@ -28,7 +28,6 @@ public class MatchIndividualFragment extends Fragment {
 
     Spinner sItems,sIds;
     String sport;
-    LinearLayout ll;
     EditText editTextScore,editTextId;
     Button buttonClear, buttonSetAthlete;
     TextView tvTester;
@@ -69,7 +68,6 @@ public class MatchIndividualFragment extends Fragment {
         Bundle args = getArguments();
         sport = args.getString("sport");
 
-        ll = (LinearLayout) view.findViewById(R.id.myLinearLayout);
 
         List<String> athleteIds = new ArrayList<>();
         athleteIds.add("A");
@@ -96,17 +94,13 @@ public class MatchIndividualFragment extends Fragment {
                     sIds.setAdapter(adapterAthletesID);
                     sItems = view.findViewById(R.id.spinner2);
                     sItems.setAdapter(adapterAthletesSport);
-                    buttonSetAthlete = new Button(getActivity());
-                    buttonSetAthlete.setText("Add Result");
-                    buttonSetAthlete.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                    buttonSetAthlete.setTextColor(getResources().getColor(R.color.white));
-                    ll.addView(buttonSetAthlete);
+                    buttonSetAthlete = view.findViewById(R.id.buttonToResults);
+
                     buttonSetAthlete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (editTextScore.getText().toString().isEmpty()){
                                 Toast.makeText(getContext(),"Score cannot be left Empty",Toast.LENGTH_SHORT).show();
-
                             }
                             else {
                                 passData(String.valueOf(sItems.getSelectedItem()), String.valueOf(editTextScore.getText()), String.valueOf(sIds.getSelectedItem()));
@@ -114,11 +108,7 @@ public class MatchIndividualFragment extends Fragment {
                         }
                     });
 
-                    buttonClear = new Button(getActivity());
-                    buttonClear.setText("Clear");
-                    buttonClear.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                    buttonClear.setTextColor(getResources().getColor(R.color.white));
-                    ll.addView(buttonClear);
+                    buttonClear = view.findViewById(R.id.Clearbutton);
                     buttonClear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
