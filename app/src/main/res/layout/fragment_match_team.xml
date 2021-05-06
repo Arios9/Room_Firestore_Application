@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,42 +7,53 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical"
+    android:layout_margin="16dp"
     tools:context=".MyActivities.MatchTypeActivity">
 
     <Spinner
         android:id="@+id/spinnerTeamAf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinnerTeamBf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
- />
+        app:layout_constraintStart_toEndOf="@+id/spinnerTeamAf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etTeamASc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Team A Score"
-        android:inputType="number" />
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTeamAf"/>
 
     <EditText
         android:id="@+id/etTeamBSc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Team B Score"
-        android:inputType="number" />
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/etTeamASc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTeamBf"/>
+    />
 
     <Button
         android:id="@+id/button_confirm_results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Add Result"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTeamASc"/>/>
 
-        android:layout_marginBottom="440dp"
-        android:text="Add Result" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
