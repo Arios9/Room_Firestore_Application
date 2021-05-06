@@ -89,7 +89,6 @@ public class MatchIndividualFragment extends Fragment {
 
 
                     editTextScore = view.findViewById(R.id.editTextAthleteScore);
-                   // editTextId = view.findViewById(R.id.editTextAthleteID);
                     sIds = view.findViewById(R.id.spinnerAthleteID);
                     sIds.setAdapter(adapterAthletesID);
                     sItems = view.findViewById(R.id.spinner2);
@@ -104,6 +103,7 @@ public class MatchIndividualFragment extends Fragment {
                             }
                             else {
                                 passData(String.valueOf(sItems.getSelectedItem()), String.valueOf(editTextScore.getText()), String.valueOf(sIds.getSelectedItem()));
+                                resetForm();
                             }
                         }
                     });
@@ -129,6 +129,5 @@ public class MatchIndividualFragment extends Fragment {
     }
     private void resetForm() {
         editTextScore.setText("");
-        editTextId.setText("");
     }
 }
