@@ -74,8 +74,8 @@ public class IndiMatchFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                String athlete = document.getString("Athlete");
-                                String athleteScore = document.getString("Score Athlete");
+                                String athlete = document.getString("Name");
+                                String athleteScore = document.getString("Score");
 
                                 list.add(" Athlete : " + athlete
                                         + "\n Score : " + athleteScore);

@@ -20,10 +20,10 @@ import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.DatePickerFragment;
 import com.example.room_firestore_application.MyFragments.MatchIndividualFragment;
 import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
+import com.example.room_firestore_application.helpClasses.SelectedAthlete;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
-import com.google.type.LatLng;
 import com.hbb20.CountryCodePicker;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     //Variables to contain data passed from the fragment;
     static String teamA,teamB,scoreTeamA,scoreTeamB;
 
-    static String athleteA,scoreAthlete, athleteId;
+    //static String athleteA,scoreAthlete, athleteId;
 
     private EditText matchID, matchCity;
     private CountryCodePicker matchCountry;
@@ -162,13 +162,13 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         teamA = teamAi;
         teamB = teamBi;
     }
-    @Override
-    public void onDataPassIndi(String AthleteA, String scoreAthleteA, String athleteID){
-        athleteA = AthleteA;
-        scoreAthlete = scoreAthleteA;
-        athleteId = athleteID;
-    }
 
+    private List<SelectedAthlete> selectedAthleteList = new ArrayList<>();
+    @Override
+    public void onDataPassIndi(String AthleteName, String scoreAthlete, String athleteID){
+        SelectedAthlete selectedAthlete= new SelectedAthlete(AthleteName, scoreAthlete, athleteID);
+        selectedAthleteList.add(selectedAthlete);
+    }
 
 
     private void setSubmitAction(){
@@ -198,39 +198,35 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                     match.put("Date", match_date);
                     match.put("Sport", match_sport);
                     match.put("SportType", sportType);
-                    //--------------
                     match.put("location", geoPoint);
 
-                    Map<String, Object> results = new HashMap<>();
-                    if(sportType.equals("Team")) {
-                        results.put("Team A", teamA);
-                        results.put("Team A Score", scoreTeamA);
-                        results.put("Team B", teamB);
-                        results.put("Team B Score", scoreTeamB);
-                    }
-                    else{
-                        results.put("Athlete" , athleteA);
-                        results.put("Score Athlete", scoreAthlete);
-                    }
-
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Matches").document("" + match_id).set(match);
+
                     CollectionReference theResultsCollection = db.collection("Matches")
                             .document("" + match_id).collection("Results");
 
                     if(sportType.equals("Team")) {
+                        Map<String, Object> results = new HashMap<>();
+                        results.put("Team A", teamA);
+                        results.put("Team A Score", scoreTeamA);
+                        results.put("Team B", teamB);
+                        results.put("Team B Score", scoreTeamB);
+
                         theResultsCollection.document(match_id + " results").set(results);
                     }
                     else {
-                        theResultsCollection.document(match_id +  " " + athleteId + " results").set(results);
+                        for (SelectedAthlete selectedAthlete : selectedAthleteList){
+                            Map<String, Object> athleteResults = new HashMap<>();
+                            athleteResults.put("Name",selectedAthlete.getName());
+                            athleteResults.put("Score",selectedAthlete.getScore());
+                            theResultsCollection.document(match_id +  " " + selectedAthlete.getId() + " results").set(athleteResults);
+                        }
                     }
-                    db.collection("Matches").document("" + match_id).set(match);
 
                     Toast.makeText(getApplicationContext(), "Submit", Toast.LENGTH_SHORT).show();
                     resetForm();
-
-
                     MainActivity.CurrentFragment.createList();
-
                     //an to activity exei anoiksei gia edit kleinei meta to submit
                     if (getIntent().hasExtra("id")){
                         finish();
