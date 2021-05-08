@@ -22,8 +22,7 @@ public class GeoPointArrayList extends ArrayList<GeoPoint> {
     }
 
     public void checkForNotification(Activity mainContext) {
-        if(isEmpty())
-            return;
+        if(!isEmpty())
         new MyNotification(mainContext);
     }
 

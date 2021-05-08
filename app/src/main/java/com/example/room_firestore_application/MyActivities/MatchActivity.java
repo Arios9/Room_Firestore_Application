@@ -20,6 +20,7 @@ import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.DatePickerFragment;
 import com.example.room_firestore_application.MyFragments.MatchIndividualFragment;
 import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
+import com.example.room_firestore_application.helpClasses.ParcelableGeopoint;
 import com.example.room_firestore_application.helpClasses.SelectedAthlete;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.room_firestore_application.helpClasses.ParcelableGeopoint.PARCELABLE_GEOPOINT_EXTRA_TEXT;
 
 public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi {
 
@@ -73,10 +76,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             String city = getIntent().getStringExtra("city");
             String date = getIntent().getStringExtra("date");
 
-            if(getIntent().hasExtra("latitude")&&getIntent().hasExtra("longitude")){
-                double latitude = getIntent().getDoubleExtra("latitude",0);
-                double longitude = getIntent().getDoubleExtra("longitude",0);
-                geoPoint = new GeoPoint(latitude,longitude);
+            if(getIntent().hasExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT)){
+                ParcelableGeopoint parcelableGeopoint = getIntent().getParcelableExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT);
+                geoPoint = new GeoPoint(parcelableGeopoint.getLatitude(), parcelableGeopoint.getLongitude());
             }
 
             matchID.setText(sid);
@@ -280,9 +282,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
-                if (geoPoint!=null){
-                    intent.putExtra("latitude",geoPoint.getLatitude());
-                    intent.putExtra("longitude",geoPoint.getLongitude());
+                if (geoPoint != null){
+                    ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(geoPoint.getLatitude(), geoPoint.getLongitude());
+                    intent.putExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT, parcelableGeopoint);
                 }
                 startActivityForResult(intent, REQUEST_CODE);
             }
@@ -294,10 +296,9 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            double latitude = data.getDoubleExtra("latitude", 0);
-            double longitude = data.getDoubleExtra("longitude", 0);
-            geoPoint = new GeoPoint(latitude,longitude);
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data.hasExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT)){
+            ParcelableGeopoint parcelableGeopoint = data.getParcelableExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT);
+            geoPoint = new GeoPoint(parcelableGeopoint.getLatitude(), parcelableGeopoint.getLongitude());
             Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
         }else{
             geoPoint = null;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.GeoPointArrayList;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.IndiMatchFragment;
 import com.example.room_firestore_application.MyFragments.SubcollectionFragment.TeamMatchFragment;
+import com.example.room_firestore_application.helpClasses.ParcelableGeopoint;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,7 +31,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE;
 import static com.example.room_firestore_application.helpClasses.GeoPointArrayList.TodaysGeoPointArrayList;
+import static com.example.room_firestore_application.helpClasses.ParcelableGeopoint.PARCELABLE_GEOPOINT_EXTRA_TEXT;
 
 public class MatchFragment extends ParentFragment {
 
@@ -164,9 +168,9 @@ public class MatchFragment extends ParentFragment {
         intent.putExtra("id",sid);
         intent.putExtra("date",date);
         intent.putExtra("city",city);
-        if(geoPoint!=null){
-            intent.putExtra("latitude",geoPoint.getLatitude());
-            intent.putExtra("longitude",geoPoint.getLongitude());
+        if(geoPoint != null){
+            ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(geoPoint.getLatitude(), geoPoint.getLongitude());
+            intent.putExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT, parcelableGeopoint);
         }
         startActivity(intent);
     }
