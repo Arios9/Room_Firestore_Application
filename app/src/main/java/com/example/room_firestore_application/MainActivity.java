@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
+import com.example.room_firestore_application.MyActivities.WebManualActivity;
 import com.example.room_firestore_application.MyFragments.ListFragments.ParentFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -71,10 +73,8 @@ public class MainActivity extends AppCompatActivity {
         about.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                WebView manual = (WebView)findViewById(R.id.myManual);
-                manual.loadUrl("https://docs.google.com/document/d/172vtxqmoygmII3ELQx2mjirxfL8uUJ5vkN6Mdh-e8FI/edit#");
-//                Intent openWebManual = new Intent(MainActivity.this, WebManualActivity.class);
-//                startActivity(openWebManual);
+                Intent openWebManual = new Intent(MainActivity.this, WebManualActivity.class);
+                startActivity(openWebManual);
                 return true;
             }
         });
