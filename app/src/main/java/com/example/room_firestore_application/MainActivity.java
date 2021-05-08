@@ -2,8 +2,9 @@ package com.example.room_firestore_application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.view.Menu;
+import android.webkit.WebView;
 
 import com.example.room_firestore_application.MyFragments.ListFragments.ParentFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
+
         createDatabase();
     }
 
@@ -64,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem about = menu.findItem(R.id.action_settings);
+        about.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                WebView manual = (WebView)findViewById(R.id.myManual);
+                manual.loadUrl("https://docs.google.com/document/d/172vtxqmoygmII3ELQx2mjirxfL8uUJ5vkN6Mdh-e8FI/edit#");
+//                Intent openWebManual = new Intent(MainActivity.this, WebManualActivity.class);
+//                startActivity(openWebManual);
+                return true;
+            }
+        });
         return true;
     }
 
