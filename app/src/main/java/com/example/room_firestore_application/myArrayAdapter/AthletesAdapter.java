@@ -43,7 +43,6 @@ public class AthletesAdapter extends ArrayAdapter {
         sportId = athlete.getSport_id();
         yearOfBirth = athlete.getBirth_year();
         String athleteID = String.valueOf(athleteId);
-        //String sportID = String.valueOf(sportId);
         String yob = String.valueOf(yearOfBirth);
 
         String sport = String.valueOf(MainActivity.localDatabase.basicDao().getAthleteSport(sportId));
@@ -51,7 +50,6 @@ public class AthletesAdapter extends ArrayAdapter {
         tvName.setText(athlete.getName());
         tvSurname.setText(athlete.getSurname());
         tvID.setText(athleteID);
-        //tvSportID.setText(sportID);
         tvSportID.setText(sport);
         tvCountry.setText(athlete.getCountry());
         tvCity.setText(athlete.getCity()+", ");

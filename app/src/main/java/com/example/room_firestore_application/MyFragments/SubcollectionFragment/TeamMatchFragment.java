@@ -27,7 +27,6 @@ public class TeamMatchFragment extends Fragment {
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-   // DocumentReference dref;
     CollectionReference cref;
 
     String tag ,city,country,date, name;
