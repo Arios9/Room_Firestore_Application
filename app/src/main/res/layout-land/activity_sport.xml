@@ -13,13 +13,6 @@
     android:layout_weight="1"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/sport_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:layout_margin="25dp"/>
 
     <RadioGroup
         android:id="@+id/radio_type"
@@ -40,13 +33,6 @@
             android:layout_height="wrap_content"
             android:text="Team" />
     </RadioGroup>
-</LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
 
     <RadioGroup
         android:id="@+id/radioGroupGender"
@@ -66,6 +52,23 @@
             android:layout_height="wrap_content"
             android:text="Male" />
     </RadioGroup>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sport_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:layout_margin="25dp"/>
+
 
 
     <Button
