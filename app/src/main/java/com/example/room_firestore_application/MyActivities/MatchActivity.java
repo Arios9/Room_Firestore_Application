@@ -42,8 +42,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
     //Variables to contain data passed from the fragment;
     static String teamA,teamB,scoreTeamA,scoreTeamB;
 
-    //static String athleteA,scoreAthlete, athleteId;
-
     private EditText matchID, matchCity;
     private CountryCodePicker matchCountry;
     public static EditText matchDate;

@@ -34,7 +34,6 @@
         <activity
             android:name=".MyActivities.InputMapsActivity"
             android:label="@string/title_activity_input_maps" />
-        <activity android:name=".MyActivities.MatchTypeActivity" />
         <activity android:name=".MyActivities.MatchActivity" />
         <activity android:name=".MyActivities.TeamActivity" />
         <activity android:name=".MyActivities.AthleteActivity" />

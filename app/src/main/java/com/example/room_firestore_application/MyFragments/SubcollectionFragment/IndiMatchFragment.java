@@ -30,7 +30,6 @@ public class IndiMatchFragment extends Fragment {
     TextView textAnnounce , textAnnounceScore;
     ListView listView;
     List<String> list = new ArrayList<String>();
-    List<String> listMax = new ArrayList<String>();
     CollectionReference cref;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -88,7 +87,6 @@ public class IndiMatchFragment extends Fragment {
                                     if (Double.parseDouble(athleteScore) > max) {
                                         max = Double.parseDouble(athleteScore);
                                         maxAthlete = athlete;
-                                        //  listMax.add(athlete);
                                     }
 
                                     textAnnounce.setText(" " + maxAthlete);
