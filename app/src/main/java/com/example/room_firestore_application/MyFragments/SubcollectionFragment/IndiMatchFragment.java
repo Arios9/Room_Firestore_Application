@@ -88,7 +88,7 @@ public class IndiMatchFragment extends Fragment {
                                     if (Double.parseDouble(athleteScore) > max) {
                                         max = Double.parseDouble(athleteScore);
                                         maxAthlete = athlete;
-                                        //  listMax.add(athlete);
+
                                     }
 
                                     textAnnounce.setText(" " + maxAthlete);
@@ -102,8 +102,6 @@ public class IndiMatchFragment extends Fragment {
                         }
                     }
                 });
-
-
 
         return view;
     }

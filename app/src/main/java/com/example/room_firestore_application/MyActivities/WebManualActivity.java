@@ -16,7 +16,7 @@ public class WebManualActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_manual);
 
         WebView manual = (WebView)findViewById(R.id.myManual);
-        manual.loadUrl("https://docs.google.com/document/d/172vtxqmoygmII3ELQx2mjirxfL8uUJ5vkN6Mdh-e8FI/edit");
+        manual.loadUrl("https://docs.google.com/document/d/172vtxqmoygmII3ELQx2mjirxfL8uUJ5vkN6Mdh-e8FI");
     }
 
     @Override
