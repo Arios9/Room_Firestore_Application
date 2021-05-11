@@ -37,9 +37,9 @@ import static com.example.room_firestore_application.helpClasses.ParcelableGeopo
 
 public class MatchFragment extends ParentFragment {
 
-    private final Class ActivityClass = MatchActivity.class;
-    private final int FRAGMENT_ID = R.layout.fragment_match;
-    private final int LIST_ID = R.id.match_list;
+    private final static Class ActivityClass = MatchActivity.class;
+    private final static int FRAGMENT_ID = R.layout.fragment_match;
+    private final static int LIST_ID = R.id.match_list;
 
     CollectionReference collectionReference;
 

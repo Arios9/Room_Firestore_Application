@@ -24,9 +24,9 @@ import java.util.List;
 
 public class TeamFragment extends ParentFragment {
 
-    private final Class ActivityClass = TeamActivity.class;
-    private final int FRAGMENT_ID = R.layout.fragment_team;
-    private final int LIST_ID = R.id.team_list;
+    private final static Class ActivityClass = TeamActivity.class;
+    private final static int FRAGMENT_ID = R.layout.fragment_team;
+    private final static int LIST_ID = R.id.team_list;
 
     @Override
     public void createList() {

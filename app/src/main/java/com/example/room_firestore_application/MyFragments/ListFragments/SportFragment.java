@@ -25,9 +25,9 @@ import java.util.List;
 
 public class SportFragment extends ParentFragment {
 
-    private final Class ActivityClass = SportActivity.class;
-    private final int FRAGMENT_ID = R.layout.fragment_sport;
-    private final int LIST_ID = R.id.sport_list;
+    private final static Class ActivityClass = SportActivity.class;
+    private final static int FRAGMENT_ID = R.layout.fragment_sport;
+    private final static int LIST_ID = R.id.sport_list;
 
     @Override
     public void createList() {
