@@ -250,6 +250,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
     @Override
     public void onReCaptchaUserVerified() {
+        SubmitDataIntoFirebase();
+    }
+
+    private void SubmitDataIntoFirebase() {
         if(matchID.getText().toString().matches("")){
             Toast.makeText(getApplicationContext(),"Match ID cannot be Empty",Toast.LENGTH_SHORT).show();
             resetForm();
