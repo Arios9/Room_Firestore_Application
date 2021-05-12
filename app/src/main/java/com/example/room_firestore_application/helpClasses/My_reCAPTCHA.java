@@ -73,7 +73,7 @@ public class My_reCAPTCHA {
                 });
     }
 
-    protected void handleVerification(final String responseToken) {
+    private void handleVerification(final String responseToken) {
         // inside handle verification method we are
         // verifying our user with response token.
         // url to sen our site key and secret key

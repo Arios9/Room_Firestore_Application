@@ -21,6 +21,7 @@ import com.example.room_firestore_application.helpClasses.DatePickerFragment;
 import com.example.room_firestore_application.MyFragments.MatchIndividualFragment;
 import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
 import com.example.room_firestore_application.helpClasses.My_reCAPTCHA;
+import com.example.room_firestore_application.helpClasses.OnReCaptchaVerified;
 import com.example.room_firestore_application.helpClasses.ParcelableGeopoint;
 import com.example.room_firestore_application.helpClasses.SelectedAthlete;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,7 +35,7 @@ import java.util.Map;
 
 import static com.example.room_firestore_application.helpClasses.ParcelableGeopoint.PARCELABLE_GEOPOINT_EXTRA_TEXT;
 
-public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi {
+public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi, OnReCaptchaVerified {
 
     MatchTeamFragment fragmentTeam = new MatchTeamFragment();
     MatchIndividualFragment fragmentIndividual = new MatchIndividualFragment();
@@ -247,6 +248,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         }
     }
 
+    @Override
     public void onReCaptchaUserVerified() {
         if(matchID.getText().toString().matches("")){
             Toast.makeText(getApplicationContext(),"Match ID cannot be Empty",Toast.LENGTH_SHORT).show();
