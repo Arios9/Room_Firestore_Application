@@ -40,37 +40,35 @@ public class My_reCAPTCHA {
     }
 
     private void verifyGoogleReCAPTCHA() {
-        // below line is use for getting our safety
-        // net client and verify with reCAPTCHA
         SafetyNet.getClient(matchActivity).verifyWithRecaptcha(SITE_KEY)
-                // after getting our client we have
-                // to add on success listener.
-                .addOnSuccessListener(matchActivity, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                    @Override
-                    public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
-                        // in below line we are checking the response token.
-                        if (!response.getTokenResult().isEmpty()) {
-                            // if the response token is not empty then we
-                            // are calling our verification method.
-                            handleVerification(response.getTokenResult());
-                        }
+            .addOnSuccessListener(matchActivity, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
+                @Override
+                public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
+                    // Indicates communication with reCAPTCHA service was
+                    // successful.
+                    String userResponseToken = response.getTokenResult();
+                    if (!userResponseToken.isEmpty()) {
+                        // Validate the user response token using the
+                        handleVerification(response.getTokenResult());
                     }
-                })
-                .addOnFailureListener(matchActivity, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // this method is called when we get any error.
-                        if (e instanceof ApiException) {
-                            ApiException apiException = (ApiException) e;
-                            // below line is use to display an error message which we get.
-                            Log.d("TAG", "Error message: " +
-                                    CommonStatusCodes.getStatusCodeString(apiException.getStatusCode()));
-                        } else {
-                            // below line is use to display a toast message for any error.
-                            Toast.makeText(matchActivity, "Error found is : " + e, Toast.LENGTH_SHORT).show();
-                        }
+                }
+            })
+            .addOnFailureListener(matchActivity, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    if (e instanceof ApiException) {
+                        // An error occurred when communicating with the
+                        // reCAPTCHA service. Refer to the status code to
+                        // handle the error appropriately.
+                        ApiException apiException = (ApiException) e;
+                        int statusCode = apiException.getStatusCode();
+                        Log.d("TAG", "Error: " + CommonStatusCodes.getStatusCodeString(statusCode));
+                    } else {
+                        // A different, unknown type of error occurred.
+                        Log.d("TAG", "Error: " + e.getMessage());
                     }
-                });
+                }
+            });
     }
 
     private void handleVerification(final String responseToken) {
@@ -86,23 +84,16 @@ public class My_reCAPTCHA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // inside on response method we are checking if the
-                        // response is successful or not.
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getBoolean("success")) {
-                                // if the response is successful then we are
-                                // showing below toast message.
                                 Toast.makeText(matchActivity, "User verified with reCAPTCHA", Toast.LENGTH_SHORT).show();
+                                // onReCaptchaUserVerified executes if success
                                 matchActivity.onReCaptchaUserVerified();
                             } else {
-                                // if the response if failure we are displaying
-                                // a below toast message.
                                 Toast.makeText(matchActivity, String.valueOf(jsonObject.getString("error-codes")), Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception ex) {
-                            // if we get any exception then we are
-                            // displaying an error message in logcat.
                             Log.d("TAG", "JSON exception: " + ex.getMessage());
                         }
                     }
@@ -110,8 +101,6 @@ public class My_reCAPTCHA {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // inside error response we are displaying
-                        // a log message in our logcat.
                         Log.d("TAG", "Error message: " + error.getMessage());
                     }
                 }) {
@@ -119,8 +108,6 @@ public class My_reCAPTCHA {
             // be passing our response token and secret key to the above url.
             @Override
             protected Map<String, String> getParams() {
-                // we are passing data using hashmap
-                // key and value pair.
                 Map<String, String> params = new HashMap<>();
                 params.put("secret", SECRET_KEY);
                 params.put("response", responseToken);
@@ -135,7 +122,8 @@ public class My_reCAPTCHA {
 
                 // below line is to perform maximum retries.
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        );
         // at last we are adding our request to queue.
         queue.add(request);
     }
