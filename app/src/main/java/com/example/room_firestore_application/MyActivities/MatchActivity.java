@@ -20,6 +20,7 @@ import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.DatePickerFragment;
 import com.example.room_firestore_application.MyFragments.MatchIndividualFragment;
 import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
+import com.example.room_firestore_application.helpClasses.My_reCAPTCHA;
 import com.example.room_firestore_application.helpClasses.ParcelableGeopoint;
 import com.example.room_firestore_application.helpClasses.SelectedAthlete;
 import com.google.firebase.firestore.CollectionReference;
@@ -56,7 +57,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
-
 
         setComponents();
         setCheckSportTypeAction();
@@ -172,70 +172,14 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
 
     private void setSubmitAction(){
-
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
-                if(matchID.getText().toString().matches("")){
-                    Toast.makeText(getApplicationContext(),"Match ID cannot be Empty",Toast.LENGTH_SHORT).show();
-                    resetForm();
-                }
-                else {
-                    String match_id = matchID.getText().toString();
-                    String match_sport = String.valueOf(sItems.getSelectedItem());
-                    String match_date = matchDate.getText().toString();
-                    String match_city = matchCity.getText().toString();
-                    String match_country = matchCountry.getSelectedCountryName();
-
-                    String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
-
-                    Map<String, Object> match = new HashMap<>();
-                    match.put("ID" , match_id);
-                    match.put("City", match_city);
-                    match.put("Country", match_country);
-                    match.put("Date", match_date);
-                    match.put("Sport", match_sport);
-                    match.put("SportType", sportType);
-                    match.put("location", geoPoint);
-
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("Matches").document("" + match_id).set(match);
-
-                    CollectionReference theResultsCollection = db.collection("Matches")
-                            .document("" + match_id).collection("Results");
-
-                    if(sportType.equals("Team")) {
-                        Map<String, Object> results = new HashMap<>();
-                        results.put("Team A", teamA);
-                        results.put("Team A Score", scoreTeamA);
-                        results.put("Team B", teamB);
-                        results.put("Team B Score", scoreTeamB);
-
-                        theResultsCollection.document(match_id + " results").set(results);
-                    }
-                    else {
-                        for (SelectedAthlete selectedAthlete : selectedAthleteList){
-                            Map<String, Object> athleteResults = new HashMap<>();
-                            athleteResults.put("Name",selectedAthlete.getName());
-                            athleteResults.put("Score",selectedAthlete.getScore());
-                            theResultsCollection.document(match_id +  " " + selectedAthlete.getId() + " results").set(athleteResults);
-                        }
-                    }
-
-                    Toast.makeText(getApplicationContext(), "Submit", Toast.LENGTH_SHORT).show();
-                    resetForm();
-                    MainActivity.CurrentFragment.createList();
-                    //an to activity exei anoiksei gia edit kleinei meta to submit
-                    if (getIntent().hasExtra("id")){
-                        finish();
-                    }
-                }
+                new My_reCAPTCHA(MatchActivity.this);
             }
         });
-
     }
+
     private void resetForm() {
         matchID.setText("");
         matchDate.setText("");
@@ -300,6 +244,63 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
         }else{
             geoPoint = null;
+        }
+    }
+
+    public void onReCaptchaUserVerified() {
+        if(matchID.getText().toString().matches("")){
+            Toast.makeText(getApplicationContext(),"Match ID cannot be Empty",Toast.LENGTH_SHORT).show();
+            resetForm();
+        }
+        else {
+            String match_id = matchID.getText().toString();
+            String match_sport = String.valueOf(sItems.getSelectedItem());
+            String match_date = matchDate.getText().toString();
+            String match_city = matchCity.getText().toString();
+            String match_country = matchCountry.getSelectedCountryName();
+
+            String sportType = MainActivity.localDatabase.basicDao().getSportType(match_sport);
+
+            Map<String, Object> match = new HashMap<>();
+            match.put("ID" , match_id);
+            match.put("City", match_city);
+            match.put("Country", match_country);
+            match.put("Date", match_date);
+            match.put("Sport", match_sport);
+            match.put("SportType", sportType);
+            match.put("location", geoPoint);
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Matches").document("" + match_id).set(match);
+
+            CollectionReference theResultsCollection = db.collection("Matches")
+                    .document("" + match_id).collection("Results");
+
+            if(sportType.equals("Team")) {
+                Map<String, Object> results = new HashMap<>();
+                results.put("Team A", teamA);
+                results.put("Team A Score", scoreTeamA);
+                results.put("Team B", teamB);
+                results.put("Team B Score", scoreTeamB);
+
+                theResultsCollection.document(match_id + " results").set(results);
+            }
+            else {
+                for (SelectedAthlete selectedAthlete : selectedAthleteList){
+                    Map<String, Object> athleteResults = new HashMap<>();
+                    athleteResults.put("Name",selectedAthlete.getName());
+                    athleteResults.put("Score",selectedAthlete.getScore());
+                    theResultsCollection.document(match_id +  " " + selectedAthlete.getId() + " results").set(athleteResults);
+                }
+            }
+
+            Toast.makeText(getApplicationContext(), "Submit", Toast.LENGTH_SHORT).show();
+            resetForm();
+            MainActivity.CurrentFragment.createList();
+            //an to activity exei anoiksei gia edit kleinei meta to submit
+            if (getIntent().hasExtra("id")){
+                finish();
+            }
         }
     }
 }
