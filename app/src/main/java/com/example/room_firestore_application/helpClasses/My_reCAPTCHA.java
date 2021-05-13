@@ -29,8 +29,8 @@ public class My_reCAPTCHA {
 
     private static final String SITE_KEY = "6LesqNAaAAAAAB8AcIWxWB1F53X4LxoPW4LF-_a5";
     private static final String SECRET_KEY = "6LesqNAaAAAAAM4ohp6hXSSYJJifGajRRMW81vyD";
-    RequestQueue queue;
-    MatchActivity matchActivity;
+    private RequestQueue queue;
+    private MatchActivity matchActivity;
 
 
     public My_reCAPTCHA(MatchActivity matchActivity) {
@@ -44,8 +44,7 @@ public class My_reCAPTCHA {
             .addOnSuccessListener(matchActivity, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
                 @Override
                 public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
-                    // Indicates communication with reCAPTCHA service was
-                    // successful.
+                    // Indicates communication with reCAPTCHA service was successful.
                     String userResponseToken = response.getTokenResult();
                     if (!userResponseToken.isEmpty()) {
                         // Validate the user response token using the
@@ -57,9 +56,7 @@ public class My_reCAPTCHA {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     if (e instanceof ApiException) {
-                        // An error occurred when communicating with the
-                        // reCAPTCHA service. Refer to the status code to
-                        // handle the error appropriately.
+                        // An error occurred when communicating with the reCAPTCHA service.
                         ApiException apiException = (ApiException) e;
                         int statusCode = apiException.getStatusCode();
                         Log.d("TAG", "Error: " + CommonStatusCodes.getStatusCodeString(statusCode));
@@ -72,14 +69,11 @@ public class My_reCAPTCHA {
     }
 
     private void handleVerification(final String responseToken) {
-        // inside handle verification method we are
-        // verifying our user with response token.
-        // url to sen our site key and secret key
-        // to below url using POST method.
+        // inside handle verification method we are verifying our user with response token.
+        // url to send our site key and secret key to below url using POST method.
         String url = "https://www.google.com/recaptcha/api/siteverify";
 
-        // in this we are making a string request and
-        // using a post method to pass the data.
+        // in this we are making a string request and using a post method to pass the data.
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -104,8 +98,7 @@ public class My_reCAPTCHA {
                         Log.d("TAG", "Error message: " + error.getMessage());
                     }
                 }) {
-            // below is the getParamns method in which we will
-            // be passing our response token and secret key to the above url.
+            // below is the getParamns method in which we will be passing our response token and secret key to the above url.
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
@@ -114,13 +107,9 @@ public class My_reCAPTCHA {
                 return params;
             }
         };
-        // below line of code is use to set retry
-        // policy if the api fails in one try.
+        // below line of code is use to set retry policy if the api fails in one try.
         request.setRetryPolicy(new DefaultRetryPolicy(
-                // we are setting time for retry is 5 seconds.
                 50000,
-
-                // below line is to perform maximum retries.
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         );
