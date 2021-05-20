@@ -149,7 +149,6 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
                 ft.detach(fragment);
                 ft.attach(fragment);
                 ft.commit();
-                ft.addToBackStack(null);
             }
 
         });
@@ -188,12 +187,10 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         if (fragmentTeam.isVisible()) {
             ft = getSupportFragmentManager().beginTransaction().remove(fragmentTeam);
             ft.commit();
-            ft.addToBackStack(null);
         }
         if(fragmentIndividual.isVisible()) {
             ft = getSupportFragmentManager().beginTransaction().remove(fragmentIndividual);
             ft.commit();
-            ft.addToBackStack(null);
         }
     }
 
