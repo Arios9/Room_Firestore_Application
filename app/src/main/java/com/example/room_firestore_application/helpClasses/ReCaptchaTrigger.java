@@ -1,5 +1,5 @@
 package com.example.room_firestore_application.helpClasses;
 
-public interface OnReCaptchaVerified {
+public interface ReCaptchaTrigger {
    void onReCaptchaUserVerified();
 }

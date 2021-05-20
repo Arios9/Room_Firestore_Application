@@ -20,9 +20,9 @@ import com.example.room_firestore_application.R;
 import com.example.room_firestore_application.helpClasses.DatePickerFragment;
 import com.example.room_firestore_application.MyFragments.MatchIndividualFragment;
 import com.example.room_firestore_application.MyFragments.MatchTeamFragment;
-import com.example.room_firestore_application.helpClasses.My_reCAPTCHA;
-import com.example.room_firestore_application.helpClasses.OnReCaptchaVerified;
+import com.example.room_firestore_application.helpClasses.ReCAPTCHA;
 import com.example.room_firestore_application.helpClasses.ParcelableGeopoint;
+import com.example.room_firestore_application.helpClasses.ReCaptchaTrigger;
 import com.example.room_firestore_application.helpClasses.SelectedAthlete;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +35,7 @@ import java.util.Map;
 
 import static com.example.room_firestore_application.helpClasses.ParcelableGeopoint.PARCELABLE_GEOPOINT_EXTRA_TEXT;
 
-public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi, OnReCaptchaVerified {
+public class MatchActivity extends AppCompatActivity implements MatchTeamFragment.OnDataPass, MatchIndividualFragment.OnDataPassIndi, ReCaptchaTrigger {
 
     MatchTeamFragment fragmentTeam = new MatchTeamFragment();
     MatchIndividualFragment fragmentIndividual = new MatchIndividualFragment();
@@ -176,7 +176,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new My_reCAPTCHA(MatchActivity.this);
+                new ReCAPTCHA(MatchActivity.this);
             }
         });
     }

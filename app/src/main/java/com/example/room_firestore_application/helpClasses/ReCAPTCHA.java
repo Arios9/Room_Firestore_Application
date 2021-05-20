@@ -1,5 +1,7 @@
 package com.example.room_firestore_application.helpClasses;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,23 +27,25 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class My_reCAPTCHA {
+public class ReCAPTCHA {
 
     private static final String SITE_KEY = "6LesqNAaAAAAAB8AcIWxWB1F53X4LxoPW4LF-_a5";
     private static final String SECRET_KEY = "6LesqNAaAAAAAM4ohp6hXSSYJJifGajRRMW81vyD";
     private RequestQueue queue;
-    private MatchActivity matchActivity;
+    private ReCaptchaTrigger reCaptchaTrigger;
+    private Activity activity;
 
 
-    public My_reCAPTCHA(MatchActivity matchActivity) {
-        this.matchActivity = matchActivity;
-        queue = Volley.newRequestQueue(matchActivity);
+    public ReCAPTCHA(ReCaptchaTrigger reCaptchaTrigger) {
+        this.reCaptchaTrigger = reCaptchaTrigger;
+        activity = (Activity) reCaptchaTrigger;
+        queue = Volley.newRequestQueue(activity);
         verifyGoogleReCAPTCHA();
     }
 
     private void verifyGoogleReCAPTCHA() {
-        SafetyNet.getClient(matchActivity).verifyWithRecaptcha(SITE_KEY)
-            .addOnSuccessListener(matchActivity, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
+        SafetyNet.getClient(activity).verifyWithRecaptcha(SITE_KEY)
+            .addOnSuccessListener(activity, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
                 @Override
                 public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
                     // Indicates communication with reCAPTCHA service was successful.
@@ -52,7 +56,7 @@ public class My_reCAPTCHA {
                     }
                 }
             })
-            .addOnFailureListener(matchActivity, new OnFailureListener() {
+            .addOnFailureListener(activity, new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     if (e instanceof ApiException) {
@@ -81,11 +85,11 @@ public class My_reCAPTCHA {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if (jsonObject.getBoolean("success")) {
-                                Toast.makeText(matchActivity, "User verified with reCAPTCHA", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity, "User verified with reCAPTCHA", Toast.LENGTH_SHORT).show();
                                 // onReCaptchaUserVerified executes if success
-                                matchActivity.onReCaptchaUserVerified();
+                                reCaptchaTrigger.onReCaptchaUserVerified();
                             } else {
-                                Toast.makeText(matchActivity, String.valueOf(jsonObject.getString("error-codes")), Toast.LENGTH_LONG).show();
+                                Toast.makeText(activity, String.valueOf(jsonObject.getString("error-codes")), Toast.LENGTH_LONG).show();
                             }
                         } catch (Exception ex) {
                             Log.d("TAG", "JSON exception: " + ex.getMessage());
