@@ -4,7 +4,10 @@ package com.example.room_firestore_application.helpClasses;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -14,6 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+    private TextView textView;
+
+    public DatePickerFragment(TextView textView) {
+        this.textView = textView;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,6 +43,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         cal.set(year, month, day);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String string = simpleDateFormat.format(cal.getTime());
-        MatchActivity.matchDate.setText(string);
+        textView.setText(string);
     }
 }

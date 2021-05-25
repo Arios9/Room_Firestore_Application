@@ -46,7 +46,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
     private EditText matchID, matchCity;
     private CountryCodePicker matchCountry;
-    public static EditText matchDate;
+    private EditText matchDate;
     private Spinner sItems;
     private Button buttonToResults, buttonSubmit, buttonClear;
     private ImageButton imageButton;
@@ -208,7 +208,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    DialogFragment newFragment = new DatePickerFragment();
+                    DialogFragment newFragment = new DatePickerFragment(matchDate);
                     newFragment.show(getSupportFragmentManager(), "datePicker");
                 }
             }
