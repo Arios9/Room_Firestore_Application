@@ -4,7 +4,9 @@ package com.example.room_firestore_application.helpClasses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-// den kanei extend thn Geopoint gia na mporei na einai Parcelable
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.firestore.GeoPoint;
 
 public class ParcelableGeopoint implements Parcelable {
 
@@ -13,10 +15,16 @@ public class ParcelableGeopoint implements Parcelable {
     private double latitude;
     private double longitude;
 
-    public ParcelableGeopoint(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public ParcelableGeopoint(GeoPoint geoPoint){
+        this.latitude = geoPoint.getLatitude();
+        this.longitude = geoPoint.getLongitude();
     }
+
+    public ParcelableGeopoint(Marker marker) {
+        this.latitude = marker.getPosition().latitude;
+        this.longitude = marker.getPosition().longitude;
+    }
+
 
     public double getLatitude() {
         return latitude;
@@ -52,5 +60,13 @@ public class ParcelableGeopoint implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+    }
+
+    public LatLng toLatLng() {
+        return new LatLng(latitude, longitude);
+    }
+
+    public GeoPoint toGeoPoint() {
+        return new GeoPoint(latitude, longitude);
     }
 }

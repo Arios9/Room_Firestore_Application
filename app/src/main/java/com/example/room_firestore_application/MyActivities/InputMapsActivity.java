@@ -43,7 +43,7 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
     private void addMarkerIfGeopointAlreadyExists() {
         if(getIntent().hasExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT)){
             ParcelableGeopoint parcelableGeopoint = getIntent().getParcelableExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT);
-            onMapClick(new LatLng(parcelableGeopoint.getLatitude(), parcelableGeopoint.getLongitude()));
+            onMapClick(parcelableGeopoint.toLatLng());
         }
     }
 
@@ -81,7 +81,7 @@ public class InputMapsActivity extends FragmentActivity implements OnMapReadyCal
     public void onBackPressed() {
         if(myMarker != null){
             Intent intent = new Intent();
-            ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(myMarker.getPosition().latitude, myMarker.getPosition().longitude);
+            ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(myMarker);
             intent.putExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT, parcelableGeopoint);
             setResult(RESULT_OK, intent);
         }

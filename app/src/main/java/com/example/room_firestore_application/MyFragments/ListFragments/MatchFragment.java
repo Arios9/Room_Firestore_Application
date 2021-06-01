@@ -169,7 +169,7 @@ public class MatchFragment extends ParentFragment {
         intent.putExtra("date",date);
         intent.putExtra("city",city);
         if(geoPoint != null){
-            ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(geoPoint.getLatitude(), geoPoint.getLongitude());
+            ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(geoPoint);
             intent.putExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT, parcelableGeopoint);
         }
         startActivity(intent);

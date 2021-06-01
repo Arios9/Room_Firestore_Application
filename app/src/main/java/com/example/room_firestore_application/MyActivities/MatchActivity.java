@@ -77,7 +77,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
             if(getIntent().hasExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT)){
                 ParcelableGeopoint parcelableGeopoint = getIntent().getParcelableExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT);
-                geoPoint = new GeoPoint(parcelableGeopoint.getLatitude(), parcelableGeopoint.getLongitude());
+                geoPoint = parcelableGeopoint.toGeoPoint();
             }
 
             matchID.setText(sid);
@@ -223,7 +223,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
             public void onClick(View v) {
                 Intent intent = new Intent(MatchActivity.this, InputMapsActivity.class);
                 if (geoPoint != null){
-                    ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(geoPoint.getLatitude(), geoPoint.getLongitude());
+                    ParcelableGeopoint parcelableGeopoint = new ParcelableGeopoint(geoPoint);
                     intent.putExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT, parcelableGeopoint);
                 }
                 startActivityForResult(intent, REQUEST_CODE);
@@ -238,7 +238,7 @@ public class MatchActivity extends AppCompatActivity implements MatchTeamFragmen
 
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK && data.hasExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT)){
             ParcelableGeopoint parcelableGeopoint = data.getParcelableExtra(PARCELABLE_GEOPOINT_EXTRA_TEXT);
-            geoPoint = new GeoPoint(parcelableGeopoint.getLatitude(), parcelableGeopoint.getLongitude());
+            geoPoint = parcelableGeopoint.toGeoPoint();
             Toast.makeText(getApplicationContext(),"Location selected",Toast.LENGTH_SHORT).show();
         }else{
             geoPoint = null;
