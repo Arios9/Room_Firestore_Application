@@ -31,9 +31,9 @@ public class ReCAPTCHA {
 
     private static final String SITE_KEY = "6LesqNAaAAAAAB8AcIWxWB1F53X4LxoPW4LF-_a5";
     private static final String SECRET_KEY = "6LesqNAaAAAAAM4ohp6hXSSYJJifGajRRMW81vyD";
-    private RequestQueue queue;
-    private ReCaptchaTrigger reCaptchaTrigger;
-    private Activity activity;
+    private final RequestQueue queue;
+    private final ReCaptchaTrigger reCaptchaTrigger;
+    private final Activity activity;
 
 
     public ReCAPTCHA(ReCaptchaTrigger reCaptchaTrigger) {
@@ -45,29 +45,23 @@ public class ReCAPTCHA {
 
     private void verifyGoogleReCAPTCHA() {
         SafetyNet.getClient(activity).verifyWithRecaptcha(SITE_KEY)
-            .addOnSuccessListener(activity, new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                @Override
-                public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
-                    // Indicates communication with reCAPTCHA service was successful.
-                    String userResponseToken = response.getTokenResult();
-                    if (!userResponseToken.isEmpty()) {
-                        // Validate the user response token using the
-                        handleVerification(response.getTokenResult());
-                    }
+            .addOnSuccessListener(activity, response -> {
+                // Indicates communication with reCAPTCHA service was successful.
+                String userResponseToken = response.getTokenResult();
+                if (!userResponseToken.isEmpty()) {
+                    // Validate the user response token using the
+                    handleVerification(response.getTokenResult());
                 }
             })
-            .addOnFailureListener(activity, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    if (e instanceof ApiException) {
-                        // An error occurred when communicating with the reCAPTCHA service.
-                        ApiException apiException = (ApiException) e;
-                        int statusCode = apiException.getStatusCode();
-                        Log.d("TAG", "Error: " + CommonStatusCodes.getStatusCodeString(statusCode));
-                    } else {
-                        // A different, unknown type of error occurred.
-                        Log.d("TAG", "Error: " + e.getMessage());
-                    }
+            .addOnFailureListener(activity, e -> {
+                if (e instanceof ApiException) {
+                    // An error occurred when communicating with the reCAPTCHA service.
+                    ApiException apiException = (ApiException) e;
+                    int statusCode = apiException.getStatusCode();
+                    Log.d("TAG", "Error: " + CommonStatusCodes.getStatusCodeString(statusCode));
+                } else {
+                    // A different, unknown type of error occurred.
+                    Log.d("TAG", "Error: " + e.getMessage());
                 }
             });
     }
@@ -79,29 +73,21 @@ public class ReCAPTCHA {
 
         // in this we are making a string request and using a post method to pass the data.
         StringRequest request = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            if (jsonObject.getBoolean("success")) {
-                                Toast.makeText(activity, "User verified with reCAPTCHA", Toast.LENGTH_SHORT).show();
-                                // onReCaptchaUserVerified executes if success
-                                reCaptchaTrigger.onReCaptchaUserVerified();
-                            } else {
-                                Toast.makeText(activity, String.valueOf(jsonObject.getString("error-codes")), Toast.LENGTH_LONG).show();
-                            }
-                        } catch (Exception ex) {
-                            Log.d("TAG", "JSON exception: " + ex.getMessage());
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        if (jsonObject.getBoolean("success")) {
+                            Toast.makeText(activity, "User verified with reCAPTCHA", Toast.LENGTH_SHORT).show();
+                            // onReCaptchaUserVerified executes if success
+                            reCaptchaTrigger.onReCaptchaUserVerified();
+                        } else {
+                            Toast.makeText(activity, jsonObject.getString("error-codes"), Toast.LENGTH_LONG).show();
                         }
+                    } catch (Exception ex) {
+                        Log.d("TAG", "JSON exception: " + ex.getMessage());
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("TAG", "Error message: " + error.getMessage());
-                    }
-                }) {
+                error -> Log.d("TAG", "Error message: " + error.getMessage())) {
             // below is the getParamns method in which we will be passing our response token and secret key to the above url.
             @Override
             protected Map<String, String> getParams() {
